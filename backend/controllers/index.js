@@ -1,3 +1,4 @@
 import userController from "./user.js";
 import sparseController from "./sparse.js";
-export { userController, sparseController};
+import specialController from "./special.js"
+export { userController, sparseController, specialController }
