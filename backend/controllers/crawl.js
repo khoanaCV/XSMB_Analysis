@@ -18,7 +18,7 @@ const axiosConfig = {
 
 const crawlData = async (req, res) => {
     // *Before 10 day
-    const date = moment.utc('10/10/2023', 'DD/MM/YYYY');
+    const date = moment.utc('10/10/2021', 'DD/MM/YYYY');
     const now = moment.utc();
     // const date = now.subtract(10, 'days');
     const dates = [];
@@ -82,8 +82,8 @@ const getDataOfTime = async (date) => {
                                         indexRow
                                     ]
                                         ? numbers[indexRow].concat(
-                                              number
-                                          )
+                                            number
+                                        )
                                         : [number];
                                 });
                         }

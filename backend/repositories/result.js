@@ -52,6 +52,16 @@ const create = async (
     }
 };
 
+const getDrawDateAndSpecialPrize = async () => {
+    try {
+        const results = await Result.find({}, 'draw_date special_prize');
+        return results;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 export default {
-    create,
+    create, getDrawDateAndSpecialPrize
 };
