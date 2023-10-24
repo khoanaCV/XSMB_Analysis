@@ -1,14 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import About from './Pages/About/About/About';
-import Approved from './Pages/Approved/Approved';
 import Contact from './Pages/Contact/Contact/Contact';
 import Doctors from './Pages/Doctor/Doctors/Doctors';
 import Footer from './Pages/Home/Footer/Footer.jsx';
 import Header from './Pages/Home/Header/Header.jsx';
 import Home from './Pages/Home/Home/Home.jsx';
 import Login from './Pages/Login/Login';
-import NotFound from './Pages/NotFound/NotFound';
 import Service from './Pages/Services/Service/Service';
 import Register from './Pages/Register/Register';
 import ChangePasword from './Pages/ChangePassword/ChangePassword';
@@ -20,6 +18,8 @@ import BoardUser from './Pages/board-user.component'
 import ManageBoard from './components/ManagerBoard';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import PostList from './Pages/post/PostList';
+import Result from './Pages/Result/Result';
+import PlayNumber from './Pages/PlayNumber/PlayNumber';
 
 function App() {
   return (
@@ -33,10 +33,10 @@ function App() {
           <Route path='/service' element={<Service />} />
           <Route path='/doctor' element={<Doctors />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/approved' element={<Approved />} />
+          <Route path='/result' element={<Result />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path='/playnumber' element={<PlayNumber />} />
           <Route path='/resetpassword' element={<ResetPassword />} />
           <Route path='/forgetpassword' element={<ForgetPassword />} />
           <Route path='/changepasword' element={<ChangePasword />} />
