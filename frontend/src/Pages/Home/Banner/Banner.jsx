@@ -38,11 +38,192 @@ const Banner = () => {
                             </div>
                         </div>
                     </Col>
-                    <Col md={12} sm={12} lg={6} className="mt-sm-5">
-                        <div className="hero-slide-right text-center text-lg-start mt-sm-5">
-                            <div className="animate-img">
-                            </div>
-                            
+                    <Col md={12} sm={12} lg={6}>
+                        <div className="hero-slide-left justify-content-end align-items-center text-center text-lg-start">
+                            <h2>Kết Quả Xổ Số Miền Bắc</h2>
+                            <td valign="top">
+                                <table className="ketqua" cellSpacing="1" cellPadding="9">
+                                    <thead>
+                                        <tr>
+                                            <th colSpan="13" className="kqcell kq_ngay">Thứ Ba - 24/10/2023</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="leftcol">ĐB</td>
+                                            <td colSpan="12" className="kqcell kq_0">91388</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">Nhất</td>
+                                            <td colSpan="12" className="kqcell kq_1">78862</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">Nhì</td>
+                                            <td colSpan="6" className="kqcell kq_2">77232</td>
+                                            <td colSpan="6" className="kqcell kq_3">16765</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowSpan="2" className="leftcol">Ba</td>
+                                            <td colSpan="4" className="kqcell kq_4">83198</td>
+                                            <td colSpan="4" className="kqcell kq_5">94073</td>
+                                            <td colSpan="4" className="kqcell kq_6">76943</td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan="4" className="kqcell kq_7">75283</td>
+                                            <td colSpan="4" className="kqcell kq_8">42518</td>
+                                            <td colSpan="4" className="kqcell kq_9">84151</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">Tư</td>
+                                            <td colSpan="3" className="kqcell kq_10">2559</td>
+                                            <td colSpan="3" className="kqcell kq_11">0557</td>
+                                            <td colSpan="3" className="kqcell kq_12">2718</td>
+                                            <td colSpan="3" className="kqcell kq_13">5845</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowSpan="2" className="leftcol">Năm</td>
+                                            <td colSpan="4" className="kqcell kq_14">9655</td>
+                                            <td colSpan="4" className="kqcell kq_15">5887</td>
+                                            <td colSpan="4" className="kqcell kq_16">7722</td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan="4" className="kqcell kq_17">2876</td>
+                                            <td colSpan="4" className="kqcell kq_18">6540</td>
+                                            <td colSpan="4" className="kqcell kq_19">3629</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">Sáu</td>
+                                            <td colSpan="4" className="kqcell kq_20">908</td>
+                                            <td colSpan="4" className="kqcell kq_21">426</td>
+                                            <td colSpan="4" className="kqcell kq_22">722</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">Bảy</td>
+                                            <td colSpan="3" className="kqcell kq_23">09</td>
+                                            <td colSpan="3" className="kqcell kq_24">29</td>
+                                            <td colSpan="3" className="kqcell kq_25">59</td>
+                                            <td colSpan="3" className="kqcell kq_26">16</td>
+                                        </tr>
+                                        <tr className="lastrow">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                            <td valign="top">
+                                <table className="dau" cellSpacing="1" cellPadding="9">
+                                    <tbody>
+                                        <tr>
+                                            <th>Đầu</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">0</td>
+                                            <td className="dau_0">08, 09</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">1</td>
+                                            <td className="dau_1">16, 18, 18</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">2</td>
+                                            <td className="dau_2">22, 22, 26, 29, 29</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">3</td>
+                                            <td className="dau_3">32</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">4</td>
+                                            <td className="dau_4">40, 43, 45</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">5</td>
+                                            <td className="dau_5">51, 55, 57, 59, 59</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">6</td>
+                                            <td className="dau_6">62, 65</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">7</td>
+                                            <td className="dau_7">73, 76</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">8</td>
+                                            <td className="dau_8">83, 87, 88</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">9</td>
+                                            <td className="dau_9">98</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                            <td valign="top">
+                                <table className="duoi" cellSpacing="1" cellPadding="9">
+                                    <tbody>
+                                        <tr>
+                                            <th>Đuôi</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">0</td>
+                                            <td className="dit_0">40</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">1</td>
+                                            <td className="dit_1">51</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">2</td>
+                                            <td className="dit_2">22, 22, 32, 62</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">3</td>
+                                            <td className="dit_3">43, 73, 83</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">4</td>
+                                            <td className="dit_4">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">5</td>
+                                            <td className="dit_5">45, 55, 65</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">6</td>
+                                            <td className="dit_6">16, 26, 76</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">7</td>
+                                            <td className="dit_7">57, 87</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">8</td>
+                                            <td className="dit_8">08, 18, 18, 88, 98</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="leftcol">9</td>
+                                            <td className="dit_9">09, 29, 29, 59, 59</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
                         </div>
                     </Col>
                 </Row>
