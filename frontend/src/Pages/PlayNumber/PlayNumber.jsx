@@ -18,8 +18,28 @@ const PlayNumber = () => {
                         <label htmlFor="myTextBox">Ngày ghi: </label> <input type="date" id="myTextBox" /> <br></br>
                         <label htmlFor="myTextBox">Cặp số: </label> <input type="text" id="myTextBox" />
                         <label htmlFor="myTextBox">Số điểm: </label> <input type="text" id="myTextBox" />
-                        <button className="btn btn-secondary">Ghi</button>
-                        <div class="p-2 mb-2 bg-info text-white">Lô tô đã ghi ngày: 02/10/2023</div>
+                        <button className="btn btn-secondary">Ghi</button> <br></br>
+                        <p class="text-success">Tài khoản hiện có: -34.000</p>
+                        <div class="p-2 mb-2 bg-info text-white">Lô tô đã ghi ngày: 02/10/2023
+                        <table className="table">
+                            <thead>
+                                <tr className="table-primary">
+                                    <th scope="col">Điểm</th>
+                                    <th scope="col">Nhận</th>
+                                    <th scope="col">Chi</th>
+                                    <th scope="col">Lãi/Lỗ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-light">
+                                    <th scope="row">5</th>
+                                    <td>115.000</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
 
                     <div className="text-left">
@@ -42,15 +62,15 @@ const PlayNumber = () => {
                                     <td>11</td>
                                     <td>1000</td>
                                     <td>0</td>
-                                    <td class="text-danger">-23000</td>
+                                    <td class="text-danger">-23.000</td>
 
                                 </tr>
                                 <tr className="table-secondary">
-                                    <th scope="row">Tài khoản: -34000 </th>   {/*can merge lai */}
+                                    <th scope="row">Tài khoản: -34.000 </th>   {/*can merge lai */}
                                     <td>*</td>
                                     <th>1000</th>
                                     <td></td>
-                                    <td class="text-danger">-23000</td>
+                                    <td class="text-danger">-230.000</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -71,42 +91,42 @@ const PlayNumber = () => {
                                     <td>20</td>
                                     <td>10</td>
                                     <td>0</td>
-                                    <td class="text-danger">-230</td>
+                                    <td class="text-danger">-230.000</td>
                                 </tr>
                                 <tr>
                                     <th scope="row"></th>
                                     <td>21</td>
                                     <td>10</td>
                                     <td>1</td>
-                                    <td class="text-success">570</td>
+                                    <td class="text-success">570.000</td>
                                 </tr>
                                 <tr>
                                     <th scope="row"></th>
                                     <td>22</td>
                                     <td>10</td>
                                     <td>1</td>
-                                    <td class="text-success">570</td>
+                                    <td class="text-success">570.000</td>
                                 </tr>
                                 <tr>
                                     <th scope="row"></th>
                                     <td>23</td>
                                     <td>10</td>
                                     <td>0</td>
-                                    <td class="text-danger">-230</td>
+                                    <td class="text-danger">-230.000</td>
                                 </tr>
                                 <tr>
                                     <th scope="row"></th>
                                     <td>25</td>
                                     <td>10</td>
                                     <td>0</td>
-                                    <td class="text-danger">-230</td>
+                                    <td class="text-danger">-230.000</td>
                                 </tr>
                                 <tr className="table-secondary">
-                                    <th scope="row" >Tài khoản: 215</th>  {/*can merge lai */}
+                                    <th scope="row" >Tài khoản: 215.000</th>  {/*can merge lai */}
                                     <td>*</td>
                                     <th>50</th>
                                     <td></td>
-                                    <td class="text-success">450</td>
+                                    <td class="text-success">450.000</td>
                                 </tr>
                             </tbody>
                         </table>
