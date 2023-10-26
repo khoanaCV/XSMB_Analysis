@@ -1,8 +1,8 @@
 import { sparseRepository } from '../repositories/index.js';
 
-const getAllSparses = async (req, res) => {
+const getAll = async (req, res) => {
     try {
-        const sparses = await sparseRepository.getAllSparses();
+        const sparses = await sparseRepository.getAll();
         res.status(200).json({
             message: 'Success',
             data: sparses,
@@ -18,7 +18,7 @@ const getAllSparses = async (req, res) => {
 // Dem so ngay lo chua ra va ngay cuoi cung no ra
 const countAllSparses = async (req, res) => {
     try {
-        const sparses = await sparseRepository.getAllSparses();
+        const sparses = await sparseRepository.getAll();
         const array = Object.values(sparses);
         let countSparseArray = [];
         for (let i = 0; i < 20; i++) {
@@ -102,76 +102,7 @@ const countLastDate = (number, lastDate, count, date) => {
     return lastDate;
 };
 
-// tao ban ghi cho bang Sparse
-const insertNewSparseRecord = async (req, res) => {
-    const {
-        date,
-        num0,
-        num1,
-        num2,
-        num3,
-        num4,
-        num5,
-        num6,
-        num7,
-        num8,
-        num9,
-        num10,
-        num11,
-        num12,
-        num13,
-        num14,
-        num15,
-        num16,
-        num17,
-        num18,
-        num19,
-    } = req.body;
-    try {
-        const result = await sparseRepository.createNewSparseRecord(
-            date,
-            num0,
-            num1,
-            num2,
-            num3,
-            num4,
-            num5,
-            num6,
-            num7,
-            num8,
-            num9,
-            num10,
-            num11,
-            num12,
-            num13,
-            num14,
-            num15,
-            num16,
-            num17,
-            num18,
-            num19
-        );
-
-        if (typeof result === 'string') {
-            res.status(400).json({
-                message: result,
-            });
-        } else {
-            res.status(200).json({
-                message: 'Insert student successfully',
-                data: result,
-            });
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            errors: err.toString(),
-        });
-    }
-};
-
 export default {
-    getAllSparses,
-    insertNewSparseRecord,
+    getAll,
     countAllSparses,
 };

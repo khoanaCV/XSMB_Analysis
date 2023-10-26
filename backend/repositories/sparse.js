@@ -1,6 +1,6 @@
 import Sparse from '../models/Sparse.js';
 
-const getSparse = async (date) => {
+const get = async (date) => {
     try {
         const sparse = await Sparse.find({ draw_date: date });
         return sparse;
@@ -9,9 +9,9 @@ const getSparse = async (date) => {
         throw error;
     }
 };
-const getAllSparses = async () => {
+const getAll = async () => {
     try {
-        const sparses = await Sparse.find();
+        const sparses = await Sparse.find().sort({ draw_date: 1 });
         return sparses;
     } catch (error) {
         console.log(error);
@@ -142,4 +142,4 @@ const create = async (date, data) => {
 const getData = (data, number) => {
     return Number(data.filter((item) => item === number).length);
 };
-export default { getAllSparses, create, getSparse };
+export default { getAll, create, get };

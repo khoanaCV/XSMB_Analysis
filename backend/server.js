@@ -4,7 +4,8 @@ import * as dotenv from 'dotenv';
 import morgan from 'morgan';
 import routes from './routes/index.js';
 import ConnectDB from './database/database.js';
-
+import { crawlController } from './controllers/index.js';
+import cron from 'node-cron';
 // Add Authorization
 
 // Create web server
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 app.use(routes); // localhost:9999/users
 
 const port = process.env.PORT || 8080;
+cron.schedule('30 18 * * *', crawlController.crawlData);
 
 app.listen(port, async () => {
     await ConnectDB();

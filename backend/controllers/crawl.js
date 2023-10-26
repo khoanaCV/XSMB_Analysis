@@ -1,6 +1,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import { log } from 'mercedlogger';
+import fs from 'fs';
 import * as cheerio from 'cheerio';
 import {
     resultRepository,
@@ -28,7 +29,7 @@ const crawlData = async (req, res) => {
         const data = await getDataOfTime(_date);
         if (data.length > 0 && data[2][0]?.toString() !== '...') {
             await resultRepository.create(
-                date,
+                date.format('DD/MM/YYYY HH:mm:ss'),
                 data[1],
                 data[2],
                 data[3],
@@ -38,22 +39,26 @@ const crawlData = async (req, res) => {
                 data[7],
                 data[8]
             );
-            // log.yellow('result', result);
-            const sparse = await sparseRepository.create(date, [
-                ...data[1],
-                ...data[2],
-                ...data[3],
-                ...data[4],
-                ...data[5],
-                ...data[6],
-                ...data[7],
-                ...data[8],
-            ]);
-            log.yellow('sparse', sparse);
+            await sparseRepository.create(
+                date.format('DD/MM/YYYY HH:mm:ss'),
+                [
+                    ...data[1],
+                    ...data[2],
+                    ...data[3],
+                    ...data[4],
+                    ...data[5],
+                    ...data[6],
+                    ...data[7],
+                    ...data[8],
+                ]
+            );
         }
         date.add(1, 'd');
     }
-
+    const sparses = await sparseRepository.getAll();
+    const results = await resultRepository.getAll();
+    fs.writeFileSync('sparses.json', JSON.stringify(sparses));
+    fs.writeFileSync('results.json', JSON.stringify(results));
     res.status(200).json({
         message: 'Crawl Data successfully.',
     });
