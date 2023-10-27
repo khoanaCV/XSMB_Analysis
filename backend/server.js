@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     res.send('Hello RESTful API.');
 });
 
-app.use(routes); // localhost:9999/users
+app.use(routes);
 
 const port = process.env.PORT || 8080;
 cron.schedule('30 18 * * *', crawlController.crawlData);

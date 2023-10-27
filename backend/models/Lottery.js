@@ -11,6 +11,10 @@ const Lottery = mongoose.model(
             ref: 'User',
             unique: true,
         },
+        balance: {
+            type: Number,
+            require: true,
+        },
         date: { type: Date, unique: true },
         tickets: [Ticket.schema],
     })
