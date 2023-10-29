@@ -18,7 +18,7 @@ import BoardUser from './Pages/board-user.component'
 import ManageBoard from './components/ManagerBoard';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import PostList from './Pages/post/PostList';
-import Result from './Pages/Result/Result';
+import TopNumber from './Pages/TopNumber/TopNumber';
 import PlayNumber from './Pages/PlayNumber/PlayNumber';
 
 function App() {
@@ -31,20 +31,20 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/about' element={<About/>} />
           <Route path='/service' element={<Service />} />
-          <Route path='/doctor' element={<Doctors />} />
+          <Route path='/lotop' element={<Doctors />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/result' element={<Result />} />
+          <Route path='/top-play-number' element={<TopNumber/>} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/playnumber' element={<PlayNumber />} />
+          <Route path='/playnumber' element={<PlayNumber/>} />
           <Route path='/resetpassword' element={<ResetPassword />} />
           <Route path='/forgetpassword' element={<ForgetPassword />} />
           <Route path='/changepasword' element={<ChangePasword />} />
           <Route path='/userList' element={<UserList />} />
           <Route path='/mod' element={<ManageBoard />} />
           <Route path='/changepasword' element={<ChangePasword />} />
-          <Route path='/users' element={<UserList />} />
-          <Route path='/profile' element={<UserDetails />} />
+          <Route path='/list-users' element={<UserList />} />
+          <Route path='/user/profile:id' element={<UserDetails />} />
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/user" element={<BoardUser />} />
           <Route path="/posts" element={<PostList />} />
