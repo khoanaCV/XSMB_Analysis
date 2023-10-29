@@ -10,7 +10,7 @@ const Appoinment = () => {
                 <Row>
                     <Col sm={12} md={12}>
                         <div className="section-title">
-                            <h1 className="mt-5">Request Appointment</h1>
+                            <h1 className="mt-5">Góc Hỏi Đáp</h1>
                         </div>
                         <div className="appoinment-form">
                             <form action="#" className="row">
@@ -29,7 +29,7 @@ const Appoinment = () => {
                                 <Col md={12} lg={12}>
                                     <textarea name="Message" id="" cols="30" rows="10" placeholder="Message"></textarea>
                                 </Col>
-                                <Link to="/login"><button className="theme-btn btn-fill form-btn mt-5">Submit</button></Link>
+                                <Link to="/playnumber"><button className="theme-btn btn-fill form-btn mt-5">Submit</button></Link>
                             </form>
                         </div>
                     </Col>

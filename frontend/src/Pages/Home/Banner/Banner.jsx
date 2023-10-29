@@ -56,7 +56,7 @@ const Banner = () => {
                                         <option value="7">Thứ 7</option>
                                         <option value="8">Chủ Nhật</option>
                                     </select>
-                                    <h5>Số ngày:&nbsp;</h5><input type="text"></input>
+                                    <h5>&nbsp;Số ngày:&nbsp;</h5><input type="text"></input>
                                     <h5>Đến ngày&nbsp;</h5> <input type="date"></input>&nbsp;
                                     <input type="checkbox"></input> <h5>&nbsp;Bảng đầu đuôi</h5> &nbsp;
                                     <input type="checkbox"></input> <h5>&nbsp;Chỉ hiện giải ĐB</h5>
