@@ -8,8 +8,8 @@ const routes = new Router();
 
 routes.use('/users', userRouter);
 routes.use('/sparses', spareRouter);
-routes.use('/crawl-data', crawlDataRouter);
+routes.use('/crawl', crawlDataRouter);
 routes.use('/results', resultRouter);
-routes.use('/play', lotteryRouter);
+routes.use('/plays', lotteryRouter);
 
 export default routes;

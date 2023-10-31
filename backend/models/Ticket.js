@@ -1,10 +1,10 @@
-import mongoose, { Schema, ObjectId } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 const Ticket = mongoose.model(
     'Ticket',
     new Schema({
-        id: { type: ObjectId },
+        id: { type: Schema.Types.ObjectId },
         lottery_id: {
-            type: ObjectId,
+            type: Schema.Types.ObjectId,
             required: true,
             ref: 'Lottery',
         },
@@ -16,7 +16,8 @@ const Ticket = mongoose.model(
             require: true,
         },
         status: {
-            type: ['empty', 'win', 'lost'],
+            type: String,
+            enum: ['empty', 'win', 'lost'],
             default: 'empty',
         },
         balance: {

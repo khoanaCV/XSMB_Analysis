@@ -64,6 +64,20 @@ const crawlData = async (req, res) => {
     });
 };
 
+const getJsonFile = async (req, res) => {
+    try {
+        const sparses = await sparseRepository.getAll();
+        fs.writeFileSync('sparses.json', JSON.stringify(sparses));
+        console.log('done');
+        const results = await resultRepository.getAll();
+        fs.writeFileSync('results.json', JSON.stringify(results));
+        res.status(201).json('Write sucessfull!');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json('Write fail!');
+    }
+};
+
 const getDataOfTime = async (date) => {
     const _urlByDate = urlByDate.replace('{date}', date);
 
@@ -121,4 +135,5 @@ const logData = (date, numbers) => {
 
 export default {
     crawlData,
+    getJsonFile,
 };

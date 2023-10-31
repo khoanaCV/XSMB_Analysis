@@ -1,5 +1,5 @@
 import mongoose, { Schema, ObjectId } from 'mongoose';
-import Ticket from './Ticket.js';
+// import Ticket from './Ticket.js';
 
 const Lottery = mongoose.model(
     'Lottery',
@@ -16,7 +16,7 @@ const Lottery = mongoose.model(
             require: true,
         },
         date: { type: Date, unique: true },
-        tickets: [Ticket.schema],
+        tickets: [{ type: Schema.Types.ObjectId, ref: 'Ticket' }],
     })
 );
 

@@ -1,5 +1,5 @@
-import moment from 'moment';
 import { lotteryRepository } from '../repositories/index.js';
+import { log } from 'mercedlogger';
 
 const getAll = async (req, res) => {
     try {
@@ -18,10 +18,8 @@ const getAll = async (req, res) => {
 
 const get = async (req, res) => {
     try {
-        const date = moment.utc(req.body.date, 'DD/MM/YYYY');
-
         const lotteries = await lotteryRepository.get({
-            date: date.format('DD/MM/YYYY'),
+            date: req.body.date,
             userId: req.params.id,
         });
         res.status(200).json({
@@ -39,10 +37,9 @@ const get = async (req, res) => {
 const create = async (req, res) => {
     try {
         console.log(req.body.date);
-        const date = moment.utc(req.body.date, 'DD/MM/YYYY');
-        // console.log('date1', date);
+        log.cyan('date', req.body.date);
         const lotteries = await lotteryRepository.create({
-            date: date.format('DD/MM/YYYY HH:mm:ss'),
+            date: req.body.date,
             userId: req.params.id,
             number: req.body.number,
             point: req.body.point,
