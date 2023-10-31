@@ -16,8 +16,8 @@ const ContactUs = () => {
                             </div>
                             <div className="c-info text-start">
                                 <h4>Address</h4>
-                                <p>55 West, 33rd Street</p>
-                                <p>5th Floor, New York</p>
+                                <p>FPT University Hanoi</p>
+                                <p>Km29, Thang Long Avenue, Hanoi</p>
                             </div>
                         </div>
                     </Col>
@@ -28,8 +28,7 @@ const ContactUs = () => {
                             </div>
                             <div className="c-info text-start">
                                 <h4>Email</h4>
-                                <p>childrencarecenter@dentzone.com</p>
-                                <p>childrencarecenter@gmail.com</p>
+                                <p>sdn301mteam2@gmail.com</p>
                             </div>
                         </div>
                     </Col>
