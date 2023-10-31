@@ -1,11 +1,12 @@
 import Sparse from '../models/Sparse.js';
+import { log } from 'mercedlogger';
 
 const get = async (date) => {
     try {
         const sparse = await Sparse.find({ draw_date: date });
         return sparse;
     } catch (error) {
-        console.log(error);
+        log.error('Error', error.message);
         throw error;
     }
 };
@@ -14,7 +15,7 @@ const getAll = async () => {
         const sparses = await Sparse.find().sort({ draw_date: 1 });
         return sparses;
     } catch (error) {
-        console.log(error);
+        log.error('Error', error.message);
         throw error;
     }
 };

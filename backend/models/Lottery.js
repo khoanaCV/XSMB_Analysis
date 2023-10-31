@@ -9,14 +9,19 @@ const Lottery = mongoose.model(
             type: ObjectId,
             required: true,
             ref: 'User',
-            unique: true,
         },
         balance: {
             type: Number,
-            require: true,
+            required: true,
         },
-        date: { type: Date, unique: true },
-        tickets: [{ type: Schema.Types.ObjectId, ref: 'Ticket' }],
+        date: { type: Date, required: true },
+        tickets: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Ticket',
+                required: true,
+            },
+        ],
     })
 );
 

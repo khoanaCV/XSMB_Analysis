@@ -5,5 +5,5 @@ const crawlDataRouter = express.Router();
 
 crawlDataRouter.get('/', crawlController.crawlData);
 crawlDataRouter.get('/json', crawlController.getJsonFile);
-
+crawlDataRouter.put('/result', crawlController.getResultLottery);
 export default crawlDataRouter;

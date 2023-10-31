@@ -8,12 +8,10 @@ const Ticket = mongoose.model(
             required: true,
             ref: 'Lottery',
         },
-        number: {
-            type: { type: Number, min: 0, max: 99 },
-        },
+        number: { type: Number, required: true },
         point: {
             type: Number,
-            require: true,
+            required: true,
         },
         status: {
             type: String,
@@ -22,7 +20,7 @@ const Ticket = mongoose.model(
         },
         balance: {
             type: Number,
-            require: true,
+            required: true,
         },
     })
 );

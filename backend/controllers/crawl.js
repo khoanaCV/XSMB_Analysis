@@ -7,7 +7,9 @@ import * as cheerio from 'cheerio';
 import {
     resultRepository,
     sparseRepository,
+    ticketRepository,
 } from '../repositories/index.js';
+import Lottery from '../models/lottery.js';
 const urlByDate = 'https://xoso.com.vn/xsmb-{date}.html';
 const axiosConfig = {
     headers: {
@@ -68,9 +70,70 @@ const getJsonFile = async (req, res) => {
         );
         res.status(201).json({ message: 'Crawl Data successful!' });
     } catch (error) {
-        console.log(error);
+        log.error('Error', error.message);
         res.status(500).json({ message: 'Crawl Data fail!' });
     }
+};
+
+const getResultLottery = async (req, res) => {
+    try {
+        // get lottery have status empty
+        const tickets =
+            await ticketRepository.getAllTicketHaveStatusEmpty();
+        // check win lost
+        await tickets.forEach(async (ticket) => {
+            const check = await checkWin(ticket);
+            ticketRepository.update(
+                ticket.lottery_id,
+                ticket.number,
+                ticket.point,
+                check === 0 ? 'lost' : 'win',
+                check === 0
+                    ? ticket.balance
+                    : ticket.point * 80 * check - ticket.balance
+            );
+            const ticketUpdateList =
+                await ticketRepository.getAllTicketOfLottery(
+                    ticket.lottery_id._id
+                );
+            const balance = ticketUpdateList.reduce(
+                (data, data2) =>
+                    Number(data.balance) + Number(data2.balance)
+            );
+            await Lottery.updateOne(
+                {
+                    user_id: ticket.lottery_id.user_id,
+                    date: ticket.lottery_id.date,
+                },
+                { $set: { balance: balance } }
+            );
+        });
+        res.status(201).json({
+            message: 'Get Result Lottery successful!',
+        });
+    } catch (error) {
+        log.error('Error', error.message);
+        res.status(500).json({
+            message: 'Get Result Lottery fail!',
+        });
+    }
+};
+const checkWin = async (ticket) => {
+    const sparses = await sparseRepository.get(
+        ticket.lottery_id.date
+    );
+    const number =
+        Number(ticket.number) < 10
+            ? '0' + ticket.number
+            : ticket.number;
+    const sparse = sparses[0];
+    return Number(sparse ? sparse['num' + number] : 0);
+};
+
+export default {
+    crawlData,
+    getJsonFile,
+    getResultLottery,
 };
 
 const getDataOfTime = async (date) => {
@@ -105,18 +168,14 @@ const getDataOfTime = async (date) => {
             });
         });
         logData(date, numbers);
-        console.log(numbers);
         return numbers;
-    } catch (e) {
-        console.log('====================================');
-        console.log(e);
-        console.log('====================================');
-        // res?.status(500).json({ msg: e });
+    } catch (error) {
+        log.error('Error', error.message);
+        res?.status(500).json({ message: error.message });
     }
 };
 
 const logData = (date, numbers) => {
-    console.log('====================================');
     log.magenta('Sổ số ngày', date);
     log.green('Giải đặt biệt', numbers[1]);
     log.green('Giải nhất', numbers[2]);
@@ -126,9 +185,4 @@ const logData = (date, numbers) => {
     log.green('Giải năm', numbers[6]);
     log.green('Giải sáu', numbers[7]);
     log.green('Giải bảy', numbers[8]);
-};
-
-export default {
-    crawlData,
-    getJsonFile,
 };

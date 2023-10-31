@@ -9,7 +9,7 @@ const getAll = async (req, res) => {
             data: lotteries,
         });
     } catch (error) {
-        console.log(error);
+        log.error('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
@@ -27,7 +27,7 @@ const get = async (req, res) => {
             data: lotteries,
         });
     } catch (error) {
-        console.log(error);
+        log.error('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
@@ -36,7 +36,6 @@ const get = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        console.log(req.body.date);
         log.cyan('date', req.body.date);
         const lotteries = await lotteryRepository.create({
             date: req.body.date,
@@ -49,7 +48,7 @@ const create = async (req, res) => {
             data: lotteries,
         });
     } catch (error) {
-        console.log(error);
+        log.error('Error', error.message);
         res.status(500).json({
             error: error.message,
         });

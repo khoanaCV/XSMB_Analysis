@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import morgan from 'morgan';
 import routes from './routes/index.js';
 import ConnectDB from './database/database.js';
+import { log } from 'mercedlogger';
 import cors from 'cors';
 
 // Add Authorization
@@ -29,5 +30,5 @@ const port = process.env.PORT || 8080;
 
 app.listen(port, async () => {
     await ConnectDB();
-    console.log(`Node RESTful API running on port ${port}`);
+    log.green('Node RESTful API running on port', port);
 });

@@ -1,4 +1,5 @@
 import { resultRepository } from '../repositories/index.js';
+import { log } from 'mercedlogger';
 
 const getAll = async (req, res) => {
     try {
@@ -8,7 +9,7 @@ const getAll = async (req, res) => {
             data: sparses,
         });
     } catch (error) {
-        console.log(error);
+        log.error('Error', error.message);
         res.status(500).json({
             error: error.message,
         });

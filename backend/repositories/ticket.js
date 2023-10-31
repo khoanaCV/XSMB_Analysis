@@ -12,19 +12,35 @@ const getAllTicketOfLottery = async (lotteryId) => {
         return null;
     }
 };
-const get = async (lotteryId, number) => {
+
+const getAllTicketHaveStatusEmpty = async () => {
     try {
-        return await Ticket.findOne({
-            lottery_id: lotteryId,
-            number: number,
-        });
+        const tickets = await Ticket.find({
+            status: 'empty',
+        }).populate('lottery_id');
+        return tickets;
     } catch (error) {
         log.red('Error', error);
         return null;
     }
 };
 
-const create = async (lotteryId, number, point) => {
+const get = async (lotteryId, number) => {
+    try {
+        log.cyan('lotteryId', lotteryId);
+        log.cyan('number', number);
+        const ticket = await Ticket.findOne({
+            lottery_id: lotteryId,
+            number: Number(number),
+        });
+        return ticket;
+    } catch (error) {
+        log.red('Error', error);
+        return null;
+    }
+};
+
+const create = async ({ lotteryId, number, point }) => {
     try {
         const ticket = await Ticket.create({
             lottery_id: lotteryId,
@@ -40,7 +56,7 @@ const create = async (lotteryId, number, point) => {
     }
 };
 
-const update = async (lotteryId, number, point) => {
+const update = async (lotteryId, number, point, status, balance) => {
     try {
         await Ticket.updateOne(
             {
@@ -52,14 +68,20 @@ const update = async (lotteryId, number, point) => {
                     lottery_id: lotteryId,
                     number: number,
                     point: point,
-                    status: 'empty',
-                    balance: point * -23,
+                    status: status,
+                    balance: balance,
                 },
             }
         );
     } catch (error) {
-        log.red('Error', error);
+        log.red('ticketRepository.update', error);
     }
 };
 
-export default { getAllTicketOfLottery, get, create, update };
+export default {
+    getAllTicketOfLottery,
+    getAllTicketHaveStatusEmpty,
+    get,
+    create,
+    update,
+};

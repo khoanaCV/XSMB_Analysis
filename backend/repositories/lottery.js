@@ -1,5 +1,6 @@
 import Lottery from '../models/lottery.js';
 import { ticketRepository } from './index.js';
+import moment from 'moment';
 
 const getAll = async () => {
     try {
@@ -32,7 +33,7 @@ const get = async ({ userId, date }) => {
 
 const create = async ({ userId, date, number, point }) => {
     try {
-        console.log('date', date);
+        date = moment.utc(date, 'DD/MM/YYYY');
         let lottery = await Lottery.findOne({
             user_id: userId,
             date: date,
@@ -47,14 +48,15 @@ const create = async ({ userId, date, number, point }) => {
                 date: date,
                 balance: point * -23,
             });
+
             // add tickets
-            const ticket = await ticketRepository.create(
-                lottery._id,
+            const ticket = await ticketRepository.create({
+                lotteryId: lottery._id,
                 number,
-                point
-            );
-            lottery.tickets.push(ticket);
-            lottery.save();
+                point,
+            });
+            await lottery.tickets.push(ticket);
+            await lottery.save();
         } else {
             const ticket = await ticketRepository.get(
                 lottery._id,
@@ -65,28 +67,31 @@ const create = async ({ userId, date, number, point }) => {
                 await ticketRepository.update(
                     lottery._id,
                     number,
-                    point
+                    point,
+                    'empty',
+                    point * -23
                 );
                 // update lottery
                 const tickets =
                     await ticketRepository.getAllTicketOfLottery(
                         lottery._id
                     );
-
                 const balance = tickets.reduce(
                     (data, data2) => data.balance + data2.balance
                 );
-                lottery = await Lottery.update(
-                    { user_id: userId, date: date, number: number },
+                lottery = await Lottery.updateOne(
+                    { user_id: userId, date: date },
                     { $set: { balance: balance } }
                 );
             } else {
                 // add tickets
-                await ticketRepository.create(
-                    lottery._id,
+                const ticket = await ticketRepository.create({
+                    lotteryId: lottery._id,
                     number,
-                    point
-                );
+                    point,
+                });
+                await lottery.tickets.push(ticket);
+                await lottery.save();
             }
         }
         // get lottery
