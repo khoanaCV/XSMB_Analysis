@@ -4,13 +4,13 @@ import * as dotenv from 'dotenv';
 import morgan from 'morgan';
 import routes from './routes/index.js';
 import ConnectDB from './database/database.js';
-// import cors from "cors"
+import cors from 'cors';
 
 // Add Authorization
 
 // Create web server
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: process.env.FONT_END_URL }));
 app.use(morgan('tiny')); // log the request for debugging
 
 app.use(express.json());

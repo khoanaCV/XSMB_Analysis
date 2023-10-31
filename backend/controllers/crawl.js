@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import moment from 'moment';
 import axios from 'axios';
 import { log } from 'mercedlogger';
@@ -18,8 +19,8 @@ const axiosConfig = {
 };
 
 const crawlData = async (req, res) => {
-    // *Before 10 day
-    const date = moment.utc('10/10/2023', 'DD/MM/YYYY');
+    // *Before 10 day 1/1/2012
+    const date = moment.utc(process.env.DATE_CRAWL, 'DD/MM/YYYY');
     const now = moment.utc();
     // const date = now.subtract(10, 'days');
     const dates = [];
@@ -29,7 +30,7 @@ const crawlData = async (req, res) => {
         const data = await getDataOfTime(_date);
         if (data.length > 0 && data[2][0]?.toString() !== '...') {
             await resultRepository.create(
-                date.format('DD/MM/YYYY HH:mm:ss'),
+                date,
                 data[1],
                 data[2],
                 data[3],
@@ -39,26 +40,19 @@ const crawlData = async (req, res) => {
                 data[7],
                 data[8]
             );
-            await sparseRepository.create(
-                date.format('DD/MM/YYYY HH:mm:ss'),
-                [
-                    ...data[1],
-                    ...data[2],
-                    ...data[3],
-                    ...data[4],
-                    ...data[5],
-                    ...data[6],
-                    ...data[7],
-                    ...data[8],
-                ]
-            );
+            await sparseRepository.create(date, [
+                ...data[1],
+                ...data[2],
+                ...data[3],
+                ...data[4],
+                ...data[5],
+                ...data[6],
+                ...data[7],
+                ...data[8],
+            ]);
         }
         date.add(1, 'd');
     }
-    const sparses = await sparseRepository.getAll();
-    const results = await resultRepository.getAll();
-    fs.writeFileSync('sparses.json', JSON.stringify(sparses));
-    fs.writeFileSync('results.json', JSON.stringify(results));
     res.status(200).json({
         message: 'Crawl Data successfully.',
     });
@@ -67,14 +61,15 @@ const crawlData = async (req, res) => {
 const getJsonFile = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAll();
-        fs.writeFileSync('sparses.json', JSON.stringify(sparses));
-        console.log('done');
         const results = await resultRepository.getAll();
-        fs.writeFileSync('results.json', JSON.stringify(results));
-        res.status(201).json('Write sucessfull!');
+        await fs.writeFileSync(
+            'data.json',
+            JSON.stringify({ sparses, results })
+        );
+        res.status(201).json({ message: 'Crawl Data successful!' });
     } catch (error) {
         console.log(error);
-        res.status(500).json('Write fail!');
+        res.status(500).json({ message: 'Crawl Data fail!' });
     }
 };
 
@@ -86,7 +81,7 @@ const getDataOfTime = async (date) => {
     try {
         await axios(_urlByDate, axiosConfig).then((response) => {
             const html = response.data;
-            const $ = cheerio.load(html); // sử dụng giống jQuery
+            const $ = cheerio.load(html);
 
             $('table:nth-child(1)', html).each(function () {
                 $(this)

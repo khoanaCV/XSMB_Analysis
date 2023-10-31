@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import { sparseRepository } from '../repositories/index.js';
-import * as dotenv from 'dotenv';
 const getAllSparses = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAll();
@@ -66,7 +65,7 @@ const countAllSparses = async (req, res) => {
             );
         };
         // Lap tat ca cac ban ghi trong database
-        for (var i = 0; i < array.length; i++) {
+        for (let i = 0; i < array.length; i++) {
             superCount(0, array[i].num00, array[i].draw_date);
             superCount(1, array[i].num01, array[i].draw_date);
             superCount(2, array[i].num02, array[i].draw_date);
@@ -200,10 +199,10 @@ const countMonthlySparse = async (req, res) => {
             countSparseArray.push(sparse);
         }
         // Dem so lan lo to ra
-        const countSparseTime = (number, count) => {
-            count = count + number;
-            return count;
-        };
+        // const countSparseTime = (number, count) => {
+        //     count = count + number;
+        //     return count;
+        // };
         const superCount = (index, number) => {
             countSparseArray[index].id = index;
             countSparseArray[index].count =
