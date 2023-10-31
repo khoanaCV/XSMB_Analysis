@@ -44,6 +44,7 @@ const User = mongoose.model(
             enum: ['admin', 'user'],
             default: 'user',
         },
+        lotteries: [{ type: Schema.Types.ObjectId, ref: 'Lottery' }],
     })
 );
 

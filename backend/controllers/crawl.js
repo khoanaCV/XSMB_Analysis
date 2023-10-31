@@ -1,11 +1,15 @@
+/* eslint-disable no-undef */
 import moment from 'moment';
 import axios from 'axios';
 import { log } from 'mercedlogger';
+import fs from 'fs';
 import * as cheerio from 'cheerio';
 import {
     resultRepository,
     sparseRepository,
+    ticketRepository,
 } from '../repositories/index.js';
+import Lottery from '../models/lottery.js';
 const urlByDate = 'https://xoso.com.vn/xsmb-{date}.html';
 const axiosConfig = {
     headers: {
@@ -17,8 +21,8 @@ const axiosConfig = {
 };
 
 const crawlData = async (req, res) => {
-    // *Before 10 day
-    const date = moment.utc('10/10/2023', 'DD/MM/YYYY');
+    // *Before 10 day 1/1/2012
+    const date = moment.utc(process.env.DATE_CRAWL, 'DD/MM/YYYY');
     const now = moment.utc();
     // const date = now.subtract(10, 'days');
     const dates = [];
@@ -38,8 +42,7 @@ const crawlData = async (req, res) => {
                 data[7],
                 data[8]
             );
-            // log.yellow('result', result);
-            const sparse = await sparseRepository.create(date, [
+            await sparseRepository.create(date, [
                 ...data[1],
                 ...data[2],
                 ...data[3],
@@ -49,14 +52,88 @@ const crawlData = async (req, res) => {
                 ...data[7],
                 ...data[8],
             ]);
-            log.yellow('sparse', sparse);
         }
         date.add(1, 'd');
     }
-
     res.status(200).json({
         message: 'Crawl Data successfully.',
     });
+};
+
+const getJsonFile = async (req, res) => {
+    try {
+        const sparses = await sparseRepository.getAll();
+        const results = await resultRepository.getAll();
+        await fs.writeFileSync(
+            'data.json',
+            JSON.stringify({ sparses, results })
+        );
+        res.status(201).json({ message: 'Crawl Data successful!' });
+    } catch (error) {
+        log.error('Error', error.message);
+        res.status(500).json({ message: 'Crawl Data fail!' });
+    }
+};
+
+const getResultLottery = async (req, res) => {
+    try {
+        // get lottery have status empty
+        const tickets =
+            await ticketRepository.getAllTicketHaveStatusEmpty();
+        // check win lost
+        await tickets.forEach(async (ticket) => {
+            const check = await checkWin(ticket);
+            ticketRepository.update(
+                ticket.lottery_id,
+                ticket.number,
+                ticket.point,
+                check === 0 ? 'lost' : 'win',
+                check === 0
+                    ? ticket.balance
+                    : ticket.point * 80 * check - ticket.balance
+            );
+            const ticketUpdateList =
+                await ticketRepository.getAllTicketOfLottery(
+                    ticket.lottery_id._id
+                );
+            const balance = ticketUpdateList.reduce(
+                (data, data2) =>
+                    Number(data.balance) + Number(data2.balance)
+            );
+            await Lottery.updateOne(
+                {
+                    user_id: ticket.lottery_id.user_id,
+                    date: ticket.lottery_id.date,
+                },
+                { $set: { balance: balance } }
+            );
+        });
+        res.status(201).json({
+            message: 'Get Result Lottery successful!',
+        });
+    } catch (error) {
+        log.error('Error', error.message);
+        res.status(500).json({
+            message: 'Get Result Lottery fail!',
+        });
+    }
+};
+const checkWin = async (ticket) => {
+    const sparses = await sparseRepository.get(
+        ticket.lottery_id.date
+    );
+    const number =
+        Number(ticket.number) < 10
+            ? '0' + ticket.number
+            : ticket.number;
+    const sparse = sparses[0];
+    return Number(sparse ? sparse['num' + number] : 0);
+};
+
+export default {
+    crawlData,
+    getJsonFile,
+    getResultLottery,
 };
 
 const getDataOfTime = async (date) => {
@@ -67,7 +144,7 @@ const getDataOfTime = async (date) => {
     try {
         await axios(_urlByDate, axiosConfig).then((response) => {
             const html = response.data;
-            const $ = cheerio.load(html); // sử dụng giống jQuery
+            const $ = cheerio.load(html);
 
             $('table:nth-child(1)', html).each(function () {
                 $(this)
@@ -91,18 +168,14 @@ const getDataOfTime = async (date) => {
             });
         });
         logData(date, numbers);
-        console.log(numbers);
         return numbers;
-    } catch (e) {
-        console.log('====================================');
-        console.log(e);
-        console.log('====================================');
-        // res?.status(500).json({ msg: e });
+    } catch (error) {
+        log.error('Error', error.message);
+        res?.status(500).json({ message: error.message });
     }
 };
 
 const logData = (date, numbers) => {
-    console.log('====================================');
     log.magenta('Sổ số ngày', date);
     log.green('Giải đặt biệt', numbers[1]);
     log.green('Giải nhất', numbers[2]);
@@ -112,8 +185,4 @@ const logData = (date, numbers) => {
     log.green('Giải năm', numbers[6]);
     log.green('Giải sáu', numbers[7]);
     log.green('Giải bảy', numbers[8]);
-};
-
-export default {
-    crawlData,
 };
