@@ -76,10 +76,7 @@ const getJsonFile = async (req, res) => {
         const cleanedResults = results.map((item) => {
             return {
                 ...item,
-                draw_date: item.draw_date.replace(
-                    'T00:00:00.000Z',
-                    ''
-                ),
+                draw_date: item.draw_date.toString().replace('T00:00:00.000Z', '')
             };
         });
         const resultsFields = Object.keys(cleanedResults[0]).filter(
@@ -90,13 +87,8 @@ const getJsonFile = async (req, res) => {
         await fs.writeFileSync('xsmb_results.csv', resultsCsv);
 
         // Chuyển đổi sparses thành CSV và ghi ra file
-        const cleanedSparses = sparses.map((sparse) => {
-            const newObj = {
-                draw_date: sparse.draw_date.replace(
-                    'T00:00:00.000Z',
-                    ''
-                ),
-            };
+        const cleanedSparses = sparses.map(sparse => {
+            const newObj = { draw_date: sparse.draw_date.toString().replace('T00:00:00.000Z', '') };
             for (let i = 0; i < 100; i++) {
                 const key = 'num' + String(i).padStart(2, '0');
                 newObj[i] = sparse[key] || 0;
