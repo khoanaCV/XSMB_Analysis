@@ -18,6 +18,8 @@ import BoardUser from './Pages/board-user.component'
 import ManageBoard from './components/ManagerBoard';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import PostList from './Pages/post/PostList';
+import TopNumber from './Pages/TopNumber/TopNumber';
+import PlayNumber from './Pages/PlayNumber/PlayNumber';
 import Gan from './Pages/Gan/Gan';
 
 function App() {
