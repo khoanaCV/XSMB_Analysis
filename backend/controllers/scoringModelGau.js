@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import Papa from 'papaparse';
 
 // 1. Reload the data
-const inputData = readFileSync('xsmb_sparse.csv', 'utf8');
+const inputData = readFileSync('../backend/xsmb_sparse.csv', 'utf8');
 const parsedResult = Papa.parse(inputData, {
     header: true,
     skipEmptyLines: true
