@@ -54,7 +54,6 @@ const login = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-    console.log(req);
     console.log(res);
 };
 

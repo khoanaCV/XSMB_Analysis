@@ -86,7 +86,7 @@ const UserDetails = () => {
             <ToastContainer />
             <div className="row">
                 <div className="col-md-10">
-                    <h1>User Profile</h1>
+                    <h1 >User Profile</h1>
                 </div>
             </div>
             <div className="row">
@@ -108,7 +108,7 @@ const UserDetails = () => {
                         <h6>Upload your photo...</h6>
                         <input
                             type="file"
-                            className="text-center center-block file-upload"
+                            className="text-center center-block file-upload" 
                             onChange={(e) => handleImageChange(e.target.files[0])}
                         />
                     </div>
@@ -146,7 +146,7 @@ const UserDetails = () => {
                                         type="text"
                                         className="form-control"
                                         {...register("phone_number", { required: true, pattern: /^(\+84)?[0-9]+$/ })}
-                                        placeholder="enter your phone number"
+                                        placeholder="Enter your phone number"
                                     />
                                 </div>
                             </div>
@@ -157,7 +157,7 @@ const UserDetails = () => {
                                         type="email"
                                         className="form-control"
                                         {...register("email", { required: true })}
-                                        placeholder="you@gmail.com" disabled
+                                        placeholder="You@gmail.com"
                                     />
                                 </div>
                             </div>
@@ -168,7 +168,7 @@ const UserDetails = () => {
                                         type="text"
                                         className="form-control"
                                         {...register("address", { required: true, pattern: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?([1-9]\d?(\.\d+)?|1[0-7]\d(\.\d+)?|180(\.0+)?)$|^[a-zA-Z0-9\s]+$/ })}
-                                        placeholder="enter your address"
+                                        placeholder="Enter your address"
                                     />
                                 </div>
                             </div>
@@ -177,7 +177,7 @@ const UserDetails = () => {
                                 <div className="col-md-12">
                                     <button
                                         style={{ margin: 20 }}
-                                        className="btn btn-lg btn-success"
+                                        className="btn btn-lg btn-primary"
                                         type="submit"
                                     >
                                         <i className="glyphicon glyphicon-ok-sign"></i> Update Profile

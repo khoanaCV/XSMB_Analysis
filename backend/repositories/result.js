@@ -51,7 +51,17 @@ const create = async (
         throw err;
     }
 };
+const getAll = async () => {
+    try {
+        const result = await Result.find().sort({ draw_date: 1 });
+        return result;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
 
 export default {
     create,
+    getAll,
 };

@@ -5,7 +5,6 @@ const Result = mongoose.model(
     new Schema({
         id: { type: ObjectId },
         draw_date: { type: Date, unique: true },
-
         special_prize: {
             type: String,
             required: true,
@@ -15,7 +14,6 @@ const Result = mongoose.model(
                     'Length of prize must be greater than 5 characters.',
             },
         },
-
         prize1: {
             type: String,
             required: true,
@@ -25,7 +23,6 @@ const Result = mongoose.model(
                     'Length of prize1 must be greater than 5 characters.',
             },
         },
-
         prize2_1: {
             type: String,
             required: true,
@@ -35,7 +32,6 @@ const Result = mongoose.model(
                     'Length of prize2_1 must be greater than 5 characters.',
             },
         },
-
         prize2_2: {
             type: String,
             required: true,
@@ -45,7 +41,6 @@ const Result = mongoose.model(
                     'Length of prize2_2 must be greater than 5 characters.',
             },
         },
-
         prize3_1: {
             type: String,
             required: true,
@@ -55,7 +50,6 @@ const Result = mongoose.model(
                     'Length of prize3_1 must be greater than 5 characters.',
             },
         },
-
         prize3_2: {
             type: String,
             required: true,
@@ -65,7 +59,6 @@ const Result = mongoose.model(
                     'Length of prize3_2 must be greater than 5 characters.',
             },
         },
-
         prize3_3: {
             type: String,
             required: true,
@@ -102,7 +95,6 @@ const Result = mongoose.model(
                     'Length of prize3_6 must be greater than 5 characters.',
             },
         },
-
         prize4_1: {
             type: String,
             required: true,
@@ -112,7 +104,6 @@ const Result = mongoose.model(
                     'Length of prize4_1 must be greater than 4 characters.',
             },
         },
-
         prize4_2: {
             type: String,
             required: true,
@@ -122,7 +113,6 @@ const Result = mongoose.model(
                     'Length of prize4_2 must be greater than 4 characters.',
             },
         },
-
         prize4_3: {
             type: String,
             required: true,
@@ -132,7 +122,6 @@ const Result = mongoose.model(
                     'Length of prize4_3 must be greater than 4 characters.',
             },
         },
-
         prize4_4: {
             type: String,
             required: true,
@@ -142,7 +131,6 @@ const Result = mongoose.model(
                     'Length of prize4_4 must be greater than 4 characters.',
             },
         },
-
         prize5_1: {
             type: String,
             required: true,
@@ -152,7 +140,6 @@ const Result = mongoose.model(
                     'Length of prize5_1 must be greater than 4 characters.',
             },
         },
-
         prize5_2: {
             type: String,
             required: true,
@@ -162,7 +149,6 @@ const Result = mongoose.model(
                     'Length of prize5_2 must be greater than 4 characters.',
             },
         },
-
         prize5_3: {
             type: String,
             required: true,
@@ -199,7 +185,6 @@ const Result = mongoose.model(
                     'Length of prize5_6 must be greater than 4 characters.',
             },
         },
-
         prize6_1: {
             type: String,
             required: true,
@@ -209,7 +194,6 @@ const Result = mongoose.model(
                     'Length of prize6_1 must be greater than 3 characters.',
             },
         },
-
         prize6_2: {
             type: String,
             required: true,
@@ -219,7 +203,6 @@ const Result = mongoose.model(
                     'Length of prize6_2 must be greater than 3 characters.',
             },
         },
-
         prize6_3: {
             type: String,
             required: true,
@@ -229,7 +212,6 @@ const Result = mongoose.model(
                     'Length of prize6_3 must be greater than 3 characters.',
             },
         },
-
         prize7_1: {
             type: String,
             required: true,
@@ -239,7 +221,6 @@ const Result = mongoose.model(
                     'Length of prize7_1 must be greater than 2 characters.',
             },
         },
-
         prize7_2: {
             type: String,
             required: true,
@@ -249,7 +230,6 @@ const Result = mongoose.model(
                     'Length of prize7_2 must be greater than 2 characters.',
             },
         },
-
         prize7_3: {
             type: String,
             required: true,
