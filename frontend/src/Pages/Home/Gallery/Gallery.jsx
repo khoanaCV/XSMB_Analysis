@@ -26,7 +26,8 @@ const Gallery = () => {
                 <table className="tbl1" cellSpacing="1" cellPadding="4" style={{ border: "1px solid black" }}>
                     <tbody>
                         {countMonthlySparseArray?.map(item => {
-                            if (item.count > 5) {
+                            // if (item.count > 5) 
+                            {
                                 return <tr key={item.id}>
                                     <td style={{ border: "1px solid black" }} className="col1">{item.id}</td>
                                     <td style={{ border: "1px solid black" }} className="col2">{item.count}&nbsp;lần</td>

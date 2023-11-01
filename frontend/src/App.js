@@ -20,6 +20,7 @@ import BoardUser from './Pages/board-user.component'
 import ManageBoard from './components/ManagerBoard';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import PostList from './Pages/post/PostList';
+import Gan from './Pages/Gan/Gan';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/user" element={<BoardUser />} />
           <Route path="/posts" element={<PostList />} />
+          <Route path="/general/gan" element={<Gan />} />
         </Routes>
         <Footer />
       </Router>
