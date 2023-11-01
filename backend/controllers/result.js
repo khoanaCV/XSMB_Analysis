@@ -9,7 +9,7 @@ const getAll = async (req, res) => {
             data: sparses,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });

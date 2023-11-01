@@ -4,7 +4,7 @@ import axios from 'axios';
 import { log } from 'mercedlogger';
 import fs from 'fs';
 import * as cheerio from 'cheerio';
-import { Parser } from 'json2csv'
+import { Parser } from 'json2csv';
 import {
     resultRepository,
     sparseRepository,
@@ -65,39 +65,54 @@ const getJsonFile = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAll();
         const results = await resultRepository.getAll();
-        
+
         // Ghi ra file data.json
-        await fs.writeFileSync('data.json', JSON.stringify({ sparses, results }));
+        await fs.writeFileSync(
+            'data.json',
+            JSON.stringify({ sparses, results })
+        );
 
         // Chuyển đổi results thành CSV và ghi ra file
-        const cleanedResults = results.map(item => {
+        const cleanedResults = results.map((item) => {
             return {
                 ...item,
-                draw_date: item.draw_date.replace('T00:00:00.000Z', '')
+                draw_date: item.draw_date.replace(
+                    'T00:00:00.000Z',
+                    ''
+                ),
             };
         });
-        const resultsFields = Object.keys(cleanedResults[0]).filter(key => key !== "_id" && key !== "__v");
+        const resultsFields = Object.keys(cleanedResults[0]).filter(
+            (key) => key !== '_id' && key !== '__v'
+        );
         const resultsParser = new Parser({ fields: resultsFields });
         const resultsCsv = resultsParser.parse(cleanedResults);
         await fs.writeFileSync('xsmb_results.csv', resultsCsv);
 
         // Chuyển đổi sparses thành CSV và ghi ra file
-        const cleanedSparses = sparses.map(sparse => {
-            const newObj = { draw_date: sparse.draw_date.replace('T00:00:00.000Z', '') };
+        const cleanedSparses = sparses.map((sparse) => {
+            const newObj = {
+                draw_date: sparse.draw_date.replace(
+                    'T00:00:00.000Z',
+                    ''
+                ),
+            };
             for (let i = 0; i < 100; i++) {
-                const key = "num" + String(i).padStart(2, '0');
+                const key = 'num' + String(i).padStart(2, '0');
                 newObj[i] = sparse[key] || 0;
             }
             return newObj;
         });
-        const sparsesFields = ["draw_date"].concat(Array.from({ length: 100 }, (_, i) => i.toString()));
+        const sparsesFields = ['draw_date'].concat(
+            Array.from({ length: 100 }, (_, i) => i.toString())
+        );
         const sparsesParser = new Parser({ fields: sparsesFields });
         const sparsesCsv = sparsesParser.parse(cleanedSparses);
         await fs.writeFileSync('xsmb_sparse.csv', sparsesCsv);
 
         res.status(201).json({ message: 'Crawl Data successful!' });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({ message: 'Crawl Data fail!' });
     }
 };
@@ -139,7 +154,7 @@ const getResultLottery = async (req, res) => {
             message: 'Get Result Lottery successful!',
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             message: 'Get Result Lottery fail!',
         });
@@ -197,7 +212,7 @@ const getDataOfTime = async (date) => {
         logData(date, numbers);
         return numbers;
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res?.status(500).json({ message: error.message });
     }
 };

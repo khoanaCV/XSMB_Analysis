@@ -8,7 +8,7 @@ const getAllSparses = async (req, res) => {
             data: sparses,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
@@ -181,7 +181,7 @@ const countAllSparses = async (req, res) => {
             data: countSparseArray,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
@@ -331,7 +331,7 @@ const countMonthlySparse = async (req, res) => {
             data: countSparseArray,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
@@ -497,7 +497,7 @@ const countAllSparsesGan = async (req, res) => {
             data: fullGanArray,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });

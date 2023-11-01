@@ -6,7 +6,7 @@ const get = async (date) => {
         const sparse = await Sparse.find({ draw_date: date });
         return sparse;
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         throw error;
     }
 };
@@ -15,7 +15,7 @@ const getAll = async () => {
         const sparses = await Sparse.find().sort({ draw_date: 1 });
         return sparses;
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         throw error;
     }
 };

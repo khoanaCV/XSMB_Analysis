@@ -9,7 +9,7 @@ const getAll = async (req, res) => {
             data: lotteries,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
@@ -27,7 +27,7 @@ const get = async (req, res) => {
             data: lotteries,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
@@ -48,7 +48,7 @@ const create = async (req, res) => {
             data: lotteries,
         });
     } catch (error) {
-        log.error('Error', error.message);
+        log.red('Error', error.message);
         res.status(500).json({
             error: error.message,
         });
