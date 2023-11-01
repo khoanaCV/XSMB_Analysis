@@ -1,0 +1,11 @@
+.create-post-button {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    margin: 1rem;
+    transition: all 0.2s ease-in-out;
+
+}

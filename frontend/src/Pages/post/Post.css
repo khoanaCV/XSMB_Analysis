@@ -1,0 +1,58 @@
+.post {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 16px;
+    margin-bottom: 24px;
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+}
+
+.post-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.post-author {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.post-content {
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card {
+    margin-top: 20px;
+}
+
+.card-img-top {
+    object-fit: cover;
+}
+
+.comments {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.comment-card {
+    margin-bottom: 20px;
+}
+
+.comment-card p {
+    margin-bottom: 0;
+}
+
+.comment-form {
+    margin-top: 20px;
+}
