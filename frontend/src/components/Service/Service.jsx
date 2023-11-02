@@ -10,7 +10,10 @@ const Service = () => {
     axios
       .get("http://localhost:9999/special/special-long-to-long")
       .then((response) => {
-        setSpecialPrizes(Object.entries(response.data.data));
+        const data = Object.entries(response.data.data);
+        // Sắp xếp mảng theo thứ tự ngày lớn nhất
+        data.sort((a, b) => b[1] - a[1]);
+        setSpecialPrizes(data.slice(0, 20)); // Lấy 20 số đầu tiên
         setLoading(false);
       })
       .catch((error) => {
@@ -19,13 +22,6 @@ const Service = () => {
       });
   }, []);
 
-  const chunkSize = 25;
-  const chunkedArrays = [];
-
-  for (let i = 0; i < specialPrizes.length; i += chunkSize) {
-    chunkedArrays.push(specialPrizes.slice(i, i + chunkSize));
-  }
-
   return (
     <section className="service">
       <h1>Số ngày mà các giải đặc biệt lâu chưa ra</h1>
@@ -33,9 +29,8 @@ const Service = () => {
         <p>Loading...</p>
       ) : (
         <div className="row">
-          {chunkedArrays.map((chunkedData, tableIndex) => (
+          {[0, 1, 2, 3].map((tableIndex) => (
             <div key={tableIndex} className="col-md-6">
-              <h2>Bảng {tableIndex + 1}</h2>
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -44,12 +39,14 @@ const Service = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {chunkedData.map((specialPrize, index) => (
-                    <tr key={index}>
-                      <td>{specialPrize[0]}</td>
-                      <td>{specialPrize[1]} ngày</td>
-                    </tr>
-                  ))}
+                  {specialPrizes
+                    .slice(tableIndex * 5, tableIndex * 5 + 5)
+                    .map((specialPrize, index) => (
+                      <tr key={index}>
+                        <td>{specialPrize[0]}</td>
+                        <td>{specialPrize[1]} ngày</td>
+                      </tr>
+                    ))}
                 </tbody>
               </Table>
             </div>
