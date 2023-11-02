@@ -44,7 +44,7 @@ const Service = () => {
                     .map((specialPrize, index) => (
                       <tr key={index}>
                         <td>{specialPrize[0]}</td>
-                        <td>{specialPrize[1]} day</td>
+                        <td>{specialPrize[1]} days</td>
                       </tr>
                     ))}
                 </tbody>
