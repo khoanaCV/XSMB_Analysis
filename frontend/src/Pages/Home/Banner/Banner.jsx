@@ -22,7 +22,7 @@ const Banner = () => {
     }, []);
 
     return (
-        <section className="single-hero-slide text-white d-flex justify-content-center align-items-center">
+        <section className=" text-black d-flex justify-content-center align-items-center">
             <Container>
                 <Row className="align-items-center">
                     <Col md={12} sm={12} lg={6}>
@@ -39,7 +39,7 @@ const Banner = () => {
                         </div>
                     </Col>
                     <Col md={12} sm={12} lg={6}>
-                        <div className="hero-slide-left justify-content-end align-items-center text-center text-lg-start">
+                        <div className="hero-slide-left justify-content-end align-items-center text-center text-lg-start"> <br></br> <br></br>
                             <h2>Kết Quả Xổ Số Miền Bắc</h2>
                             <div>
                                 <div class="input-group mb-3">
@@ -60,12 +60,12 @@ const Banner = () => {
                                     <h5>Đến ngày&nbsp;</h5> <input type="date"></input>&nbsp;
                                     <input type="checkbox"></input> <h5>&nbsp;Bảng đầu đuôi</h5> &nbsp;
                                     <input type="checkbox"></input> <h5>&nbsp;Chỉ hiện giải ĐB</h5>
-                                <button type="button" class="btn btn-success">Xem kết quả</button>
+                                <button type="button" class="btn btn-primary">Xem kết quả</button>
 
                                 </div> 
                             </div>
                             <td valign="top">
-                                <table className= "table table-bordered text-white text-center" cellSpacing="1" cellPadding="9">
+                                <table className= "table table-bordered text-black text-center" cellSpacing="1" cellPadding="9">
                                     <thead>
                                         <tr>
                                             <th colSpan="13" className="kqcell kq_ngay">Thứ Ba - 24/10/2023</th>
@@ -133,7 +133,7 @@ const Banner = () => {
                             </td>
 
                             <td valign="top">
-                                <table className="table table-bordered text-white text-center" cellSpacing="1" cellPadding="9">
+                                <table className="table table-bordered text-black text-center" cellSpacing="1" cellPadding="9">
                                     <tbody>
                                         <tr>
                                             <th>Đầu</th>
@@ -184,7 +184,7 @@ const Banner = () => {
                             </td>
 
                             <td valign="top">
-                                <table className="table table-bordered text-white text-center" cellSpacing="1" cellPadding="9">
+                                <table className="table table-bordered text-black text-center" cellSpacing="1" cellPadding="9">
                                     <tbody>
                                         <tr>
                                             <th>Đuôi</th>
