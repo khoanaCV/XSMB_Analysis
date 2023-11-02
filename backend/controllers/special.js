@@ -28,7 +28,6 @@ const countAllSpecialPrizes = async (req, res) => {
             // Nếu special_prize không xuất hiện
             if (result.special_prize !== "00") {
                 const specialPrizeLastTwoDigits = result.special_prize.slice(-2);
-
                 // Tính số bản ghi chênh lệch giữa ngày hiện tại và ngày xuất hiện special_prize
                 const recordsDiff = index + 1;  // +1 vì chỉ số bắt đầu từ 0
 

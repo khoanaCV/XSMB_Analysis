@@ -11,12 +11,15 @@ import cors from 'cors';
 
 // Create web server
 const app = express();
-app.use(cors({ origin: process.env.FONT_END_URL }));
+
 app.use(morgan('tiny')); // log the request for debugging
 
 app.use(express.json());
 // Load .evn file: config file
 dotenv.config();
+
+console.log(process.env.FONT_END_URL);
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Basic routes: Root router
 app.get('/', (req, res) => {
