@@ -1,5 +1,5 @@
 import { sparseRepository } from "../repositories/index.js";
-import * as dotenv from 'dotenv';
+// import * as dotenv from 'dotenv';
 const getAllSparses = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAllSparses();
@@ -20,22 +20,11 @@ const countAllSparses = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAllSparses();
         const array = Object.values(sparses)
-        var countSparseArray = []
-        for (var i = 0; i < 100; i++) {
-            var sparse = { id: 0, count: 0, lastDate: new Date("2023-01-01T00:00:00.000Z") }
+        let countSparseArray = []
+        for (let i = 0; i < 100; i++) {
+            let sparse = { id: 0, count: 0, lastDate: new Date("2023-01-01T00:00:00.000Z") }
             countSparseArray.push(sparse)
         }
-        // Dem so ngay lo chua ra
-        const countLastSparse = (number, count) => {
-            if (number != 0) {
-                count = 0
-            }
-            else {
-                count += 1
-            }
-            return count
-        }
-
         // Dem ngay cuoi cung lo ra
         const countLastDate = (number, lastDate, count, date) => {
             if (number == 0) {
@@ -63,9 +52,8 @@ const countAllSparses = async (req, res) => {
 
         let sortedArray = array.sort(
             (p1, p2) => (p1.draw_date > p2.draw_date) ? 1 : (p1.draw_date < p2.draw_date) ? -1 : 0)
-        const dublicateDate = new Date("2023-10-01T00:00:00.000Z")
         // Lap tat ca cac ban ghi trong database        
-        for (var i = 0; i < sortedArray.length; i++) {
+        for (let i = 0; i < sortedArray.length; i++) {
             superCount(0, sortedArray[i].num00, sortedArray[i].draw_date)
             superCount(1, sortedArray[i].num01, sortedArray[i].draw_date)
             superCount(2, sortedArray[i].num02, sortedArray[i].draw_date)
@@ -196,26 +184,27 @@ const countMonthlySparse = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAllSparses();
         const array = Object.values(sparses)
-        var countSparseArray = []
-        for (var i = 0; i < 100; i++) {
-            var sparse = { id: 0, count: 0 }
+        let countSparseArray = []
+        for (let i = 0; i < 100; i++) {
+            let sparse = { id: 0, count: 0 }
             countSparseArray.push(sparse)
         }
         // Dem so lan lo to ra
-        const countSparseTime = (number, count) => {
-            count = count + number
-            return count
-        }
         const superCount = (index, number) => {
             countSparseArray[index].id = index
             countSparseArray[index].count = countSparseArray[index].count + Number(number)
         }
 
-        var thisMonth = new Date(process.env.THIS_MONTH)
+        let now = new Date();
+        let startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        console.log(startOfMonth);
+        // let thisMonth = new Date(process.env.THIS_MONTH)
+        let thisMonth = new Date('2023-10-01T00:00:00.000Z')
+        console.log(thisMonth);
         // Lap tat ca cac ban ghi trong database        
-        for (var i = 0; i < array.length; i++) {
-            var date = new Date(array[i].draw_date)
-            // var thisMonth = new Date("2023-10-01T00:00:00.000Z")
+        for (let i = 0; i < array.length; i++) {
+            let date = new Date(array[i].draw_date)
+            // let thisMonth = new Date("2023-10-01T00:00:00.000Z")
             if (date >= thisMonth) {
                 superCount(0, array[i].num00)
                 superCount(1, array[i].num01)
@@ -349,10 +338,10 @@ const countAllSparsesGan = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAllSparses();
         const array = Object.values(sparses);
-        var fullGanArray = []
+        let fullGanArray = []
 
-        for (var i = 0; i < 100; i++) {
-            var ganArray = []
+        for (let i = 0; i < 100; i++) {
+            let ganArray = []
             fullGanArray.push(ganArray)
         }
         // Lap tat ca cac ban ghi trong database      
@@ -368,9 +357,10 @@ const countAllSparsesGan = async (req, res) => {
         }
         let sortedArray = array.sort(
             (p1, p2) => (p1.draw_date > p2.draw_date) ? 1 : (p1.draw_date < p2.draw_date) ? -1 : 0)
-        // var thisYear = new Date("2023-01-01T00:00:00.000Z")
-        var thisYear = new Date(process.env.THIS_YEAR)
-        for (var i = 0; i < sortedArray.length; i++) {
+        // let thisYear = new Date("2023-01-01T00:00:00.000Z")
+        // let thisYear = new Date(process.env.THIS_YEAR)
+        let thisYear = new Date('2023-01-01T00:00:00.000Z')
+        for (let i = 0; i < sortedArray.length; i++) {
             if (sortedArray[i].draw_date >= thisYear) {
                 gan(sortedArray[i].num00, 0, sortedArray[i].draw_date)
                 gan(sortedArray[i].num01, 1, array[i].draw_date)
@@ -501,8 +491,9 @@ const findSparsesGan = async (req, res) => {
     try {
         const sparses = await sparseRepository.getAllSparses();
         const array = Object.values(sparses);
-        var ganArray = []
-        var { choosenNumber, startDate, endDate, min } = req.body
+        let ganArray = []
+        let { choosenNumber, startDate, endDate, min } = req.body
+        debugger
         // console.log(choosenNumber, startDate, endDate, min);
         const startDateCovert = new Date(startDate);
         const endDateCovert = new Date(endDate);
@@ -519,12 +510,12 @@ const findSparsesGan = async (req, res) => {
         }
         let sortedArray = array.sort(
             (p1, p2) => (p1.draw_date > p2.draw_date) ? 1 : (p1.draw_date < p2.draw_date) ? -1 : 0)
-        // var thisYear = new Date("2023-01-01T00:00:00.000Z")
-        var thisYear = new Date(process.env.THIS_YEAR)
+        // let thisYear = new Date("2023-01-01T00:00:00.000Z")
+        let thisYear = new Date(process.env.THIS_YEAR)
         const searchNumber = "num" + choosenNumber
         // console.log(searchNumber);
 
-        for (var i = 0; i < sortedArray.length; i++) {
+        for (let i = 0; i < sortedArray.length; i++) {
             if (sortedArray[i].draw_date >= startDateCovert && sortedArray[i].draw_date <= endDateCovert) {
                 gan(sortedArray[i][searchNumber], choosenNumber, sortedArray[i].draw_date)
             }
