@@ -24,7 +24,7 @@ const Service = () => {
 
   return (
     <section className="service">
-      <h1>Số ngày mà các giải đặc biệt lâu chưa ra</h1>
+      <h1>Number of days that special prizes have not been released</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -44,7 +44,7 @@ const Service = () => {
                     .map((specialPrize, index) => (
                       <tr key={index}>
                         <td>{specialPrize[0]}</td>
-                        <td>{specialPrize[1]} ngày</td>
+                        <td>{specialPrize[1]} day</td>
                       </tr>
                     ))}
                 </tbody>

@@ -67,7 +67,7 @@ const getDrawDateAndSpecialPrize = async () => {
     try {
         return new Promise((resolve, reject) => {
             const results = [];
-            fs.createReadStream('D:/SE Kỳ 7/Project_SDN/XSMB_Analysis/backend/xsmb_results.csv')
+            fs.createReadStream('../backend/xsmb_results.csv')
                 .pipe(csv())
                 .on('data', (data) => {
                     const { draw_date, special_prize } = data;
