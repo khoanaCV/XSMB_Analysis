@@ -20,6 +20,17 @@ const getAll = async () => {
     }
 };
 
+const getAllSparses = async () => {
+    try {
+        const sparses = await Sparse.find();
+        return sparses;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+
 const create = async (date, data) => {
     const dataSparse = data.map((item) => item % 100);
     const result = {};
@@ -143,4 +154,4 @@ const create = async (date, data) => {
 const getData = (data, number) => {
     return Number(data.filter((item) => item === number).length);
 };
-export default { getAll, create, get };
+export default { getAll, create, get, getAllSparses };
