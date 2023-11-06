@@ -52,17 +52,32 @@ const getAllSparsesCSV = async () => {
     }
 };
 
-const getSparseByDate = async (date, days) => {
+const getSparseByDate = async (date, days, number) => {
     try {
         return new Promise((resolve, reject) => {
             const sparses = [];
             fs.createReadStream('../backend/xsmb_sparse.csv')
                 .pipe(csv())
-                .on('data', (data) => {
-                    const sparsetDate = new Date(data.draw_date);
+                .on('data', (row) => {
+                    const sparsetDate = new Date(row.draw_date);
                     const queryDate = new Date(date);
                     if (sparsetDate <= queryDate) {
-                        sparses.push(data);
+                        // Đảm bảo rằng cột draw_date luôn được bao gồm
+                        const filteredRow = { draw_date: row.draw_date };
+
+                        // Lọc các cột dựa trên tham số 'number' nếu được cung cấp
+                        if (number !== undefined) {
+                            const keys = Object.keys(row).slice(0, number + 1); // Cộng 1 vì slice không bao gồm phần tử cuối cùng
+                            keys.forEach(key => {
+                                if (key !== 'draw_date') { // Kiểm tra để tránh thêm 'draw_date' hai lần
+                                    filteredRow[key] = row[key];
+                                }
+                            });
+                        } else {
+                            Object.assign(filteredRow, row); // Nếu không có giới hạn số cột, sử dụng toàn bộ hàng
+                        }
+
+                        sparses.push(filteredRow);
                     }
                 })
                 .on('end', () => {
@@ -81,6 +96,8 @@ const getSparseByDate = async (date, days) => {
         throw error;
     }
 };
+
+
 
 const create = async (date, data) => {
     const dataSparse = data.map((item) => item % 100);

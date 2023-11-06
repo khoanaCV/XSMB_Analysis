@@ -17,23 +17,21 @@ const getAllSparses = async (req, res) => {
 }
 
 const getSparseByDate = async (req, res) => {
+    const { date, days, number } = req.params;
+
+    // Parse 'days' and 'number' to integers
+    const daysInt = parseInt(days, 10);
+    const numberInt = number ? parseInt(number, 10) : undefined;
+
     try {
-        const { date } = req.params;
-        const days = req.params.days ? parseInt(req.params.days, 10) : 30; // Mặc định là 30 ngày nếu không được cung cấp
-
-        const results = await sparseRepository.getSparseByDate(date, days);
-
-        // Nếu không có kết quả nào được tìm thấy, trả về 404
-        if (!results.length) {
-            return res.status(404).json({ message: 'No results found for the provided date.' });
+        const data = await sparseRepository.getSparseByDate(date, daysInt, numberInt);
+        if (data.length === 0) {
+            return res.status(404).send('No data found for the given parameters.');
         }
-
-        // Nếu tìm thấy kết quả, trả về kết quả đó với status 200
-        return res.status(200).json(results);
+        return res.json(data);
     } catch (error) {
-        // Nếu có lỗi, trả về lỗi với status 500
-        console.error('Error getting results by date:', error);
-        return res.status(500).json({ message: 'Internal server error.' });
+        console.error('Error getting sparse data:', error);
+        return res.status(500).send('Internal Server Error');
     }
 };
 

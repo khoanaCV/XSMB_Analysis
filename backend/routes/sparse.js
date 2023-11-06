@@ -7,5 +7,5 @@ spareRouter.get('/last_appearing_loto', sparseController.countAllSparses)
 spareRouter.get('/multi_appearing_loto', sparseController.countMonthlySparse)
 spareRouter.get('/gan_time', sparseController.countAllSparsesGan)
 spareRouter.post('/gan_time/findOne', sparseController.findSparsesGan)
-spareRouter.get('/date/:date/:days?', sparseController.getSparseByDate);
+spareRouter.get('/date/:date/:days/:number', sparseController.getSparseByDate);
 export default spareRouter
