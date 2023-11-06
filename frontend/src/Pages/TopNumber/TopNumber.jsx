@@ -11,16 +11,16 @@ const Result = () => {
                         <h1>Top Số Được Nhiều Người Chơi</h1>
                     </div>
                     <div>
-                        Xem lô top: <a href="#">Hôm qua</a> &nbsp;&nbsp;
-                        <a href="#">Hôm nay</a>&nbsp;&nbsp;
-                        <a href="#">Chọn ngày:</a> <input type="date" id="myTextBox" />
+                        Xem lô top: <a href="#" class="text-decoration-none">Hôm qua</a>&nbsp;&nbsp;
+                        <a href="#" class="text-decoration-none">Hôm nay</a>&nbsp;&nbsp;
+                        <a href="#" class="text-decoration-none">Chọn ngày</a> <input type="date" id="myTextBox" />
 
                     </div>
                 </Col>
                 <Col>
 
                     <div class="p-1 mb-1 bg-info text-white">
-                    Bảng số Top ngày: 01/10/2023
+                        Bảng số Top ngày: 01/10/2023
                         <table className="table">
                             <tbody>
                                 <tr class="table-light">
@@ -44,15 +44,15 @@ const Result = () => {
                             </tbody>
                         </table>
                     </div>
-
-                    <h6>Lịch sử số top</h6>
-
+                    <br></br>
+                    <h5>Lịch sử số top</h5>
+                    <br></br>
                     <div class="p-1 mb-1 bg-info text-white">
                         Bảng số Top ngày: 02/10/2023
                         <table className="table">
                             <tbody>
                                 <tr class="table-light">
-                                    <th scope="row">65</th>
+                                    <th scope="row">32</th>
                                     <td>12<span class="badge text-black">2</span></td>
                                     <td>61</td>
                                     <td>32<span class="badge text-black">1</span></td>
