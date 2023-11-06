@@ -20,6 +20,8 @@ import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import PostList from './Pages/post/PostList';
 import TopNumber from './Pages/TopNumber/TopNumber';
 import PlayNumber from './Pages/PlayNumber/PlayNumber';
+import Forecast from './Pages/Home/Forecast/Forecast.jsx';
+import General from './Pages/General/General.jsx';
 
 function App() {
   return (
@@ -31,7 +33,6 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/about' element={<About/>} />
           <Route path='/service' element={<Service />} />
-          <Route path='/lotop' element={<Doctors />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/top-play-number' element={<TopNumber/>} />
           <Route path='/login' element={<Login />} />
@@ -48,6 +49,9 @@ function App() {
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/user" element={<BoardUser />} />
           <Route path="/posts" element={<PostList />} />
+          <Route path='/forecast'element={<Forecast/>} />
+          <Route path='/general' element={<General/>} />
+
         </Routes>
         <Footer />
       </Router>
