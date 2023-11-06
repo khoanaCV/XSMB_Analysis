@@ -1,19 +1,41 @@
 import { sparseRepository } from "../repositories/index.js";
+import { log } from 'mercedlogger';
 // import * as dotenv from 'dotenv';
 const getAllSparses = async (req, res) => {
     try {
-        const sparses = await sparseRepository.getAllSparses();
+        const sparses = await sparseRepository.getAllSparsesCSV();
         res.status(200).json({
-            message: "Success",
-            data: sparses
-        })
+            message: 'Success',
+            data: sparses,
+        });
     } catch (error) {
-        console.log(error)
+        log.red('Error', error.message);
         res.status(500).json({
-            error: error.message
-        })
+            error: error.message,
+        });
     }
 }
+
+const getSparseByDate = async (req, res) => {
+    try {
+        const { date } = req.params;
+        const days = req.params.days ? parseInt(req.params.days, 10) : 30; // Mặc định là 30 ngày nếu không được cung cấp
+
+        const results = await sparseRepository.getSparseByDate(date, days);
+
+        // Nếu không có kết quả nào được tìm thấy, trả về 404
+        if (!results.length) {
+            return res.status(404).json({ message: 'No results found for the provided date.' });
+        }
+
+        // Nếu tìm thấy kết quả, trả về kết quả đó với status 200
+        return res.status(200).json(results);
+    } catch (error) {
+        // Nếu có lỗi, trả về lỗi với status 500
+        console.error('Error getting results by date:', error);
+        return res.status(500).json({ message: 'Internal server error.' });
+    }
+};
 
 // Dem so ngay lo chua ra va ngay cuoi cung no ra
 const countAllSparses = async (req, res) => {
@@ -538,5 +560,6 @@ export default {
     countAllSparses,
     countMonthlySparse,
     countAllSparsesGan,
-    findSparsesGan
+    findSparsesGan,
+    getSparseByDate
 }

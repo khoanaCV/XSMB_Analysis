@@ -1,5 +1,7 @@
 import Sparse from '../models/Sparse.js';
 import { log } from 'mercedlogger';
+import fs from 'fs';
+import csv from 'csv-parser';
 
 const get = async (date) => {
     try {
@@ -30,6 +32,55 @@ const getAllSparses = async () => {
     }
 };
 
+const getAllSparsesCSV = async () => {
+    try {
+        return new Promise((resolve, reject) => {
+            const results = [];
+            fs.createReadStream('../backend/xsmb_sparse.csv')
+                .pipe(csv())
+                .on('data', (data) => results.push(data))
+                .on('end', () => {
+                    resolve(results);
+                })
+                .on('error', (error) => {
+                    reject(error);
+                });
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+const getSparseByDate = async (date, days) => {
+    try {
+        return new Promise((resolve, reject) => {
+            const sparses = [];
+            fs.createReadStream('../backend/xsmb_sparse.csv')
+                .pipe(csv())
+                .on('data', (data) => {
+                    const sparsetDate = new Date(data.draw_date);
+                    const queryDate = new Date(date);
+                    if (sparsetDate <= queryDate) {
+                        sparses.push(data);
+                    }
+                })
+                .on('end', () => {
+                    // Sort by date in descending order
+                    const sortedResults = sparses.sort((a, b) => new Date(b.draw_date) - new Date(a.draw_date));
+                    // Take the first 'days' results if 'days' parameter is defined
+                    const limitedResults = days ? sortedResults.slice(0, days) : sortedResults;
+                    resolve(limitedResults);
+                })
+                .on('error', (error) => {
+                    reject(error);
+                });
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
 const create = async (date, data) => {
     const dataSparse = data.map((item) => item % 100);
@@ -154,4 +205,4 @@ const create = async (date, data) => {
 const getData = (data, number) => {
     return Number(data.filter((item) => item === number).length);
 };
-export default { getAll, create, get, getAllSparses };
+export default { getAll, create, get, getAllSparses, getSparseByDate, getAllSparsesCSV };
