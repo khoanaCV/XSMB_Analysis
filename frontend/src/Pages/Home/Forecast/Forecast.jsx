@@ -1,10 +1,115 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
-
+import axios from 'axios';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 const Forecast = () => {
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend
+    );
+    const [poissonDataTop, setPoissonDataTop] = useState([]);
+    const [poissonDataChart, setPoissonDataChart] = useState([]);
+    const [gaussDataTop, setGaussDataTop] = useState([]);
+    const [gaussDataChart, setGaussDataChart] = useState([]);
+    useEffect(() => {
+        //get data Poisson
+        axios
+            .get("http://localhost:9999/forecast/poissonModel")
+            .then((response) => {
+                const data = Object.entries(response?.data);
+                data.sort((a, b) => b[1] - a[1]);
+                setPoissonDataChart(data)
+                setPoissonDataTop(data.slice(0, 12)); // Lấy 20 số đầu tiên
+            })
+            .catch((error) => {
+                console.error("Error fetching special prizes data: ", error);
+            });
+
+        //get data Gaussian
+        axios
+            .get("http://localhost:9999/forecast/gaussModel")
+            .then((response) => {
+                const data = Object.entries(response?.data);
+                data.sort((a, b) => b[1] - a[1]);
+                setGaussDataChart(data)
+                setGaussDataTop(data.slice(0, 12)); // Lấy 20 số đầu tiên
+            })
+            .catch((error) => {
+                console.error("Error fetching special prizes data: ", error);
+            });
+    }, []);
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Phân phối Poisson',
+            },
+        },
+    };
+
+    const labels = poissonDataChart.map((item, index) => item[0]);
+
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Lô',
+                data: poissonDataChart.map((item, index) => item[1]),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            },
+        ],
+    };
+
+    //Gaussian
+    const optionsGauss = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Phân phối Gaussian',
+            },
+        },
+    };
+
+    const labelsGauss = gaussDataChart.map((item, index) => item[0]);
+
+    const dataGauss = {
+        labels: labelsGauss,
+        datasets: [
+            {
+                label: 'Lô',
+                data: gaussDataChart.map((item, index) => item[1]),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            },
+        ],
+    };
     return (
         <Container>
             <Row>
@@ -12,48 +117,32 @@ const Forecast = () => {
                     <div className="text-left">
                         <h1>Dự Đoán Kết Quả</h1>
                     </div>
-                    
-                    <div class="p-3 mb-2 bg-secondary text-white">Dự đoán Poisson cho ngày 03/10/2023
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    Numbers
-                                    <div>
-                                        <button type="button" class="btn btn-primary"> 88 <span class="badge badge-light">1</span></button>
-                                        <button type="button" class="btn btn-danger"> 12 <span class="badge badge-light"></span></button>
-                                        <button type="button" class="btn btn-primary"> 43 <span class="badge badge-light">3</span></button>
-                                        <button type="button" class="btn btn-danger"> 33 <span class="badge badge-light"></span></button>
-                                        <button type="button" class="btn btn-primary"> 54 <span class="badge badge-light">1</span></button>
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-sm">
-                                    Chart
-                                </div>
 
+                    <div class="p-3 mb-2">Dự đoán Poisson cho ngày 03/10/2023
+                        <div class="container flex flex-col items-center">
+                            <div class="col-sm mt-2 flex text-xl text-red-500 font-bold">
+                                Numbers:
+                                {
+                                    poissonDataTop.map((item, index) =>
+                                        <div className='mx-2'>{item[0]}</div>
+                                    )
+                                }
                             </div>
+                            <Line options={options} data={data} />
                         </div>
-
                     </div>
 
-                    <div class="p-3 mb-2 bg-info text-white">Dự đoán Gaussian cho ngày 03/10/2023
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    Numbers
-                                    <div>
-                                        <button type="button" class="btn btn-primary"> 88 <span class="badge badge-light">1</span></button>
-                                        <button type="button" class="btn btn-danger"> 12 <span class="badge badge-light"></span></button>
-                                        <button type="button" class="btn btn-primary"> 43 <span class="badge badge-light">3</span></button>
-                                        <button type="button" class="btn btn-danger"> 33 <span class="badge badge-light"></span></button>
-                                        <button type="button" class="btn btn-primary"> 54 <span class="badge badge-light">1</span></button>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    Chart
-                                </div>
-
+                    <div class="p-3 mb-2">Dự đoán Gaussian cho ngày 03/10/2023
+                    <div class="container flex flex-col items-center">
+                            <div class="col-sm mt-2 flex text-xl text-red-500 font-bold">
+                                Numbers:
+                                {
+                                    gaussDataTop.map((item, index) =>
+                                        <div className='mx-2'>{item[0]}</div>
+                                    )
+                                }
                             </div>
+                            <Line options={optionsGauss} data={dataGauss} />
                         </div>
 
                     </div>
