@@ -3,6 +3,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const PlayNumber = () => {
+    // kiểm tra đã login chưa
+    // nếu chưa-> về trang login
+    // rồi pass-> chạy tiếp
     return (
         <Container>
             <Row>
@@ -10,10 +13,10 @@ const PlayNumber = () => {
                     <div className="text-left">
                         <h1>Ghi Số</h1>
                     </div>
-                    
-                        <p class="font-weight-bold"><a href="#" class="text-primary">Lưu ý:</a>Ghi lô ở đây không sử dụng tiền thật 
+
+                    <p class="font-weight-bold"><a href="#" class="text-primary">Lưu ý:</a>Ghi lô ở đây không sử dụng tiền thật
                         <a href="#" class="text-primary">[Tìm hiểu thêm]</a></p>
-                    
+
                     <div>
                         <label htmlFor="myTextBox">Ngày ghi: </label> <input type="date" id="myTextBox" /> <br></br>
                         <label htmlFor="myTextBox">Cặp số: </label> <input type="text" id="myTextBox" />
@@ -21,24 +24,24 @@ const PlayNumber = () => {
                         <button className="btn btn-secondary">Ghi</button> <br></br>
                         <p class="text-success">Tài khoản hiện có: -34.000</p>
                         <div class="p-2 mb-2 bg-info text-white">Lô tô đã ghi ngày: 02/10/2023
-                        <table className="table">
-                            <thead>
-                                <tr className="table-primary">
-                                    <th scope="col">Điểm</th>
-                                    <th scope="col">Nhận</th>
-                                    <th scope="col">Chi</th>
-                                    <th scope="col">Lãi/Lỗ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-light">
-                                    <th scope="row">5</th>
-                                    <td>115.000</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <table className="table">
+                                <thead>
+                                    <tr className="table-primary">
+                                        <th scope="col">Điểm</th>
+                                        <th scope="col">Nhận</th>
+                                        <th scope="col">Chi</th>
+                                        <th scope="col">Lãi/Lỗ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-light">
+                                        <th scope="row">5</th>
+                                        <td>115.000</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 

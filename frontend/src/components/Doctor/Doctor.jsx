@@ -21,15 +21,15 @@ const Doctor = () => {
   console.log(countSparseArray);
   return (
     <section className="doctor-wrapper">
-      <h1 className="my-5">Lô Tô Lâu Chưa Ra</h1>
+      <h1 className="my-5">Lottery Haven't Come Out For A Long Time</h1>
       <div className="row">
         {[0, 1, 2, 3].map((tableIndex) => (
           <div key={tableIndex} className="col-md-6">
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Lô</th>
-                  <th>Số ngày chưa ra</th>
+                  <th>Lottery</th>
+                  <th>Count date</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,11 +40,10 @@ const Doctor = () => {
                       return (
                         <tr key={index}>
                           <td>{specialPrize[0]}</td>
-                          <td>{specialPrize[1].count} Ngày</td>
+                          <td>{specialPrize[1].count} days</td>
                         </tr>
                       )
                     }
-
                     return <></>;
                   })}
               </tbody>

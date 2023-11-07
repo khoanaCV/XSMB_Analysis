@@ -121,7 +121,7 @@ class Login extends Component {
                                         <div className="col-lg-6">
                                             <div className="card-body p-md-5 mx-md-4">
                                                 <div className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp" className="card-img" alt="logo" />
+                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp" className="card-img" alt="logo" />
                                                     <h4 className="mt-1 mb-5 pb-1">NORTHERN VIETNAM LOTTERY STATISTICS AND ANALYSIS</h4>
                                                 </div>
                                                 <h3 className="d-flex justify-content-start">Please login to your account</h3>
@@ -197,8 +197,8 @@ class Login extends Component {
                                             <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                                                 <h4 className="mb-4">We are more than just a company</h4>
                                                 <p className="small mb-0">The Northern Lottery is drawn alternately by 6 provinces and
-                                                cities with prizes opened by the State with the goal of "Benefiting the country, benefiting the people",
-                                                building infrastructure, and serving people's lives.</p>
+                                                    cities with prizes opened by the State with the goal of "Benefiting the country, benefiting the people",
+                                                    building infrastructure, and serving people's lives.</p>
 
                                             </div>
                                         </div>
