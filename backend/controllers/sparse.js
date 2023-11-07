@@ -17,18 +17,24 @@ const getAllSparses = async (req, res) => {
 }
 
 const getSparseByDate = async (req, res) => {
-    const { date, days, number } = req.params;
+    const { date, days, number } = req.body;
 
     // Parse 'days' and 'number' to integers
     const daysInt = parseInt(days, 10);
     const numberInt = number ? parseInt(number, 10) : undefined;
 
     try {
-        const data = await sparseRepository.getSparseByDate(date, daysInt, numberInt);
+        let data = [];
+        if(date !=undefined && days !=undefined){
+            data = await sparseRepository.getSparseByDate(date, daysInt, numberInt);
+        }else{
+            data = await sparseRepository.getAllSparsesCSV();
+        }
+        
         if (data.length === 0) {
             return res.status(404).send('No data found for the given parameters.');
         }
-        return res.json(data);
+        return res.json({data: data});
     } catch (error) {
         console.error('Error getting sparse data:', error);
         return res.status(500).send('Internal Server Error');
