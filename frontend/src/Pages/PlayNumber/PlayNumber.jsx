@@ -3,6 +3,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const PlayNumber = () => {
+    // kiểm tra đã login chưa
+    // nếu chưa-> về trang login
+    // rồi pass-> chạy tiếp
     return (
         <Container>
             <Row>

@@ -58,7 +58,7 @@ const Gan = () => {
     //     const value = event.target.value
     //     setEndDate(value)
     // }
-    
+
     // const handleMin = (event) => {
     //     event.preventDefault();
     //     const value = event.target.value
@@ -75,19 +75,19 @@ const Gan = () => {
         setStartDate(startDateValue);
         setEndDate(endDateValue);
         setMin(minValue);
-          console.log(form.elements.min.value, minValue, typeof min);
+        console.log(form.elements.min.value, minValue, typeof min);
         // Kiểm tra điều kiện trước khi gửi yêu cầu POST
         // if (choosenNumber !== "" && startDate !== "" && endDate !== "" && min !== "") {
-            // Gửi yêu cầu POST đến backend với các biến đã được cập nhật
-            axios
-                .post('http://localhost:9999/sparses/gan_time/findOne', {
-                    choosenNumber: choosenNumberValue,
-                    startDate: startDateValue,
-                    endDate: endDateValue,
-                    min: minValue
-                })
-                .then((res) => setCountSparseArray(res.data?.data))
-                .catch((err) => console.log(err));
+        // Gửi yêu cầu POST đến backend với các biến đã được cập nhật
+        axios
+            .post('http://localhost:9999/sparses/gan_time/findOne', {
+                choosenNumber: choosenNumberValue,
+                startDate: startDateValue,
+                endDate: endDateValue,
+                min: minValue
+            })
+            .then((res) => setCountSparseArray(res.data?.data))
+            .catch((err) => console.log(err));
         // }
     };
     console.log(countSparseArray);
@@ -107,7 +107,7 @@ const Gan = () => {
         const formatLastDate = item.lastDate.split('T')[0]; // Lấy phần trước "T"
         const formatNewDate = item.newDate.split('T')[0]; // Lấy phần trước "T"
         const gan = { numId: item.numId, lastDate: formatLastDate, newDate: formatNewDate, time: time }
-        if(gan.time >= min){
+        if (gan.time >= min) {
             ganArray.push(gan)
         }
     })
@@ -115,36 +115,37 @@ const Gan = () => {
     const options = {
         indexAxis: 'y',
         elements: {
-          bar: {
-            borderWidth: 2,
-          },
+            bar: {
+                borderWidth: 2,
+            },
         },
         responsive: true,
         plugins: {
-          legend: {
-            position: 'right',
-          },
-          title: {
-            display: true,
-            text: 'Thống kê chu kì gan',
-          },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const data = context.dataset.data[context.dataIndex];
-                const time = ganArray[context.dataIndex].time;
-                const newDate = ganArray[context.dataIndex].newDate;
-                return `Time: ${time} days, New Date: ${newDate}`;
-              },
+            legend: {
+                position: 'right',
             },
-          },
+            title: {
+                display: true,
+                text: 'Liver cycle statistics',
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        const data = context.dataset.data[context.dataIndex];
+                        const time = ganArray[context.dataIndex].time;
+                        const newDate = ganArray[context.dataIndex].newDate;
+                        return `Time: ${time} days, New Date: ${newDate}`;
+                    },
+                },
+            },
         },
-      };
+    };
     const labels = ganArray?.map((item) => item.lastDate);
     const data = {
         labels,
         datasets: [
-            {   label: 'Thời gian (ngày)',
+            {
+                label: 'Time (day)',
                 data: ganArray?.map((item) => item.time),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -152,7 +153,7 @@ const Gan = () => {
         ],
     };
     const HorizontalBarChart = () => {
-        if(ganArray.length != 0) {
+        if (ganArray.length != 0) {
             return (
                 <div>
                     <Bar data={data} options={options} />
@@ -164,6 +165,7 @@ const Gan = () => {
     };
     return (
         <section className="gan-wrapper my-8">
+
             <h1>Thống kê chu kỳ gan</h1>
             <div className='mb-4'>Đây là công cụ giúp bạn tính các khoảng thời gian không xuất hiện (khoảng gan)
                 của một cặp số. Để sử dụng, bạn hãy nhập cặp số cần kiểm tra và chọn khoảng thời gian
@@ -187,10 +189,10 @@ const Gan = () => {
                     size="2"
                     title="Số ngày gan nhỏ nhất"
                 />
-                <Button size='sm' type="submit">Thống kê</Button>
+                <Button size='sm' type="submit">Statistical</Button>
             </form>
             <div>
-            <HorizontalBarChart/>
+                <HorizontalBarChart />
             </div>
 
         </section>

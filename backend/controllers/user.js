@@ -54,10 +54,20 @@ const login = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-    console.log(res);
+    try {
+        const users = await userRepository.getAllUser();
+        res.status(200).json({
+            message: 'Success',
+            data: users,
+        });
+    } catch (error) {
+        log.red('Error', error.message);
+        res.status(500).json({
+            error: error.message,
+        });
+    }
 };
 
-// Actions: ....
 
 export default {
     register,
