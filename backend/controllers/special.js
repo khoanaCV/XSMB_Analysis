@@ -20,22 +20,33 @@ const getDrawDateAndSpecialPrize = async (req, res) => {
 
 const countAllSpecialPrizes = async (req, res) => {
     try {
-        // Xác định số ngày mà special_prize chưa xuất hiện
+        // Lấy dữ liệu ngày quay và số đặc biệt
         const results = await resultRepository.getDrawDateAndSpecialPrize();
+        // Đảm bảo rằng kết quả được sắp xếp theo ngày giảm dần
+        results.sort((a, b) => new Date(b.draw_date) - new Date(a.draw_date));
+
         const countSpecialArray = {};
+        const lastAppearance = {};
 
+        // Đếm số kỳ từ lần xuất hiện gần nhất cho đến kỳ mới nhất
         results.forEach((result, index) => {
-            // Nếu special_prize không xuất hiện
-            if (result.special_prize !== "00") {
-                const specialPrizeLastTwoDigits = result.special_prize.slice(-2);
-                // Tính số bản ghi chênh lệch giữa ngày hiện tại và ngày xuất hiện special_prize
-                const recordsDiff = index + 1;  // +1 vì chỉ số bắt đầu từ 0
+            const specialPrizeLastTwoDigits = result.special_prize.slice(-2);
 
-                if (countSpecialArray[specialPrizeLastTwoDigits] === undefined) {
-                    countSpecialArray[specialPrizeLastTwoDigits] = recordsDiff;
-                }
+            if (lastAppearance[specialPrizeLastTwoDigits] === undefined) {
+                // Lưu số kỳ kể từ lần xuất hiện gần nhất
+                lastAppearance[specialPrizeLastTwoDigits] = index;
+                countSpecialArray[specialPrizeLastTwoDigits] = index; // +1 vì chỉ số bắt đầu từ 0
             }
         });
+
+        // Điền vào các số chưa xuất hiện với tổng số kỳ
+        for (let i = 0; i < 100; i++) {
+            const key = i.toString().padStart(2, '0');
+            if (countSpecialArray[key] === undefined) {
+                // Nếu một số chưa bao giờ xuất hiện, ta coi như là tổng số kỳ từ kỳ đầu tiên
+                countSpecialArray[key] = results.length;
+            }
+        }
 
         res.status(200).json({
             message: "Success",
@@ -48,6 +59,8 @@ const countAllSpecialPrizes = async (req, res) => {
         });
     }
 };
+
+
 
 
 export default {
