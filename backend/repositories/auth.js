@@ -6,18 +6,18 @@ import jwt from 'jsonwebtoken';
 const register = async (req, res) => {
     const { name, email, password } = req.body;
 
-    // Kiem tra su ton tai cua User
+    // Check user
     const existingUser = await User.findOne({
         email,
     }).exec();
-    if (existingUser != null)
-        throw new Error('User already existing.');
-
+    if (existingUser != null) {
+        res.status(400).json('User already existing.');
+    }
     const hashPassword = await bcrypt.hash(
         password,
         parseInt(process.env.SECRET_KEY)
     );
-    // Goi User model de thao tac du lieu
+    // Create new user
     const newUser = await User.create({
         name,
         email,

@@ -13,25 +13,22 @@ import cors from 'cors';
 const app = express();
 
 app.use(morgan('tiny')); // log the request for debugging
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use(express.json());
 // Load .evn file: config file
 dotenv.config();
 
-console.log(process.env.FONT_END_URL);
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-
-// Basic routes: Root router
-app.get('/', (req, res) => {
-    res.send('Hello RESTful API.');
-});
-
 app.use(routes);
 
 const port = process.env.PORT || 8080;
-// cron.schedule('30 18 * * *', crawlController.crawlData);
 
 app.listen(port, async () => {
     await ConnectDB();
     log.green('Node RESTful API running on port', port);
+});
+
+// Basic routes: Root router
+app.get('/', (req, res) => {
+    res.send('Hello RESTful API.');
 });

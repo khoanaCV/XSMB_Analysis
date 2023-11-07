@@ -1,4 +1,4 @@
-import asyncHandler from '../utils/async-handler';
+import asyncHandler from '../utils/async-handler.js';
 import { validationResult } from 'express-validator';
 import { authRepository } from '../repositories/index.js';
 
@@ -8,7 +8,7 @@ export default {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         } else {
-            await authRepository.registerUser(req, res);
+            await authRepository.register(req, res);
         }
     }),
     login: asyncHandler(async (req, res) => {
@@ -16,7 +16,7 @@ export default {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         } else {
-            await authRepository.loginUser(req, res);
+            await authRepository.login(req, res);
         }
     }),
     refreshToken: asyncHandler(async (req, res) => {

@@ -14,7 +14,7 @@ routes.use('/auth', authRouter);
 routes.use('/users', userRouter);
 routes.use('/users', userRouter);
 routes.use('/sparses', spareRouter);
-routes.use('/crawl', crawlDataRouter);
+routes.use('/crawls', crawlDataRouter);
 routes.use('/results', resultRouter);
 routes.use('/plays', lotteryRouter);
 routes.use('/forecast', forecastRoutes);

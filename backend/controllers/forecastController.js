@@ -23,4 +23,7 @@ function getPredictiveScoresGauss(req, res) {
     }
 }
 
-export { getPredictiveScoresPoisson, getPredictiveScoresGauss };
+export default {
+    getPredictiveScoresPoisson,
+    getPredictiveScoresGauss,
+};
