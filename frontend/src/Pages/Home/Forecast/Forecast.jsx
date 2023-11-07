@@ -36,7 +36,7 @@ const Forecast = () => {
                 const data = Object.entries(response?.data);
                 data.sort((a, b) => b[1] - a[1]);
                 setPoissonDataChart(data)
-                setPoissonDataTop(data.slice(0, 12)); // Lấy 20 số đầu tiên
+                setPoissonDataTop(data.slice(0, 15)); // Lấy 20 số đầu tiên
             })
             .catch((error) => {
                 console.error("Error fetching special prizes data: ", error);
@@ -49,7 +49,7 @@ const Forecast = () => {
                 const data = Object.entries(response?.data);
                 data.sort((a, b) => b[1] - a[1]);
                 setGaussDataChart(data)
-                setGaussDataTop(data.slice(0, 12)); // Lấy 20 số đầu tiên
+                setGaussDataTop(data.slice(0, 15)); // Lấy 20 số đầu tiên
             })
             .catch((error) => {
                 console.error("Error fetching special prizes data: ", error);
@@ -110,6 +110,14 @@ const Forecast = () => {
             },
         ],
     };
+
+    const getCurrentDate = () => {
+        const date = new Date();
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
     return (
         <Container>
             <Row>
@@ -118,7 +126,7 @@ const Forecast = () => {
                         <h1>Dự Đoán Kết Quả</h1>
                     </div>
 
-                    <div class="p-3 mb-2">Dự đoán Poisson cho ngày 03/10/2023
+                    <div class="p-3 mb-2">Dự đoán Poisson cho ngày {getCurrentDate()}
                         <div class="container flex flex-col items-center">
                             <div class="col-sm mt-2 flex text-xl text-red-500 font-bold">
                                 Numbers:
@@ -132,7 +140,7 @@ const Forecast = () => {
                         </div>
                     </div>
 
-                    <div class="p-3 mb-2">Dự đoán Gaussian cho ngày 03/10/2023
+                    <div class="p-3 mb-2">Dự đoán Gaussian cho ngày {getCurrentDate()}
                     <div class="container flex flex-col items-center">
                             <div class="col-sm mt-2 flex text-xl text-red-500 font-bold">
                                 Numbers:
