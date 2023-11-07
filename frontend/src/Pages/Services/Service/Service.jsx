@@ -65,7 +65,12 @@ const Service = () => {
         // So sánh hai đối tượng Date
         return dateB - dateA;
       });// Sắp xếp mảng theo thứ tự ngày lớn nhất
-      setCountSparseArray(data.slice(0, 20));
+      if(days){
+        setCountSparseArray(data);
+      }else{
+        setCountSparseArray(data.slice(0, 100));
+      }
+
     })
     .catch((error) => {
       console.error("Error fetching special prizes data: ", error);

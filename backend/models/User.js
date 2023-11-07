@@ -8,6 +8,7 @@ const User = mongoose.model(
         name: {
             type: String,
             required: true,
+            unique: true,
             validate: {
                 validator: (value) => value.length > 3,
                 message:
@@ -17,6 +18,7 @@ const User = mongoose.model(
         email: {
             type: String,
             required: true,
+            unique: true,
             validate: {
                 validator: () => isEmail,
                 message: 'Email is incorrect format.',
@@ -35,9 +37,9 @@ const User = mongoose.model(
             type: Number,
             default: 0,
         },
-        wallet_balance: {
-            type: Number,
-            default: 0,
+        isActive: {
+            type: Boolean,
+            default: false
         },
         role: {
             type: String,

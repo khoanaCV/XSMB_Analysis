@@ -24,7 +24,7 @@ const Service = () => {
 
   return (
     <section className="service">
-      <h1>Number of days that special prizes have not been released</h1>
+      <h1>Lô Đặc biệt lâu chưa ra</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -34,8 +34,8 @@ const Service = () => {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th>Special Prize</th>
-                    <th>Count date</th>
+                    <th>Đặc biệt</th>
+                    <th>Số ngày chưa ra</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@ const Service = () => {
                     .map((specialPrize, index) => (
                       <tr key={index}>
                         <td>{specialPrize[0]}</td>
-                        <td>{specialPrize[1]} days</td>
+                        <td>{specialPrize[1]} ngày</td>
                       </tr>
                     ))}
                 </tbody>
