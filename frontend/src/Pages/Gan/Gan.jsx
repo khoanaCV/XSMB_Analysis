@@ -41,29 +41,29 @@ const Gan = () => {
     //     }
     // };
 
-    // const handleChooseNumber = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setChoosenNumber(value)
-    // }
+    const handleChooseNumber = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setChoosenNumber(value)
+    }
 
-    // const handleStartDate = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setStartDate(value)
-    // }
+    const handleStartDate = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setStartDate(value)
+    }
 
-    // const handleEndDate = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setEndDate(value)
-    // }
+    const handleEndDate = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setEndDate(value)
+    }
 
-    // const handleMin = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setMin(value)
-    // }
+    const handleMin = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setMin(value)
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -126,7 +126,7 @@ const Gan = () => {
             },
             title: {
                 display: true,
-                text: 'Liver cycle statistics',
+                text: 'Thống kê chu kỳ Gan',
             },
             tooltip: {
                 callbacks: {
@@ -134,7 +134,7 @@ const Gan = () => {
                         const data = context.dataset.data[context.dataIndex];
                         const time = ganArray[context.dataIndex].time;
                         const newDate = ganArray[context.dataIndex].newDate;
-                        return `Time: ${time} days, New Date: ${newDate}`;
+                        return `Ngày: ${time} Ngày, Ngày ra: ${newDate}`;
                     },
                 },
             },
@@ -145,7 +145,7 @@ const Gan = () => {
         labels,
         datasets: [
             {
-                label: 'Time (day)',
+                label: 'Ngày',
                 data: ganArray?.map((item) => item.time),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -165,30 +165,30 @@ const Gan = () => {
     };
     return (
         <section className="gan-wrapper my-8">
-            <div className='text-xl' >Liver cycle statistics</div>
-            <div className='mb-4'>This is a tool to help you calculate non-appearance periods (liver intervals).
-                of a pair of numbers. To use, enter the pair of numbers you want to check and select the time period
-                (default is the most recent 1 year). The value <b>Min</b> is the lowest range you need to calculate</div>
+            <div className='text-xl' >Thống kê chu kỳ gan</div>
+            <div className='mb-4'>Đây là công cụ giúp bạn tính toán các khoảng thời gian không xuất hiện (khoảng thời gian gan).
+                 của Lô tô. Để sử dụng bạn nhập Lô tô muốn kiểm tra và chọn khoảng thời gian
+                 (mặc định là 1 năm gần đây nhất). Giá trị <b>Min</b> là khoảng gan thấp nhất bạn cần thống kê.</div>
 
             <form className="flex justify-center" onSubmit={handleSubmit}>
                 Cặp số:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" name="choosenNumber"
-                    defaultValue={choosenNumber}
+                    onChange={handleChooseNumber}
                     size="2"
                 />
                 Từ:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="date" name="startDate"
-                    defaultValue={startDate}
+                    onChange={handleStartDate}
                     size="10"
                 />
                 Đến:<input className="border-[1px] border-black	ml-1 mr-4 rounded-sm" type="date" name="endDate"
-                    defaultValue={endDate}
+                    onChange={handleEndDate}
                     size="10"
                 />
                 Min: <input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="text" name="min"
-                    defaultValue={min}
+                    onChange={handleMin}
                     size="2"
                     title="Số ngày gan nhỏ nhất"
                 />
-                <Button size='sm' type="submit">Statistical</Button>
+                <Button size='sm' type="submit">Thống kê</Button>
             </form>
             <div>
                 <HorizontalBarChart />
