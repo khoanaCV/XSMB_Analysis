@@ -21,42 +21,74 @@ const Gan = () => {
         Tooltip,
         Legend
     );
-    const [choosenNumber, setChoosenNumber] = useState();
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
-    const [min, setMin] = useState();
-    const [countSparseArray, setCountSparseArray] = useState();
+    const [choosenNumber, setChoosenNumber] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [min, setMin] = useState('');
+    const [countSparseArray, setCountSparseArray] = useState([]);
 
-    const handleInputChange = (event) => {
-        event.preventDefault();
-        const { name, value } = event.target;
-        if (name === "choosenNumber") {
-            setChoosenNumber(value);
-        } else if (name === "startDate") {
-            setStartDate(value);
-        } else if (name === "endDate") {
-            setEndDate(value);
-        } else if (name === "min") {
-            setMin(value);
-        }
-    };
+    // const handleInputChange = (event) => {
+    //     event.preventDefault();
+    //     const { name, value } = event.target;
+    //     if (name === "choosenNumber") {
+    //         setChoosenNumber(value);
+    //     } else if (name === "startDate") {
+    //         setStartDate(value);
+    //     } else if (name === "endDate") {
+    //         setEndDate(value);
+    //     } else if (name === "min") {
+    //         setMin(value);
+    //     }
+    // };
 
+    // const handleChooseNumber = (event) => {
+    //     event.preventDefault();
+    //     const value = event.target.value
+    //     setChoosenNumber(value)
+    // }
 
+    // const handleStartDate = (event) => {
+    //     event.preventDefault();
+    //     const value = event.target.value
+    //     setStartDate(value)
+    // }
+
+    // const handleEndDate = (event) => {
+    //     event.preventDefault();
+    //     const value = event.target.value
+    //     setEndDate(value)
+    // }
+    
+    // const handleMin = (event) => {
+    //     event.preventDefault();
+    //     const value = event.target.value
+    //     setMin(value)
+    // }
     const handleSubmit = (event) => {
         event.preventDefault();
+        const form = event.target;
+        const choosenNumberValue = form.elements.choosenNumber.value;
+        const startDateValue = form.elements.startDate.value;
+        const endDateValue = form.elements.endDate.value;
+        const minValue = form.elements.min.value;
+        setChoosenNumber(choosenNumberValue);
+        setStartDate(startDateValue);
+        setEndDate(endDateValue);
+        setMin(minValue);
+          console.log(form.elements.min.value, minValue, typeof min);
         // Kiểm tra điều kiện trước khi gửi yêu cầu POST
-        if (choosenNumber !== "" && startDate !== "" && endDate !== "" && min !== "") {
+        // if (choosenNumber !== "" && startDate !== "" && endDate !== "" && min !== "") {
             // Gửi yêu cầu POST đến backend với các biến đã được cập nhật
             axios
                 .post('http://localhost:9999/sparses/gan_time/findOne', {
-                    choosenNumber,
-                    startDate,
-                    endDate,
-                    min
+                    choosenNumber: choosenNumberValue,
+                    startDate: startDateValue,
+                    endDate: endDateValue,
+                    min: minValue
                 })
                 .then((res) => setCountSparseArray(res.data?.data))
                 .catch((err) => console.log(err));
-        }
+        // }
     };
     console.log(countSparseArray);
 
@@ -138,19 +170,20 @@ const Gan = () => {
                 (mặc định là 1 năm gần nhất). Giá trị <b>Min</b> là khoảng gan thấp nhất bạn cần thống kê.</div>
 
             <form className="flex justify-center" onSubmit={handleSubmit}>
-                Cặp số:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" name="choosenNumber" value={choosenNumber}
-                    onChange={handleInputChange}
+                Cặp số:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" name="choosenNumber"
+                    defaultValue={choosenNumber}
                     size="2"
                 />
-                Từ:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="date" name="startDate" value={startDate}
-                    onChange={handleInputChange}
+                Từ:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="date" name="startDate"
+                    defaultValue={startDate}
                     size="10"
                 />
-                Đến:<input className="border-[1px] border-black	ml-1 mr-4 rounded-sm" type="date" name="endDate" value={endDate}
-                    onChange={handleInputChange}
+                Đến:<input className="border-[1px] border-black	ml-1 mr-4 rounded-sm" type="date" name="endDate"
+                    defaultValue={endDate}
                     size="10"
                 />
-                Min: <input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="text" name="min" value={min} onChange={handleInputChange}
+                Min: <input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="text" name="min"
+                    defaultValue={min}
                     size="2"
                     title="Số ngày gan nhỏ nhất"
                 />
