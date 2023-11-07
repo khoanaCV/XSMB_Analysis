@@ -67,47 +67,68 @@ const getJsonFile = async (req, res) => {
         const results = await resultRepository.getAll();
 
         // Ghi ra file data.json
-        await fs.writeFileSync(
-            'data.json',
-            JSON.stringify({ sparses, results })
-        );
+        await fs.writeFileSync('data.json', JSON.stringify({ sparses, results }));
 
         // Chuyển đổi results thành CSV và ghi ra file
-        const cleanedResults = results.map((item) => {
+        const cleanedResults = results.map(item => {
             return {
-                ...item,
-                draw_date: item.draw_date.replace(
-                    'T00:00:00.000Z',
-                    ''
-                ),
+                draw_date: item.draw_date,
+                prize1: item.prize1,
+                prize2_1: item.prize2_1,
+                prize2_2: item.prize2_2,
+                prize3_1: item.prize3_1,
+                prize3_2: item.prize3_2,
+                prize3_3: item.prize3_3,
+                prize3_4: item.prize3_4,
+                prize3_5: item.prize3_5,
+                prize3_6: item.prize3_6,
+                prize4_1: item.prize4_1,
+                prize4_2: item.prize4_2,
+                prize4_3: item.prize4_3,
+                prize4_4: item.prize4_4,
+                prize5_1: item.prize5_1,
+                prize5_2: item.prize5_2,
+                prize5_3: item.prize5_3,
+                prize5_4: item.prize5_4,
+                prize5_5: item.prize5_5,
+                prize5_6: item.prize5_6,
+                prize6_1: item.prize6_1,
+                prize6_2: item.prize6_2,
+                prize6_3: item.prize6_3,
+                prize7_1: item.prize7_1,
+                prize7_2: item.prize7_2,
+                prize7_3: item.prize7_3,
+                prize7_4: item.prize7_4,
+                special_prize: item.special_prize
             };
         });
-        const resultsFields = Object.keys(cleanedResults[0]).filter(
-            (key) => key !== '_id' && key !== '__v'
-        );
+
+        const resultsFields = [
+            "draw_date", "prize1", "prize2_1", "prize2_2",
+            "prize3_1", "prize3_2", "prize3_3", "prize3_4", "prize3_5", "prize3_6",
+            "prize4_1", "prize4_2", "prize4_3", "prize4_4",
+            "prize5_1", "prize5_2", "prize5_3", "prize5_4", "prize5_5", "prize5_6",
+            "prize6_1", "prize6_2", "prize6_3",
+            "prize7_1", "prize7_2", "prize7_3", "prize7_4",
+            "special_prize"
+        ];
         const resultsParser = new Parser({ fields: resultsFields });
         const resultsCsv = resultsParser.parse(cleanedResults);
         await fs.writeFileSync('xsmb_results.csv', resultsCsv);
 
+
         // Chuyển đổi sparses thành CSV và ghi ra file
-        const cleanedSparses = sparses.map((sparse) => {
-            const newObj = {
-                draw_date: sparse.draw_date.replace(
-                    'T00:00:00.000Z',
-                    ''
-                ),
-            };
+        const sparsesFields = ["draw_date"].concat(Array.from({ length: 100 }, (_, i) => i.toString()));
+        const sparsesParser = new Parser({ fields: sparsesFields });
+        const sparsesTransformed = sparses.map(sparse => {
+            const newObj = { draw_date: sparse.draw_date};
             for (let i = 0; i < 100; i++) {
-                const key = 'num' + String(i).padStart(2, '0');
+                const key = "num" + String(i).padStart(2, '0');
                 newObj[i] = sparse[key] || 0;
             }
             return newObj;
         });
-        const sparsesFields = ['draw_date'].concat(
-            Array.from({ length: 100 }, (_, i) => i.toString())
-        );
-        const sparsesParser = new Parser({ fields: sparsesFields });
-        const sparsesCsv = sparsesParser.parse(cleanedSparses);
+        const sparsesCsv = sparsesParser.parse(sparsesTransformed);
         await fs.writeFileSync('xsmb_sparse.csv', sparsesCsv);
 
         res.status(201).json({ message: 'Crawl Data successful!' });
@@ -116,6 +137,7 @@ const getJsonFile = async (req, res) => {
         res.status(500).json({ message: 'Crawl Data fail!' });
     }
 };
+
 
 const getResultLottery = async (req, res) => {
     try {
@@ -201,8 +223,8 @@ const getDataOfTime = async (date) => {
                                         indexRow
                                     ]
                                         ? numbers[indexRow].concat(
-                                              number
-                                          )
+                                            number
+                                        )
                                         : [number];
                                 });
                         }

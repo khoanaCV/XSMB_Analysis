@@ -5,6 +5,7 @@ import resultController from './result.js';
 import lotteryController from './lottery.js';
 import forecastController from './forecastController.js';
 import authController from './auth.js';
+import specialController from './special.js';
 
 export {
     userController,
@@ -14,4 +15,5 @@ export {
     lotteryController,
     forecastController,
     authController,
+    specialController,
 };

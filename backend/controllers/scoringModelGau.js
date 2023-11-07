@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import Papa from 'papaparse';
 
 // 1. Reload the data
-const inputData = readFileSync('xsmb_sparse.csv', 'utf8');
+const inputData = readFileSync('../backend/xsmb_sparse.csv', 'utf8');
 const parsedResult = Papa.parse(inputData, {
     header: true,
     skipEmptyLines: true
@@ -12,7 +12,7 @@ const data = parsedResult.data;
 
 // 2. Calculate the mean occurrence of each number in the historical data
 const totalDays = data.length;
-const meanOccurrences = _.mapValues(_.omit(data[0], 'date'), (value, key) => {
+const meanOccurrences = _.mapValues(_.omit(data[0], 'draw_date'), (value, key) => {
     const totalOccurrences = _.sumBy(data, row => parseInt(row[key], 10));
     return totalOccurrences / totalDays;
 });
@@ -20,7 +20,7 @@ const meanOccurrences = _.mapValues(_.omit(data[0], 'date'), (value, key) => {
 // console.log("First 10 mean occurrences:", Object.entries(meanOccurrences).slice(0, 10));
 
 // Calculate standard deviation for each number in the historical data
-const stdDeviations = _.mapValues(_.omit(data[0], 'date'), (value, key) => {
+const stdDeviations = _.mapValues(_.omit(data[0], 'draw_date'), (value, key) => {
     const values = data.map(row => parseInt(row[key], 10));
     const mean = meanOccurrences[key];
     return Math.sqrt(_.sumBy(values, val => Math.pow(val - mean, 2)) / totalDays);
@@ -64,7 +64,7 @@ const normalizedProbScore = _.mapValues(combinedMeanOccurrences, val => (val - m
 // console.log("First 100 normalized probability scores:", Object.entries(normalizedProbScore).slice(0, 100));
 
 // 6. Calculate the streak of non-appearance for each number up to the most recent draw
-const nonAppearanceStreaks = _.mapValues(_.omit(data[0], 'date'), (value, key) => {
+const nonAppearanceStreaks = _.mapValues(_.omit(data[0], 'draw_date'), (value, key) => {
     return _.takeRightWhile(data, row => parseInt(row[key], 10) === 0).length;
 });
 
@@ -86,7 +86,7 @@ const maxNonAppearanceStreak = (s) => {
     return maxStreak;
 };
 
-const maxStreaksCorrected = _.mapValues(_.omit(data[0], 'date'), (value, key) => {
+const maxStreaksCorrected = _.mapValues(_.omit(data[0], 'draw_date'), (value, key) => {
     return maxNonAppearanceStreak(data.map(row => parseInt(row[key], 10)));
 });
 
@@ -111,7 +111,7 @@ const normalizedStreakScores = _.mapValues(streakScoresCorrected, val => (val - 
 
 
 // 9. Score for numbers that have appeared frequently in the last 30 draws
-const recentAppearances = _.mapValues(_.omit(data[0], 'date'), (value, key) => {
+const recentAppearances = _.mapValues(_.omit(data[0], 'draw_date'), (value, key) => {
     return _.sumBy(_.takeRight(data, 30), row => parseInt(row[key], 10));
 });
 
@@ -121,7 +121,7 @@ const frequentScores = _.mapValues(recentAppearances, val => (val >= 10 ? 1 : 0)
 // console.log("First 100 frequent scores:", Object.entries(frequentScores).slice(0, 100));
 
 //10. Calculate the "lô rơi" probabilities
-const loRoiProbabilities = _.mapValues(_.omit(data[0], 'date'), (value, key) => {
+const loRoiProbabilities = _.mapValues(_.omit(data[0], 'draw_date'), (value, key) => {
     let count = 0;
     for (let i = 0; i < data.length - 1; i++) {
         if (data[i][key] !== '0' && data[i + 1][key] !== '0') {

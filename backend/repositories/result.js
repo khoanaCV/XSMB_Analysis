@@ -1,4 +1,6 @@
 import Result from '../models/Result.js';
+import fs from 'fs';
+import csv from 'csv-parser';
 
 const create = async (
     date,
@@ -61,7 +63,31 @@ const getAll = async () => {
     }
 };
 
+const getDrawDateAndSpecialPrize = async () => {
+    try {
+        return new Promise((resolve, reject) => {
+            const results = [];
+            fs.createReadStream('../backend/xsmb_results.csv')
+                .pipe(csv())
+                .on('data', (data) => {
+                    const { draw_date, special_prize } = data;
+                    results.push({ draw_date, special_prize });
+                })
+                .on('end', () => {
+                    resolve(results);
+                })
+                .on('error', (error) => {
+                    reject(error);
+                });
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 export default {
     create,
     getAll,
+    getDrawDateAndSpecialPrize
 };

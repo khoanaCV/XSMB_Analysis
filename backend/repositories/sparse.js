@@ -1,5 +1,7 @@
 import Sparse from '../models/Sparse.js';
 import { log } from 'mercedlogger';
+import fs from 'fs';
+import csv from 'csv-parser';
 
 const get = async (date) => {
     try {
@@ -19,6 +21,83 @@ const getAll = async () => {
         throw error;
     }
 };
+
+const getAllSparses = async () => {
+    try {
+        const sparses = await Sparse.find();
+        return sparses;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+const getAllSparsesCSV = async () => {
+    try {
+        return new Promise((resolve, reject) => {
+            const results = [];
+            fs.createReadStream('../backend/xsmb_sparse.csv')
+                .pipe(csv())
+                .on('data', (data) => results.push(data))
+                .on('end', () => {
+                    resolve(results);
+                })
+                .on('error', (error) => {
+                    reject(error);
+                });
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+const getSparseByDate = async (date, days, number) => {
+    try {
+        return new Promise((resolve, reject) => {
+            const sparses = [];
+            fs.createReadStream('../backend/xsmb_sparse.csv')
+                .pipe(csv())
+                .on('data', (row) => {
+                    const sparsetDate = new Date(row.draw_date);
+                    const queryDate = new Date(date);
+                    if (sparsetDate <= queryDate) {
+                        // Đảm bảo rằng cột draw_date luôn được bao gồm
+                        const filteredRow = { draw_date: row.draw_date };
+
+                        // Lọc các cột dựa trên tham số 'number' nếu được cung cấp
+                        if (number !== undefined) {
+                            const keys = Object.keys(row).slice(0, number + 1); // Cộng 1 vì slice không bao gồm phần tử cuối cùng
+                            keys.forEach(key => {
+                                if (key !== 'draw_date') { // Kiểm tra để tránh thêm 'draw_date' hai lần
+                                    filteredRow[key] = row[key];
+                                }
+                            });
+                        } else {
+                            Object.assign(filteredRow, row); // Nếu không có giới hạn số cột, sử dụng toàn bộ hàng
+                        }
+
+                        sparses.push(filteredRow);
+                    }
+                })
+                .on('end', () => {
+                    // Sort by date in descending order
+                    const sortedResults = sparses.sort((a, b) => new Date(b.draw_date) - new Date(a.draw_date));
+                    // Take the first 'days' results if 'days' parameter is defined
+                    const limitedResults = days ? sortedResults.slice(0, days) : sortedResults;
+                    resolve(limitedResults);
+                })
+                .on('error', (error) => {
+                    reject(error);
+                });
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+
 
 const create = async (date, data) => {
     const dataSparse = data.map((item) => item % 100);
@@ -143,4 +222,4 @@ const create = async (date, data) => {
 const getData = (data, number) => {
     return Number(data.filter((item) => item === number).length);
 };
-export default { getAll, create, get };
+export default { getAll, create, get, getAllSparses, getSparseByDate, getAllSparsesCSV };

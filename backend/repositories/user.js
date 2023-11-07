@@ -66,8 +66,17 @@ const login = async ({ email, password }) => {
         throw new Error('User not exist');
     }
 };
-
+const getAllUser = async () => {
+    try {
+        const users = await User.find();
+        return users;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
 export default {
     register,
     login,
+    getAllUser
 };

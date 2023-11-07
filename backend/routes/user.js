@@ -2,9 +2,7 @@ import express from 'express';
 
 const userRouter = express.Router();
 
-userRouter.get('/', (req, res) => {
-    res.send('Get all users');
-});
+userRouter.get('/', userController.getAllUsers);
 
 userRouter.get('/:id', (req, res) => {
     res.send('Get user by Id');
