@@ -165,10 +165,11 @@ const Gan = () => {
     };
     return (
         <section className="gan-wrapper my-8">
-            <div className='text-xl' >Liver cycle statistics</div>
-            <div className='mb-4'>This is a tool to help you calculate non-appearance periods (liver intervals).
-                of a pair of numbers. To use, enter the pair of numbers you want to check and select the time period
-                (default is the most recent 1 year). The value <b>Min</b> is the lowest range you need to calculate</div>
+
+            <h1>Thống kê chu kỳ gan</h1>
+            <div className='mb-4'>Đây là công cụ giúp bạn tính các khoảng thời gian không xuất hiện (khoảng gan)
+                của một cặp số. Để sử dụng, bạn hãy nhập cặp số cần kiểm tra và chọn khoảng thời gian
+                (mặc định là 1 năm gần nhất). Giá trị <b>Min</b> là khoảng gan thấp nhất bạn cần thống kê.</div>
 
             <form className="flex justify-center" onSubmit={handleSubmit}>
                 Cặp số:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" name="choosenNumber"
