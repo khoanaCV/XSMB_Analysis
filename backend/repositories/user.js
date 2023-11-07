@@ -15,7 +15,6 @@ const register = async ({
     if (existingUser != null)
         throw new Error('User already existing.');
 
-    // eslint-disable-next-line no-undef
     const hashPassword = await bcrypt.hash(
         password,
         parseInt(process.env.SECRET_KEY)

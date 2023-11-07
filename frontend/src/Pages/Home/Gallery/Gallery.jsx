@@ -1,44 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Table } from "react-bootstrap";
 
-import './Gallery.css';
+const Doctor = () => {
+  const [countSparseArray, setCountSparseArray] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:9999/sparses/multi_appearing_loto")
+      .then((response) => {
+        const data = Object.entries(response.data?.data);
+        // Sắp xếp mảng theo thứ tự ngày lớn nhất
+        data.sort((a, b) => b[1].count - a[1].count);
+        setCountSparseArray(data.slice(0, 20)); // Lấy 20 số đầu tiên
+      })
+      .catch((error) => {
+        console.error("Error fetching special prizes data: ", error);
+      });
+  }, []);
+  console.log(countSparseArray);
+  return (
+    <section className="gallery-wrapper">
+      <h1 className="my-5">Lô Tô Ra Nhiều Trong Tháng</h1>
+      <div className="row">
+        {[0, 1, 2, 3].map((tableIndex) => (
+          <div key={tableIndex} className="col-md-6">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Lô</th>
+                  <th>Số lần ra</th>
+                </tr>
+              </thead>
+              <tbody>
+                {countSparseArray
+                  .slice(tableIndex * 5, tableIndex * 5 + 5)
+                  ?.map((specialPrize, index) => {
+                    {
+                      return (
+                        <tr key={index}>
+                          <td>{specialPrize[0]}</td>
+                          <td>{specialPrize[1].count} Lần</td>
+                        </tr>
+                      )
+                    }
 
-const Gallery = () => {
-
-    const [countMonthlySparseArray, setCountMonthlySparseArray] = useState()
-    useEffect(() => {
-        axios.get('http://localhost:9999/sparses/multi_appearing_loto')
-            .then(res => setCountMonthlySparseArray(res.data?.data))
-            .catch(err => console.log(err))
-    }, []);
-    return (
-        <section className="gallery-wrapper text-white">
-            <Container>
-                <Row>
-                    <Col sm={12} className="text-center">
-                        <div className="section-title">
-                            <h1>Lô Tô Ra Nhiều Trong Tháng</h1>
-                        </div>
-                    </Col>
-                </Row>
-                <table className="tbl1" cellSpacing="1" cellPadding="4" style={{ border: "1px solid black" }}>
-                    <tbody>
-                        {countMonthlySparseArray?.map(item => {
-                            if (item.count > 5) {
-                                return <tr key={item.id}>
-                                    <td style={{ border: "1px solid black" }} className="col1">{item.id}</td>
-                                    <td style={{ border: "1px solid black" }} className="col2">{item.count}&nbsp;lần</td>
-                                </tr>
-                            }
-                            return <></>
-                        })}
-                    </tbody>
-                </table>
-            </Container>
-        </section>
-    );
+                    return <></>;
+                  })}
+              </tbody>
+            </Table>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
 
-export default Gallery;
+export default Doctor;

@@ -1,55 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { FakeService } from '../../FakeData/Treatment';
-import { Link } from 'react-router-dom';
-import serviceDetailImg from '../../Images/service-details-promo1.png';
-import Services from '../../Pages/Home/Services/Services';
-import authService from '../../services/auth.service';
-import userService from '../../services/user.service';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Table } from "react-bootstrap";
+
 const Service = () => {
+  const [specialPrizes, setSpecialPrizes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:9999/special/special-long-to-long")
+      .then((response) => {
+        const data = Object.entries(response.data.data);
+        // Sắp xếp mảng theo thứ tự ngày lớn nhất
+        data.sort((a, b) => b[1] - a[1]);
+        setSpecialPrizes(data.slice(0, 20)); // Lấy 20 số đầu tiên
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching special prizes data: ", error);
+        setLoading(false);
+      });
+  }, []);
 
-    const [services, setServices] = useState([]);
-
-    const [isUser, setIsUser] = useState(false);
-    const [currentUser, setCurrentUser] = useState();
-
-
-    useEffect(() => {
-        async function fetchData() {
-            const response = await userService.getAllService();
-            console.log(response.data)
-            setServices(response.data);
-        }
-        fetchData();
-
-        const user = authService.getCurrentUser();
-        if (user) {
-            setIsUser(user.roles.includes("ROLE_USER"));
-            setCurrentUser(user)
-        }
-
-    }, []);
-    return (
-        <section className="service-wrapper">
-            <Container>
-                <Row>
-                    <Col sm={12}>
-                        <div className="section-title text-center">
-                            <h1>Phân Phối Xác Suất</h1>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    {
-                        services.map(service => (
-                            <Services key={service.id} service={service} />
-                        ))
-                    }
-                </Row>
-            </Container>
-        </section>
-    );
+  return (
+    <section className="service">
+      <h1>Number of days that special prizes have not been released</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="row">
+          {[0, 1, 2, 3].map((tableIndex) => (
+            <div key={tableIndex} className="col-md-6">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Special Prize</th>
+                    <th>Count date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {specialPrizes
+                    .slice(tableIndex * 5, tableIndex * 5 + 5)
+                    .map((specialPrize, index) => (
+                      <tr key={index}>
+                        <td>{specialPrize[0]}</td>
+                        <td>{specialPrize[1]} days</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default Service;

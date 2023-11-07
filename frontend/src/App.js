@@ -7,7 +7,7 @@ import Footer from './Pages/Home/Footer/Footer.jsx';
 import Header from './Pages/Home/Header/Header.jsx';
 import Home from './Pages/Home/Home/Home.jsx';
 import Login from './Pages/Login/Login';
-import Service from './Pages/Services/Service/Service';
+import Service from './Pages/Services/Service/Service.jsx';
 import Register from './Pages/Register/Register';
 import ChangePasword from './Pages/ChangePassword/ChangePassword';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
@@ -21,7 +21,7 @@ import PostList from './Pages/post/PostList';
 import TopNumber from './Pages/TopNumber/TopNumber';
 import PlayNumber from './Pages/PlayNumber/PlayNumber';
 import Forecast from './Pages/Home/Forecast/Forecast.jsx';
-import General from './Pages/General/General.jsx';
+import Gan from './Pages/Gan/Gan';
 
 function App() {
   return (
@@ -33,6 +33,8 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/about' element={<About/>} />
           <Route path='/service' element={<Service />} />
+          <Route path='/integrated-statistics' element={<Service />} />
+          <Route path='/lotop' element={<Doctors />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/top-play-number' element={<TopNumber/>} />
           <Route path='/login' element={<Login />} />
@@ -50,8 +52,7 @@ function App() {
           <Route path="/user" element={<BoardUser />} />
           <Route path="/posts" element={<PostList />} />
           <Route path='/forecast'element={<Forecast/>} />
-          <Route path='/general' element={<General/>} />
-
+          <Route path="/general/gan" element={<Gan />} />
         </Routes>
         <Footer />
       </Router>
