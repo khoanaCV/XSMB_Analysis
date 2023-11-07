@@ -1,13 +1,14 @@
 import { getPredictiveScores as calculateScoresPoisson } from './scoringModel.js';
 import { getPredictiveScoresByGauss as calculateScoresGauss } from './scoringModelGau.js';
-// import { forecastRepository } from '../repositories/index.js';
 
 function getPredictiveScoresPoisson(req, res) {
     try {
         const scoresPoisson = calculateScoresPoisson();
         res.json(scoresPoisson);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching predictive scores Poisson' });
+        res.status(500).json({
+            message: 'Error fetching predictive scores Poisson',
+        });
     }
 }
 
@@ -16,11 +17,10 @@ function getPredictiveScoresGauss(req, res) {
         const scoresGauss = calculateScoresGauss();
         res.json(scoresGauss);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching predictive scores Gauss' });
+        res.status(500).json({
+            message: 'Error fetching predictive scores Gauss',
+        });
     }
 }
 
-export {
-    getPredictiveScoresPoisson,
-    getPredictiveScoresGauss
-};
+export { getPredictiveScoresPoisson, getPredictiveScoresGauss };
