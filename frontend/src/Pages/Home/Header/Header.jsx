@@ -57,13 +57,13 @@ class Header extends Component {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" expand="lg" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="ms-auto align-items-center">
-                                <Link to="/home" className='list-item text-decoration-none'>Home</Link>
+                                <Link to="/home" className='list-item text-decoration-none'>Trang Chủ</Link>
                                 <Link to="/general/gan" className='list-item text-decoration-none'>Gan</Link>
                                 <Link to="/top-play-number" className='list-item text-decoration-none'>Lô Top</Link>
                                 <Link to="/playnumber" className='list-item text-decoration-none'>Ghi Lô</Link>
-                                <Link to="/forecast" className='list-item text-decoration-none'>Forecast</Link>
-                                <Link to="/integrated-statistics" className='list-item text-decoration-none'>Integrated Statistics</Link>
-                                <Link to="/posts" className='list-item text-decoration-none'>Community</Link>
+                                <Link to="/forecast" className='list-item text-decoration-none'>Dự Đoán</Link>
+                                <Link to="/integrated-statistics" className='list-item text-decoration-none'>Thống Kê Tổng Hợp</Link>
+                                <Link to="/posts" className='list-item text-decoration-none'>Cộng Đồng</Link>
                                 {showModeratorBoard && (
                                     <Link to={"/mod"} className="list-item text-decoration-none">
                                         Manager Board

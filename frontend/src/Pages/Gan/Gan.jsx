@@ -164,7 +164,7 @@ const Gan = () => {
     };
     return (
         <section className="gan-wrapper my-8">
-            <div className='text-xl' >Thống kê chu kỳ gan</div>
+            <h1>Thống kê chu kỳ gan</h1>
             <div className='mb-4'>Đây là công cụ giúp bạn tính các khoảng thời gian không xuất hiện (khoảng gan)
                 của một cặp số. Để sử dụng, bạn hãy nhập cặp số cần kiểm tra và chọn khoảng thời gian
                 (mặc định là 1 năm gần nhất). Giá trị <b>Min</b> là khoảng gan thấp nhất bạn cần thống kê.</div>
