@@ -121,8 +121,8 @@ const Forecast = () => {
     return (
         <Container>
             <Row>
-                <Col md={12} lg={12} sm={12}>
-                    <div className="text-left">
+                <Col md={12} lg={12} sm={12} className=''>
+                    <div className="text-left flex flex-col items-center">
                         <h1>Dự Đoán Kết Quả</h1>
                     </div>
 
