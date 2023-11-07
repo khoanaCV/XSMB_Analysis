@@ -13,7 +13,7 @@ const Result = () => {
                     <div>
                         Xem lô top: <a href="#" class="text-decoration-none">Hôm qua</a>&nbsp;&nbsp;
                         <a href="#" class="text-decoration-none">Hôm nay</a>&nbsp;&nbsp;
-                        <a href="#" class="text-decoration-none">Chọn ngày</a> <input type="date" id="myTextBox" />
+                        Chọn ngày<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="date" name="startDate" size="15"/>
 
                     </div>
                 </Col>

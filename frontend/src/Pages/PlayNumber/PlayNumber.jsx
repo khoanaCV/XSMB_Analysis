@@ -10,7 +10,7 @@ const PlayNumber = () => {
         <Container>
             <Row>
                 <Col md={12} lg={12} sm={12}>
-                    <div className="text-left">
+                    <div className="text-center">
                         <h1>Ghi Số</h1>
                     </div>
 
@@ -18,9 +18,10 @@ const PlayNumber = () => {
                         <a href="#" class="text-primary">[Tìm hiểu thêm]</a></p>
 
                     <div>
-                        <label htmlFor="myTextBox">Ngày ghi: </label> <input type="date" id="myTextBox" /> <br></br>
-                        <label htmlFor="myTextBox">Cặp số: </label> <input type="text" id="myTextBox" />
-                        <label htmlFor="myTextBox">Số điểm: </label> <input type="text" id="myTextBox" />
+                        Ngày ghi:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="date" name="startDate"size="15"/> <br></br>
+                        Số ngày:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="text" name="days"size="15"/>
+                        Cặp số: <input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="text" name="days"size="15"/>
+                        Số điểm: <input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="text" name="days"size="15"/>
                         <button className="btn btn-secondary">Ghi</button> <br></br>
                         <p class="text-success">Tài khoản hiện có: -34.000</p>
                         <div class="p-2 mb-2 bg-info text-white">Lô tô đã ghi ngày: 02/10/2023
