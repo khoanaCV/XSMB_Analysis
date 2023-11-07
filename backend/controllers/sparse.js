@@ -25,16 +25,16 @@ const getSparseByDate = async (req, res) => {
 
     try {
         let data = [];
-        if(date !=undefined && days !=undefined){
+        if (date != undefined && days != undefined) {
             data = await sparseRepository.getSparseByDate(date, daysInt, numberInt);
-        }else{
+        } else {
             data = await sparseRepository.getAllSparsesCSV();
         }
-        
+
         if (data.length === 0) {
             return res.status(404).send('No data found for the given parameters.');
         }
-        return res.json({data: data});
+        return res.json({ data: data });
     } catch (error) {
         console.error('Error getting sparse data:', error);
         return res.status(500).send('Internal Server Error');
@@ -48,7 +48,7 @@ const countAllSparses = async (req, res) => {
         const array = Object.values(sparses)
         let countSparseArray = []
         for (let i = 0; i < 100; i++) {
-            let sparse = { id: 0, count: 0, lastDate: new Date("2023-01-01T00:00:00.000Z") }
+            let sparse = { id: 0, count: 0, lastDate: new Date("2007-08-18T00:00:00.000Z") }
             countSparseArray.push(sparse)
         }
         // Dem ngay cuoi cung lo ra
@@ -225,7 +225,9 @@ const countMonthlySparse = async (req, res) => {
         let startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
         console.log(startOfMonth);
         // let thisMonth = new Date(process.env.THIS_MONTH)
-        let thisMonth = new Date('2023-10-01T00:00:00.000Z')
+        let thisMonth = new Date();
+        thisMonth.setDate(thisMonth.getDate() - 30);
+
         console.log(thisMonth);
         // Lap tat ca cac ban ghi trong database        
         for (let i = 0; i < array.length; i++) {
@@ -373,7 +375,7 @@ const countAllSparsesGan = async (req, res) => {
         // Lap tat ca cac ban ghi trong database      
         const gan = (number, numId, date) => {
             if (number != 0) {
-                const gan = { numId, lastDate: new Date("2023-01-01T00:00:00.000Z"), newDate: date }
+                const gan = { numId, lastDate: new Date("2023-11-07T00:00:00.000Z"), newDate: date }
                 if (fullGanArray[numId].length > 0) {
                     gan.lastDate = fullGanArray[numId][fullGanArray[numId].length - 1].newDate
                 }
