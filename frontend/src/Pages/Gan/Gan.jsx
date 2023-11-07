@@ -165,10 +165,10 @@ const Gan = () => {
     };
     return (
         <section className="gan-wrapper my-8">
-            <div className='text-xl' >Thống kê chu kỳ gan</div>
-            <div className='mb-4'>Đây là công cụ giúp bạn tính toán các khoảng thời gian không xuất hiện (khoảng thời gian gan).
-                 của Lô tô. Để sử dụng bạn nhập Lô tô muốn kiểm tra và chọn khoảng thời gian
-                 (mặc định là 1 năm gần đây nhất). Giá trị <b>Min</b> là khoảng gan thấp nhất bạn cần thống kê.</div>
+            <h1>Thống kê chu kỳ gan</h1>
+            <div className='mb-4'>Đây là công cụ giúp bạn tính các khoảng thời gian không xuất hiện (khoảng gan)
+                của một cặp số. Để sử dụng, bạn hãy nhập cặp số cần kiểm tra và chọn khoảng thời gian
+                (mặc định là 1 năm gần nhất). Giá trị <b>Min</b> là khoảng gan thấp nhất bạn cần thống kê.</div>
 
             <form className="flex justify-center" onSubmit={handleSubmit}>
                 Cặp số:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" name="choosenNumber"

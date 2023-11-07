@@ -2,14 +2,10 @@ import "@fontsource/josefin-sans";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-
 import authService from "../../../services/auth.service";
 import './Banner.css';
 
-
-
 const Banner = () => {
-
     const [isUser, setIsUser] = useState(false);
     const [currentUser, setCurrentUser] = useState();
 
@@ -60,12 +56,12 @@ const Banner = () => {
                                     <h5>Đến ngày&nbsp;</h5> <input type="date"></input>&nbsp;
                                     <input type="checkbox"></input> <h5>&nbsp;Bảng đầu đuôi</h5> &nbsp;
                                     <input type="checkbox"></input> <h5>&nbsp;Chỉ hiện giải ĐB</h5>
-                                <button type="button" class="btn btn-primary">Xem kết quả</button>
+                                    <button type="button" class="btn btn-primary">Xem kết quả</button>
 
-                                </div> 
+                                </div>
                             </div>
                             <td valign="top">
-                                <table className= "table table-bordered text-black text-center" cellSpacing="1" cellPadding="9">
+                                <table className="table table-bordered text-black text-center" cellSpacing="1" cellPadding="9">
                                     <thead>
                                         <tr>
                                             <th colSpan="13" className="kqcell kq_ngay">Thứ Ba - 24/10/2023</th>
