@@ -25,16 +25,16 @@ const getSparseByDate = async (req, res) => {
 
     try {
         let data = [];
-        if(date !=undefined && days !=undefined){
+        if (date != undefined && days != undefined) {
             data = await sparseRepository.getSparseByDate(date, daysInt, numberInt);
-        }else{
+        } else {
             data = await sparseRepository.getAllSparsesCSV();
         }
-        
+
         if (data.length === 0) {
             return res.status(404).send('No data found for the given parameters.');
         }
-        return res.json({data: data});
+        return res.json({ data: data });
     } catch (error) {
         console.error('Error getting sparse data:', error);
         return res.status(500).send('Internal Server Error');
@@ -225,7 +225,11 @@ const countMonthlySparse = async (req, res) => {
         let startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
         console.log(startOfMonth);
         // let thisMonth = new Date(process.env.THIS_MONTH)
-        let thisMonth = new Date('2023-10-01T00:00:00.000Z')
+        const currentDate = new Date();
+        // Trừ đi 30 ngày
+        currentDate.setDate(currentDate.getDate() - 30);
+        // let thisMonth = new Date('2023-10-01T00:00:00.000Z')
+        let thisMonth = currentDate
         console.log(thisMonth);
         // Lap tat ca cac ban ghi trong database        
         for (let i = 0; i < array.length; i++) {
