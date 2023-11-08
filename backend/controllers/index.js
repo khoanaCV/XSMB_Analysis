@@ -3,9 +3,9 @@ import sparseController from './sparse.js';
 import crawlController from './crawl.js';
 import resultController from './result.js';
 import lotteryController from './lottery.js';
-import forecastController from './forecastController.js';
-import authController from './auth.js';
 import specialController from './special.js';
+import authController from './auth.js';
+import * as forecastController from './forecastController.js';
 
 export {
     userController,
@@ -14,6 +14,7 @@ export {
     resultController,
     lotteryController,
     forecastController,
-    authController,
     specialController,
+    authController
 };
+

@@ -7,12 +7,14 @@ import lotteryRouter from './lottery.js';
 import forecastRoutes from './forecast.js';
 import authRouter from './auth.js';
 import specialRouter from './special.js';
+import authRouter from './auth.js';
 
 const routes = new Router();
 
 routes.use('/auth', authRouter);
 routes.use('/users', userRouter);
 routes.use('/users', userRouter);
+routes.use('/auth', authRouter);
 routes.use('/sparses', spareRouter);
 routes.use('/crawls', crawlDataRouter);
 routes.use('/results', resultRouter);

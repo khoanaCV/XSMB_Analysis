@@ -1,108 +1,114 @@
-/* eslint-disable no-undef */
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const register = async (req, res) => {
-    const { name, email, password } = req.body;
 
-    // Check user
-    const existingUser = await User.findOne({
-        email,
-    }).exec();
-    if (existingUser != null) {
-        res.status(400).json('User already existing.');
-    }
-    const hashPassword = await bcrypt.hash(
-        password,
-        parseInt(process.env.SECRET_KEY)
-    );
-    // Create new user
-    const newUser = await User.create({
+class AuthService {
+    registerUser = async ({
         name,
         email,
-        password: hashPassword,
-    });
-    res.status(200).json({ ...newUser._doc, password: 'Not show' });
-};
+        password,
+    }) => {
+        const userExisting = await User.findOne({ email }).exec()
+        if (userExisting != null) {
+            throw new Error("User existing.")
+        }
 
-const login = async (req, res) => {
-    const { email, password } = req.body;
-    const existingUser = await User.findOne({ email }).exec();
-    if (existingUser) {
-        // Check password user
-        const isMatch = await bcrypt.compare(
-            password,
-            existingUser.password
-        );
-        if (isMatch) {
-            // Gen Access Token (JWT)
-            const token = jwt.sign(
+        // Mã hóa mật khẩu
+        const hashPassword = await bcrypt.hash(password, parseInt(process.env.SECRET_KEY))
+
+        const newUser = await User.create({
+            isActive: true,
+            name,
+            email,
+            password: hashPassword,
+        })
+
+        // Clone a new user
+        return {
+            ...newUser._doc,
+            password: 'Not show'
+        }
+    }
+
+    loginUser = async ({ email, password }) => {
+        try {
+            const userExisting = await User.findOne({ email }).exec();
+            if (!userExisting) {
+                throw new Error('User not exist.');
+            }
+
+            const isMatch = await bcrypt.compare(password, userExisting.password);
+            if (!isMatch) {
+                throw new Error("Wrong email and password");
+            }
+
+            if (!userExisting.isActive) {
+                throw new Error("User is not active");
+            }
+
+            const accessToken = jwt.sign(
                 {
-                    data: existingUser,
+                    name: userExisting.name,
+                    email: userExisting.email
                 },
                 process.env.SECRET_JWT_KEY,
                 {
-                    expiresIn: '2 days',
+                    expiresIn: "1h"
                 }
             );
 
-            res.status(200).json({
-                ...existingUser.toObject(),
-                password: 'Not show',
-                token: token,
-            });
-        } else {
-            res.status(400).json({
-                message: 'Wrong email and password',
-            });
+            return {
+                ...userExisting.toObject(),
+                password: undefined,
+                token: accessToken
+            };
+        } catch (error) {
+            throw new Error(error.message);
         }
-    } else {
-        res.status(400).json({
-            message: 'User not exist',
-        });
-    }
-};
-const logout = async (req, res) => {
-    res.clearCookie('accessToken');
-    res.status(200).json('Logout successful');
-};
-const refreshAccessToken = async (req, res) => {
-    const { id } = req.body;
-    const findUser = await User.findById(id);
-    if (!findUser) {
-        return res.status(404).json('Not found User');
     }
 
-    const getRefreshTokenInDB = findUser.refreshToken;
 
-    try {
-        jwt.verify(getRefreshTokenInDB, REFRESH_KEY);
-
-        const newAccessToken = await this.genAccessToken(findUser);
-        const newRefreshToken = await this.genRefreshToken(findUser);
-
-        res.cookie('accessToken', newAccessToken, {
-            httpOnly: true,
-            secure: false,
-            path: '/',
-            sameSite: 'strict',
-        });
-
-        await User.findByIdAndUpdate(
-            { _id: findUser.id },
-            { refreshToken: newRefreshToken }
-        );
-
-        res.status(200).json({ accessToken: newAccessToken });
-    } catch (error) {
-        res.status(403).json('Invalid refreshToken');
+    async genAccessToken(user) {
+        return jwt.sign({ id: user._id, role: user.role }, process.env.SECRET_JWT_KEY, { expiresIn: '3h' });
     }
-};
 
-export default {
-    register,
-    login,
-    logout,
-    refreshAccessToken,
-};
+    async genRefreshToken(user) {
+        return jwt.sign({ id: user._id, role: user.role }, process.env.SECRET_KEY, { expiresIn: '365d' });
+    }
+
+    async refreshAccessToken(req, res) {
+        const { id } = req.body;
+        const findUser = await User.findById(id);
+        if (!findUser) {
+            return res.status(404).json("Not found User");
+        }
+        const getRefreshTokenInDB = findUser.refreshToken;
+
+        try {
+            jwt.verify(getRefreshTokenInDB, process.env.SECRET_KEY);
+            const newAccessToken = await this.genAccessToken(findUser);
+            const newRefreshToken = await this.genRefreshToken(findUser);
+
+            res.cookie("accessToken", newAccessToken, {
+                httpOnly: true,
+                secure: false,
+                path: "/",
+                sameSite: "strict",
+            });
+
+            await User.findByIdAndUpdate({ _id: findUser.id }, { refreshToken: newRefreshToken });
+
+            res.status(200).json({ accessToken: newAccessToken });
+        } catch (error) {
+            res.status(403).json("Invalid refreshToken");
+        }
+    }
+
+    async logoutUser(req, res) {
+        res.clearCookie("accessToken");
+        res.status(200).json("Logout successful");
+    }
+}
+
+export default new AuthService();
