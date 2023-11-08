@@ -7,35 +7,6 @@ const userRouter = express.Router();
 
 userRouter.get('/', userController.getAllUsers);
 
-userRouter.get('/:id', (req, res) => {
-    res.send('Get user by Id');
-});
-
-userRouter.put('/edit', (req, res) => {
-    res.send('Edit user');
-});
-
-userRouter.delete('/delete/:id', (req, res) => {
-    res.send('Delete user');
-});
-
-userRouter.post(
-    '/login',
-    body('email').isEmail().withMessage('Email invalid format!'),
-    body('password').isLength({ min: 5 }),
-    userController.login
-);
-
-userRouter.post(
-    '/register',
-    // debugger
-    body('email').isEmail().withMessage('Email invalid format!'),
-    body('password')
-        .isLength({ min: 8 })
-        .withMessage(
-            'Password length must be greater than or equal to 8.'
-        ),
-    userController.register
-);
+userRouter.delete('/:id', userController.deleteOne);
 
 export default userRouter;

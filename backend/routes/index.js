@@ -6,10 +6,12 @@ import { Router } from 'express';
 import lotteryRouter from './lottery.js';
 import forecastRoutes from './forecast.js';
 import specialRouter from './special.js';
+import authRouter from './auth.js';
 
 const routes = new Router();
 
 routes.use('/users', userRouter);
+routes.use('/auth', authRouter);
 routes.use('/sparses', spareRouter);
 routes.use('/crawl', crawlDataRouter);
 routes.use('/results', resultRouter);

@@ -4,6 +4,7 @@ import crawlController from './crawl.js';
 import resultController from './result.js';
 import lotteryController from './lottery.js';
 import specialController from './special.js';
+import authController from './auth.js';
 import * as forecastController from './forecastController.js';
 
 export {
@@ -13,5 +14,6 @@ export {
     resultController,
     lotteryController,
     forecastController,
-    specialController
+    specialController,
+    authController
 };
