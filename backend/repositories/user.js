@@ -75,8 +75,20 @@ const getAllUser = async () => {
         throw error;
     }
 };
+
+const updateOne = async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, { ...req.body });
+        const updatedUserData = await User.findById(req.params.id);
+
+        return res.status(200).json({ "message": "Update successfully", "data": { ...updatedUserData._doc, password: "not show" } });
+    } catch (error) {
+        return res.status(500).json({ "error": error.message });
+    }
+}
 export default {
     register,
     login,
-    getAllUser
+    getAllUser,
+    updateOne
 };

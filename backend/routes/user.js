@@ -18,4 +18,5 @@ userRouter.delete('/delete/:id', (req, res) => {
     res.send('Delete user');
 });
 
+userRouter.put('/:id',userController.updateOne)
 export default userRouter;

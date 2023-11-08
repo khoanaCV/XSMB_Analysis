@@ -15,6 +15,12 @@ const getAllUsers = async (req, res) => {
     }
 };
 
+
+const updateOne = async (req, res) => {
+    const user = await userRepository.updateOne(req, res);
+}
+
+
 export default {
-    getAllUsers,
+    getAllUsers, updateOne
 };
