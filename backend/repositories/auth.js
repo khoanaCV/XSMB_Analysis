@@ -19,6 +19,7 @@ const register = async (req, res) => {
     );
     // Create new user
     const newUser = await User.create({
+        isActive: true,
         name,
         email,
         password: hashPassword,

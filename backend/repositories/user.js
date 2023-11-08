@@ -21,6 +21,7 @@ const register = async ({
     );
     // Goi User model de thao tac du lieu
     const newUser = await User.create({
+        isActive: true,
         name,
         email,
         password: hashPassword,
@@ -75,8 +76,20 @@ const getAllUser = async () => {
         throw error;
     }
 };
+
+const updateUserById = async (userId, updateData) => {
+    try {
+        const user = await User.findByIdAndUpdate(userId, updateData, { new: true });
+        return user;
+    } catch (error) {
+        // Handle the error properly
+        throw error;
+    }
+};
+
 export default {
     register,
     login,
-    getAllUser
+    getAllUser,
+    updateUserById
 };
