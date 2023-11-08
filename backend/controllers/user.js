@@ -1,26 +1,34 @@
-import { validationResult } from 'express-validator';
 import { userRepository } from '../repositories/index.js';
 
-const getAllUsers = async (req, res, next) => {
+const getAllUsers = async (req, res) => {
     try {
-        const user = await userRepository.getAllUser();
-        return res.status(200).json(user);
+        const users = await userRepository.getAllUser();
+        res.status(200).json({
+            message: 'Success',
+            data: users,
+        });
     } catch (error) {
-        return res.status(500).json(error)
+        console.log('Error', error.message);
+        res.status(500).json({
+            error: error.message,
+        });
     }
-}
-const deleteOne = async () => {
-    try {
-        const user = await userRepository.deleteOne(req, res);
-        if (user) {
-            return res.status(200).json("Delete Successfully!");
-        }
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-}
+};
 
+const updateUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const updateData = req.body;
+        const user = await userRepository.updateUserById(userId, updateData);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 export default {
     getAllUsers,
-    deleteOne,
+    updateUser
 };

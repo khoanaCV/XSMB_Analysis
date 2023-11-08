@@ -47,11 +47,7 @@ const User = mongoose.model(
             default: 'user',
         },
         lotteries: [{ type: Schema.Types.ObjectId, ref: 'Lottery' }],
-        refreshToken: {
-            type: String,
-        }
-    }, { timestamps: true }
-    ));
-
+    })
+);
 
 export default User;

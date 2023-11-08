@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Table } from "react-bootstrap";
+import SparsesService from "../../services/sparses.js";
 
 const Doctor = () => {
   const [countSparseArray, setCountSparseArray] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:9999/sparses/last_appearing_loto")
-      .then((response) => {
-        const data = Object.entries(response.data?.data);
-        // Sắp xếp mảng theo thứ tự ngày lớn nhất
-        data.sort((a, b) => b[1].count - a[1].count);
-        setCountSparseArray(data.slice(0, 20)); // Lấy 20 số đầu tiên
-      })
-      .catch((error) => {
-        console.error("Error fetching special prizes data: ", error);
-      });
+    getDataCountSparseArray();
   }, []);
-  console.log(countSparseArray);
+
+  const getDataCountSparseArray = async () => {
+    const data = await SparsesService.lastAppearingLoto();
+    setCountSparseArray(data);
+  };
   return (
     <section className="doctor-wrapper">
       <h1 className="my-5">Lô tô lâu chưa ra</h1>
@@ -42,7 +36,7 @@ const Doctor = () => {
                           <td>{specialPrize[0]}</td>
                           <td>{specialPrize[1].count} ngày</td>
                         </tr>
-                      )
+                      );
                     }
                     return <></>;
                   })}
