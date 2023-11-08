@@ -11,7 +11,7 @@ import Service from './Pages/Services/Service/Service.jsx';
 import Register from './Pages/Register/Register';
 import ChangePasword from './Pages/ChangePassword/ChangePassword';
 import ResetPassword from './Pages/ResetPassword/ResetPassword';
-import UserDetails from './Pages/UserDetails/UserDetails';
+import UserDetails from './Pages/UserDetails/UserDetails.jsx';
 import UserList from './Pages/UserList/UserList';
 import BoardAdmin from './Pages/board-admin.component'
 import BoardUser from './Pages/board-user.component'
@@ -22,6 +22,7 @@ import TopNumber from './Pages/TopNumber/TopNumber';
 import PlayNumber from './Pages/PlayNumber/PlayNumber';
 import Forecast from './Pages/Home/Forecast/Forecast.jsx';
 import Gan from './Pages/Gan/Gan';
+import UserProfile from './Pages/UserDetails/UserProfile.jsx';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path='/mod' element={<ManageBoard />} />
           <Route path='/changepasword' element={<ChangePasword />} />
           <Route path='/list-users' element={<UserList />} />
+          <Route path='/userProfile' element={<UserProfile />} />
           <Route path='/user/profile:id' element={<UserDetails />} />
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/user" element={<BoardUser />} />

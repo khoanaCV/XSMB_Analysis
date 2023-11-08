@@ -165,6 +165,7 @@ const Gan = () => {
     };
     return (
         <section className="gan-wrapper my-8">
+
             <h1>Thống kê chu kỳ gan</h1>
             <div className='mb-4'>Đây là công cụ giúp bạn tính các khoảng thời gian không xuất hiện (khoảng gan)
                 của một cặp số. Để sử dụng, bạn hãy nhập cặp số cần kiểm tra và chọn khoảng thời gian
