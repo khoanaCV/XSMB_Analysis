@@ -1,6 +1,7 @@
 import express from 'express';
 import { authController } from '../controllers/index.js';
 import { check } from 'express-validator';
+import authorization from '../auth/authorization.js';
 
 const authRouter = express.Router();
 
@@ -31,7 +32,15 @@ authRouter.post(
     ],
     authController.login
 );
-authRouter.post('/refresh', authController.refreshToken);
-authRouter.post('/logout', authController.logout);
+authRouter.post(
+    '/refresh',
+    authorization.verifyToken,
+    authController.refreshToken
+);
+authRouter.post(
+    '/logout',
+    authorization.verifyToken,
+    authController.logout
+);
 
 export default authRouter;
