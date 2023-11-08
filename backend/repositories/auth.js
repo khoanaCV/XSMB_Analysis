@@ -107,7 +107,6 @@ class AuthService {
 
     async logoutUser(req, res) {
         res.clearCookie("accessToken");
-        res.status(200).json("Logout successful");
     }
 }
 

@@ -22,8 +22,12 @@ const refreshToken = asyncHandler(async (req, res) => {
 
 
 const logoutUser = asyncHandler(async (req, res) => {
-    await AuthService.logoutUser(req, res);
-    res.status(200).json({ message: 'Logout successful' });
+    try {
+        await AuthService.logoutUser(req, res);
+        res.status(200).json({ message: 'Logout successful' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 export default {
