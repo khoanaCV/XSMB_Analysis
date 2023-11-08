@@ -4,67 +4,77 @@ import jwt from 'jsonwebtoken';
 
 
 class AuthService {
-    async registerUser(req, res, next) {
-        const { email, password, username } = req.body;
-        try {
-            // const salt = await bcrypt.genSalt(10);
-            // const hashed = await bcrypt.hash(password, salt);
-            // const newUser = new User({ name: username, email, password: hashed });
-            // const result = await newUser.save();
-            res.json(req.body);
-        } catch (error) {
-            next(error);
+    registerUser = async ({
+        name,
+        email,
+        password,
+    }) => {
+        const userExisting = await User.findOne({ email }).exec()
+        if (userExisting != null) {
+            throw new Error("User existing.")
+        }
+
+        // Mã hóa mật khẩu
+        const hashPassword = await bcrypt.hash(password, parseInt(process.env.SECRET_KEY))
+
+        const newUser = await User.create({
+            isActive: true,
+            name,
+            email,
+            password: hashPassword,
+        })
+
+        // Clone a new user
+        return {
+            ...newUser._doc,
+            password: 'Not show'
         }
     }
 
-    async loginUser(req, res, next) {
-        const { email, password } = req.body;
+    loginUser = async ({ email, password }) => {
         try {
-            const loginUser = await User.findOne({ email }).exec();
-
-            if (!loginUser) {
-                return res.status(404).json({ error: 'User not found' });
+            const userExisting = await User.findOne({ email }).exec();
+            if (!userExisting) {
+                throw new Error('User not exist.');
             }
 
-            const passwordIsValid = await bcrypt.compare(password, loginUser.password);
-            if (!passwordIsValid) {
-                return res.status(401).json({ error: 'Password invalid' });
+            const isMatch = await bcrypt.compare(password, userExisting.password);
+            if (!isMatch) {
+                throw new Error("Wrong email and password");
             }
 
-            if (!loginUser.isActive) {
-                return res.status(401).json({ error: "User is not active" });
+            if (!userExisting.isActive) {
+                throw new Error("User is not active");
             }
 
-            const jwtSecret = process.env.SECRET_JWT_KEY;
-            const token = jwt.sign({
-                id: loginUser.id,
-                name: loginUser.name,
-                email: loginUser.email,
-                isActive: loginUser.isActive,
-                role: loginUser.role
-            }, jwtSecret, {
-                algorithm: 'HS256',
-                expiresIn: 86400
-            });
+            const accessToken = jwt.sign(
+                {
+                    name: userExisting.name,
+                    email: userExisting.email
+                },
+                process.env.SECRET_JWT_KEY,
+                {
+                    expiresIn: "1h"
+                }
+            );
 
-            res.json({
-                id: loginUser.id,
-                name: loginUser.name,
-                email: loginUser.email,
-                role: loginUser.role,
-                accessToken: token
-            });
+            return {
+                ...userExisting.toObject(),
+                password: undefined,
+                token: accessToken
+            };
         } catch (error) {
-            next(error);
+            throw new Error(error.message);
         }
     }
+
 
     async genAccessToken(user) {
-        return jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_JWT_KEY, { expiresIn: '3h' });
+        return jwt.sign({ id: user._id, role: user.role }, process.env.SECRET_JWT_KEY, { expiresIn: '3h' });
     }
 
     async genRefreshToken(user) {
-        return jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, { expiresIn: '365d' });
+        return jwt.sign({ id: user._id, role: user.role }, process.env.SECRET_KEY, { expiresIn: '365d' });
     }
 
     async refreshAccessToken(req, res) {
@@ -73,7 +83,6 @@ class AuthService {
         if (!findUser) {
             return res.status(404).json("Not found User");
         }
-
         const getRefreshTokenInDB = findUser.refreshToken;
 
         try {

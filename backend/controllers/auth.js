@@ -12,12 +12,17 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const refreshToken = asyncHandler(async (req, res) => {
-    const tokenData = await AuthService.refreshAccessToken(req.body);
-    res.status(200).json(tokenData);
+    try {
+        const tokenData = await AuthService.refreshAccessToken(req.body);
+        res.status(200).json(tokenData);
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message || 'An unexpected error occurred' });
+    }
 });
 
+
 const logoutUser = asyncHandler(async (req, res) => {
-    await AuthService.logoutUser();
+    await AuthService.logoutUser(req, res);
     res.status(200).json({ message: 'Logout successful' });
 });
 

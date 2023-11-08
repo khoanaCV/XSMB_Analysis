@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator';
 import { userRepository } from '../repositories/index.js';
 
-const getAllUsers = async () => {
+const getAllUsers = async (req, res, next) => {
     try {
         const user = await userRepository.getAllUser();
         return res.status(200).json(user);
