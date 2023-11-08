@@ -26,9 +26,9 @@ class Header extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MANAGER"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
-        showUserBoard: user.roles.includes("ROLE_USER"),
+        showModeratorBoard: user?.role === "manager",
+        showAdminBoard: user?.roles === "admin",
+        showUserBoard: user?.roles === "user",
       });
     }
   }
@@ -114,22 +114,11 @@ class Header extends Component {
                 {currentUser ? (
                   <div className="navbar-nav ml-auto">
                     <li className="nav-item">
-                      <div className="list-item text-decoration-none">
-                        <img
-                          src={userService.getUserPfpLink(currentUser.id)}
-                          alt="Profile"
-                          className="rounded-circle mr-3"
-                          width="30"
-                          height="30"
-                        />
-                      </div>
-                    </li>
-                    <li className="nav-item">
                       <Link
                         to={"/profile"}
                         className="list-item text-decoration-none"
                       >
-                        {currentUser.username}
+                        Profile
                       </Link>
                     </li>
                     <li className="nav-item">

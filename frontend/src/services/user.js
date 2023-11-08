@@ -1,6 +1,6 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-const { URL_SERVER } = process.env;
+const { REACT_APP_URL_SERVER } = process.env;
 
 function formatDate(date) {
   const d = new Date(date);
@@ -12,44 +12,46 @@ function formatDate(date) {
 
 class UserService {
   getPublicContent() {
-    return axios.get(URL_SERVER + "/all");
+    return axios.get(REACT_APP_URL_SERVER + "/all");
   }
 
   getUserBoard() {
-    return axios.get(URL_SERVER + "/user", { headers: authHeader() });
+    return axios.get(REACT_APP_URL_SERVER + "/user", { headers: authHeader() });
   }
 
   getModeratorBoard() {
-    return axios.get(URL_SERVER + "/api/mod/children", {
+    return axios.get(REACT_APP_URL_SERVER + "/api/mod/children", {
       headers: authHeader(),
     });
   }
 
   getUnassignedChildMod() {
-    return axios.get(URL_SERVER + "/api/mod/unassignedChild", {
+    return axios.get(REACT_APP_URL_SERVER + "/api/mod/unassignedChild", {
       headers: authHeader(),
     });
   }
 
   getAllClassesMod() {
-    return axios.get(API_URL + "/api/mod/classes", { headers: authHeader() });
+    return axios.get(REACT_APP_URL_SERVER + "/api/mod/classes", {
+      headers: authHeader(),
+    });
   }
 
   getAllBooking() {
-    return axios.get(API_URL + "api/mod/booking/all", {
+    return axios.get(REACT_APP_URL_SERVER + "api/mod/booking/all", {
       headers: authHeader(),
     });
   }
 
   getAllBookingByUser(id) {
-    return axios.get(API_URL + "account/booked?id=" + id, {
+    return axios.get(REACT_APP_URL_SERVER + "account/booked?id=" + id, {
       headers: authHeader(),
     });
   }
 
   postAssignClass(childId, classId) {
     return axios.post(
-      API_URL + "api/mod/assignChild",
+      REACT_APP_URL_SERVER + "api/mod/assignChild",
       { childId, classId },
       { headers: authHeader() }
     );
@@ -57,7 +59,7 @@ class UserService {
 
   postApproveBooking(bookingId) {
     return axios
-      .post(API_URL + "api/mod/booking/approve", bookingId, {
+      .post(REACT_APP_URL_SERVER + "api/mod/booking/approve", bookingId, {
         headers: authHeader(),
       })
       .then((response) => {
@@ -70,7 +72,7 @@ class UserService {
 
   postDeniedBooking(bookingId) {
     return axios
-      .post(API_URL + "api/mod/booking/deny", bookingId, {
+      .post(REACT_APP_URL_SERVER + "api/mod/booking/deny", bookingId, {
         headers: authHeader(),
       })
       .then((response) => {
@@ -82,50 +84,56 @@ class UserService {
   }
 
   getAdminBoard() {
-    return axios.get(API_URL + "admin", { headers: authHeader() });
+    return axios.get(REACT_APP_URL_SERVER + "admin", { headers: authHeader() });
   }
 
   getAllChildrenOfUser() {
-    return axios.get(API_URL + "account/current-user-children", {
+    return axios.get(REACT_APP_URL_SERVER + "account/current-user-children", {
       headers: authHeader(),
     });
   }
 
   getClassDetails(id) {
-    return axios.get(API_URL + "api/mod/class?id=" + id, {
+    return axios.get(REACT_APP_URL_SERVER + "api/mod/class?id=" + id, {
       headers: authHeader(),
     });
   }
 
   getChildrenFromClass(id) {
-    return axios.get(API_URL + "api/mod/class/children?id=" + id, {
+    return axios.get(REACT_APP_URL_SERVER + "api/mod/class/children?id=" + id, {
       headers: authHeader(),
     });
   }
 
   deleteClass(id) {
-    return axios.delete(API_URL + "api/mod/class/delete?id=" + id, {
-      headers: authHeader(),
-    });
+    return axios.delete(
+      REACT_APP_URL_SERVER + "api/mod/class/delete?id=" + id,
+      {
+        headers: authHeader(),
+      }
+    );
   }
 
   getChildInfo(id) {
-    return axios.get(API_URL + "account/users/child?id=" + id, {
+    return axios.get(REACT_APP_URL_SERVER + "account/users/child?id=" + id, {
       headers: authHeader(),
     });
   }
 
   getClassFromChild(id) {
-    return axios.get(API_URL + "account/getClassFromChild?id=" + id, {
-      headers: authHeader(),
-    });
+    return axios.get(
+      REACT_APP_URL_SERVER + "account/getClassFromChild?id=" + id,
+      {
+        headers: authHeader(),
+      }
+    );
   }
 
   submitChildren(firstName, lastName, dob, gender, interest, needs, note) {
     dob = formatDate(dob);
 
     return axios.post(
-      API_URL + "account/submit_children",
+      REACT_APP_URL_SERVER + "account/submit_children",
       {
         firstName,
         lastName,
@@ -140,82 +148,95 @@ class UserService {
   }
 
   getAllService() {
-    return axios.get(API_URL + "api/service/all", { headers: authHeader() });
+    return axios.get(REACT_APP_URL_SERVER + "api/service/all", {
+      headers: authHeader(),
+    });
   }
 
   getServiceDetail(id) {
-    return axios.get(API_URL + "api/service/service?id=" + id, {
+    return axios.get(REACT_APP_URL_SERVER + "api/service/service?id=" + id, {
       headers: authHeader(),
     });
   }
 
   postSubmitService(id, childId, isPaid) {
     return axios.post(
-      API_URL + "account/booknow",
+      REACT_APP_URL_SERVER + "account/booknow",
       { id, childId, isPaid },
       { headers: authHeader() }
     );
   }
 
   postEditService(formData, id) {
-    return axios.put(API_URL + `api/service/edit/${id}`, formData, {
-      headers: authHeader(),
-    });
+    return axios.put(
+      REACT_APP_URL_SERVER + `api/service/edit/${id}`,
+      formData,
+      {
+        headers: authHeader(),
+      }
+    );
   }
 
   postCreatePost(formData) {
-    return axios.post(API_URL + "api/post/create", formData, {
+    return axios.post(REACT_APP_URL_SERVER + "api/post/create", formData, {
       headers: authHeader(),
     });
   }
 
   getPostDetails(id) {
-    return axios.get(API_URL + "api/post?id=" + id, { headers: authHeader() });
+    return axios.get(REACT_APP_URL_SERVER + "api/post?id=" + id, {
+      headers: authHeader(),
+    });
   }
 
   getPostImage(id) {
-    return axios.get(API_URL + "api/post/image?id=" + id, {
+    return axios.get(REACT_APP_URL_SERVER + "api/post/image?id=" + id, {
       headers: authHeader(),
     });
   }
 
   getAllPost(page, size) {
-    return axios.get(API_URL + `api/post/all?page=${page}&size=${size}`, {
+    return axios.get(
+      REACT_APP_URL_SERVER + `api/post/all?page=${page}&size=${size}`,
+      {
+        headers: authHeader(),
+      }
+    );
+  }
+
+  getUserInfo() {
+    return axios.get(REACT_APP_URL_SERVER + "account/detail", {
       headers: authHeader(),
     });
   }
 
-  getUserInfo() {
-    return axios.get(API_URL + "account/detail", { headers: authHeader() });
-  }
-
   updateUserInfo(formData) {
-    return axios.put(API_URL + "account/update", formData, {
+    return axios.put(REACT_APP_URL_SERVER + "account/update", formData, {
       headers: authHeader(),
     });
   }
 
   getUserPfp(id) {
-    return axios.get(API_URL + "account/image?id=" + id, {
+    return axios.get(REACT_APP_URL_SERVER + "account/image?id=" + id, {
       headers: authHeader(),
     });
   }
 
   getImagePostLink(id) {
-    return API_URL + "api/post/image?id=" + id;
+    return REACT_APP_URL_SERVER + "api/post/image?id=" + id;
   }
   getUserPfpLink(id) {
-    return API_URL + "account/image?id=" + id;
+    return REACT_APP_URL_SERVER + "account/image?id=" + id;
   }
 
   deletePost(id) {
-    return axios.delete(API_URL + "api/post/delete?id=" + id, {
+    return axios.delete(REACT_APP_URL_SERVER + "api/post/delete?id=" + id, {
       headers: authHeader(),
     });
   }
 
   postDeleteService(id) {
-    return axios.post(API_URL + "api/mod/delete?id=" + id, {
+    return axios.post(REACT_APP_URL_SERVER + "api/mod/delete?id=" + id, {
       headers: authHeader(),
     });
   }

@@ -1,23 +1,17 @@
 import axios from "axios";
 
-const { URL_SERVER } = process.env;
-const url = URL_SERVER + "/auth";
+const { REACT_APP_URL_SERVER } = process.env;
+const url = REACT_APP_URL_SERVER + "/auth";
 class AuthService {
-  login(email, password) {
-    return axios
-      .post(
-        url + "/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
+  async login(email, password) {
+    return await axios
+      .post(url + "/login", {
+        email,
+        password,
+      })
       .then((response) => {
-        if (response.data.accessToken) {
-          //TODO accesstoken barasse
+        if (response.data.token) {
+          console.log(response.data);
           localStorage.setItem("user", JSON.stringify(response.data));
         }
 
@@ -25,16 +19,16 @@ class AuthService {
       });
   }
 
-  forgotPassword(email) {
-    return axios.post(url + "/forgot_password", email, {
+  async forgotPassword(email) {
+    return await axios.post(url + "/forgot_password", email, {
       headers: {
         "Content-Type": "text/plain",
       },
     });
   }
 
-  resetPassword(token, password) {
-    return axios.post(url + "/reset-password", {
+  async resetPassword(token, password) {
+    return await axios.post(url + "/reset-password", {
       token,
       password,
     });
@@ -46,28 +40,10 @@ class AuthService {
   }
 
   async register(name, email, password) {
-    return await axios.post(
-      `${url}/register`,
-      {
-        name: name,
-        email: email,
-        password: password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-  }
-
-  async editUser(firstName, lastName, username, phone, email, address) {
-    //! Khoong thayas code
-    return await axios.post(URL_SERVER + "edit_user", {
-      firstName,
-      lastName,
-      username,
-      phone,
-      email,
-      address,
+    return await axios.post(`${url}/register`, {
+      name: name,
+      email: email,
+      password: password,
     });
   }
 

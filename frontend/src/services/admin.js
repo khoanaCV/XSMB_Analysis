@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-const { URL_SERVER } = process.env;
-const url = URL_SERVER + "/admin";
+const { REACT_APP_URL_SERVER } = process.env;
+const url = REACT_APP_URL_SERVER + "/admin";
 
 class AdminService {
   getUserList() {

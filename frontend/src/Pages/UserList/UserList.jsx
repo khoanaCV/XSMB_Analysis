@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import adminServices from "../../services/admin.services";
+import adminServices from "../../services/admin";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -118,7 +118,10 @@ const UserList = () => {
                               .catch((error) => console.log(error));
                           }}
                         >
-                        <a href="/userList">  <i className="fa fa-trash"></i></a>
+                          <a href="/userList">
+                            {" "}
+                            <i className="fa fa-trash"></i>
+                          </a>
                         </button>
                         <button
                           type="button"

@@ -8,65 +8,30 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    phone: "",
+    name: "",
     email: "",
-    address: "",
     password: "",
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
-
-  const {
-    firstName,
-    lastName,
-    username,
-    phone,
-    email,
-    password,
-    confirmPassword,
-    address,
-  } = formData;
+  const { email, password, confirmPassword, name } = formData;
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [message, setMessage] = useState();
-  const [successful, setSuccessful] = useState(false);
-  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform form submission logic here
-
     console.log("handle submit here");
-    AuthService.register(
-      firstName,
-      lastName,
-      username,
-      phone,
-      email,
-      password,
-      address
-    ).then(
+    AuthService.register(name, email, password).then(
       (response) => {
-        toast.success("Regiter successfully!");
-        setMessage(response.data.message);
-        setSuccessful(true);
+        toast.success("Register successfully!");
         navigate("/login");
       },
       (error) => {
-        toast.error("Update user info failed!");
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        setMessage(resMessage);
-        setSuccessful(false);
+        toast.error("Register failed!");
       }
     );
   };
@@ -75,28 +40,10 @@ const Register = () => {
     const validateForm = () => {
       let errors = {};
 
-      if (!firstName) {
-        errors.firstName = "";
-      } else if (!/^[a-zA-Z0-9]+$/.test(firstName)) {
-        errors.firstName = "Firstname can not contain special character.";
-      }
-
-      if (!lastName) {
-        errors.lastName = "";
-      } else if (!/^[a-zA-Z0-9]+$/.test(lastName)) {
-        errors.lastName = "Lastname can not contain special character.";
-      }
-
-      if (!username) {
-        errors.username = "";
-      } else if (!/^[a-zA-Z0-9]+$/.test(username)) {
-        errors.username = "Username can not contain special character.";
-      }
-
-      if (!phone) {
-        errors.phone = "";
-      } else if (!/^[0-9]+$/.test(phone)) {
-        errors.phone = "Phone number must only contain digits";
+      if (!name) {
+        errors.name = "";
+      } else if (name.length < 3) {
+        errors.name = "Name must be at least 3 characters.";
       }
 
       if (!email) {
@@ -107,20 +54,14 @@ const Register = () => {
 
       if (!password) {
         errors.password = "";
-      } else if (password.length < 6) {
-        errors.password = "Password must be at least 6 characters";
+      } else if (password.length < 8) {
+        errors.password = "Password must be at least 8 characters.";
       }
 
       if (!confirmPassword) {
         errors.confirmPassword = "";
       } else if (password !== confirmPassword) {
         errors.confirmPassword = "Passwords do not match";
-      }
-
-      if (!address) {
-        errors.address = "";
-      } else if (!/^[a-zA-Z0-9\s]+$/.test(address)) {
-        errors.address = "Address can not contain special character.";
       }
 
       setErrors(errors);
@@ -138,109 +79,29 @@ const Register = () => {
             <div className="card shadow-2-strong card-registration">
               <div className="card-body p-4 p-md-5">
                 <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
-                  Registration Form
+                  Register Form
                 </h3>
                 <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-md-12 mb-4">
                       <div className="form-outline">
-                        {errors.firstName && (
-                          <span style={{ color: "red" }}>
-                            {errors.firstName}
-                          </span>
+                        {errors.name && (
+                          <span style={{ color: "red" }}>{errors.name}</span>
                         )}
                         <input
-                          name="firstName"
-                          value={firstName}
+                          name="name"
+                          value={name}
                           onChange={handleChange}
-                          placeholder="First Name"
+                          placeholder="Name"
                           type="text"
-                          id="firstName"
+                          id="name"
                           className="form-control form-control-lg"
                           required
                         />
                       </div>
                     </div>
 
-                    <div className="col-md-12 mb-4">
-                      <div className="form-outline">
-                        {errors.lastName && (
-                          <span style={{ color: "red" }}>
-                            {errors.lastName}
-                          </span>
-                        )}
-                        <input
-                          name="lastName"
-                          value={lastName}
-                          onChange={handleChange}
-                          placeholder="Last Name"
-                          type="text"
-                          id="lastName"
-                          className="form-control form-control-lg"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-md-12 mt-4 mb-4">
-                      <div className="form-outline">
-                        {errors.username && (
-                          <span style={{ color: "red" }}>
-                            {errors.username}
-                          </span>
-                        )}
-                        <input
-                          name="username"
-                          value={username}
-                          onChange={handleChange}
-                          placeholder="Username"
-                          type="text"
-                          id="username"
-                          className="form-control form-control-lg"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12 mb-4">
-                      <h6 className="mb-2 pb-1">Gender: </h6>
-                      <div className="form-check form-check-inline">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="gender"
-                          id="femaleGender"
-                          value="female"
-                          defaultChecked
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="femaleGender"
-                        >
-                          Female
-                        </label>
-                      </div>
-                      <div className="form-check form-check-inline">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="gender"
-                          id="maleGender"
-                          value="male"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="maleGender"
-                        >
-                          Male
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="col-md-6 mb-4 pb-2">
+                    <div className="col-md-12 mb-4 pb-2">
                       <div className="form-outline">
                         {errors.email && (
                           <span style={{ color: "red" }}>{errors.email}</span>
@@ -251,46 +112,11 @@ const Register = () => {
                           value={email}
                           onChange={handleChange}
                           type="email"
-                          id="emailAddress"
+                          id="email"
                           className="form-control form-control-lg"
                           required
                         />
                       </div>
-                    </div>
-                    <div className="col-md-6 mb-4 pb-2">
-                      <div className="form-outline">
-                        {errors.phone && (
-                          <span style={{ color: "red" }}>{errors.phone}</span>
-                        )}
-                        <input
-                          placeholder="Phone Number"
-                          name="phone"
-                          value={phone}
-                          onChange={handleChange}
-                          type="tel"
-                          id="phoneNumber"
-                          className="form-control form-control-lg"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-12 mb-4">
-                    <div className="form-outline">
-                      {errors.address && (
-                        <span style={{ color: "red" }}>{errors.address}</span>
-                      )}
-                      <input
-                        name="address"
-                        value={address}
-                        onChange={handleChange}
-                        placeholder="Address"
-                        type="text"
-                        id="address"
-                        className="form-control form-control-lg"
-                        required
-                      />
                     </div>
                   </div>
 

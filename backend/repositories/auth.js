@@ -39,11 +39,11 @@ const login = async (req, res) => {
             // Gen Access Token (JWT)
             const token = jwt.sign(
                 {
-                    data: existingUser,
+                    existingUser,
                 },
                 process.env.SECRET_JWT_KEY,
                 {
-                    expiresIn: '2 days',
+                    expiresIn: '3h',
                 }
             );
 

@@ -1,14 +1,15 @@
 import asyncHandler from '../utils/async-handler.js';
 import jwt from 'jsonwebtoken';
 // eslint-disable-next-line no-undef
-const { ACCESS_KEY } = process.env;
+const { SECRET_JWT_KEY } = process.env;
 
-const verifyToken = async (req, res, next) => {
+const verifyToken = asyncHandler((req, res, next) => {
     const token = req.headers.token;
     if (token) {
         const accessToken = token.split(' ')[1];
         try {
-            const user = jwt.verify(accessToken, ACCESS_KEY);
+            const user = jwt.verify(accessToken, SECRET_JWT_KEY);
+            console.log(user);
             req.user = user;
             next();
         } catch (err) {
@@ -17,7 +18,7 @@ const verifyToken = async (req, res, next) => {
     } else {
         return res.status(401).json('You are not authenticated');
     }
-};
+});
 
 const verifyTokenAdmin = asyncHandler(async (req, res, next) => {
     await verifyToken(req, res, () => {

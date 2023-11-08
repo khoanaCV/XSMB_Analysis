@@ -7,13 +7,11 @@ import "./Banner.css";
 
 const Banner = () => {
   const [isUser, setIsUser] = useState(false);
-  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     const user = authService.getCurrentUser();
     if (user) {
-      setIsUser(user.roles.includes("ROLE_USER"));
-      setCurrentUser(user);
+      setIsUser(user.roles === "user");
     }
   }, []);
 
@@ -45,11 +43,11 @@ const Banner = () => {
               <br></br> <br></br>
               <h2>Kết Quả Xổ Số Miền Bắc</h2>
               <div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
                     <h5>Ngày trong tuần:&nbsp;</h5>
                   </div>
-                  <select class="custom-select" id="inputGroupSelect01">
+                  <select className="custom-select" id="inputGroupSelect01">
                     <option selected>Tất cả</option>
                     <option value="2">Thứ 2</option>
                     <option value="3">Thứ 3</option>
@@ -66,7 +64,7 @@ const Banner = () => {
                   &nbsp;
                   <input type="checkbox"></input>{" "}
                   <h5>&nbsp;Chỉ hiện giải ĐB</h5>
-                  <button type="button" class="btn btn-primary">
+                  <button type="button" className="btn btn-primary">
                     Xem kết quả
                   </button>
                 </div>
@@ -342,7 +340,7 @@ export default Banner;
 //             <h1>XSMB - Kết quả xổ số miền Bắc - SXMB</h1>
 //           </div>
 //           <div className="list-link">
-//             <h2 className="class-title-list-link">
+//             <h2 className="className-title-list-link">
 //               <a href="/xsmb-xo-so-mien-bac.html" title="XSMB" className="u-line">
 //                 XSMB
 //               </a>

@@ -5,15 +5,15 @@ import { Table } from "react-bootstrap";
 const Service = () => {
   const [specialPrizes, setSpecialPrizes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { REACT_APP_URL_SERVER } = process.env;
 
   useEffect(() => {
     axios
-      .get("http://localhost:9999/special/special-long-to-long")
+      .get(REACT_APP_URL_SERVER + "/special/special-long-to-long")
       .then((response) => {
         const data = Object.entries(response.data.data);
-        // Sắp xếp mảng theo thứ tự ngày lớn nhất
         data.sort((a, b) => b[1] - a[1]);
-        setSpecialPrizes(data.slice(0, 20)); // Lấy 20 số đầu tiên
+        setSpecialPrizes(data.slice(0, 20));
         setLoading(false);
       })
       .catch((error) => {

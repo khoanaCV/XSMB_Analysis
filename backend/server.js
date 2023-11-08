@@ -13,9 +13,7 @@ import cors from 'cors';
 const app = express();
 
 app.use(morgan('tiny')); // log the request for debugging
-app.use(
-    cors({ origin: process.env.FONT_END_URL, credentials: true })
-);
+app.use(cors({ credentials: true }));
 
 app.use(express.json());
 // Load .evn file: config file

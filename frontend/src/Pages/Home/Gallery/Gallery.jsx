@@ -7,7 +7,7 @@ const Doctor = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9999/sparses/multi_appearing_loto")
+      .get(process.env.REACT_APP_URL_SERVER + "/sparses/multi_appearing_loto")
       .then((response) => {
         const data = Object.entries(response.data?.data);
         // Sắp xếp mảng theo thứ tự ngày lớn nhất
@@ -42,7 +42,7 @@ const Doctor = () => {
                           <td>{specialPrize[0]}</td>
                           <td>{specialPrize[1].count} Lần</td>
                         </tr>
-                      )
+                      );
                     }
 
                     return <></>;
