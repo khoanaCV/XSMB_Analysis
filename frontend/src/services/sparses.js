@@ -22,4 +22,4 @@ class SparsesService {
   }
 }
 
-export default SparsesService();
+export default new SparsesService();
