@@ -31,6 +31,11 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email }).exec();
     if (existingUser) {
+        if (!existingUser.isActive) {
+            return res.status(403).json({
+                message: 'User is not active',
+            });
+        }
         // Check password user
         const isMatch = await bcrypt.compare(
             password,
