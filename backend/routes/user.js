@@ -10,3 +10,4 @@ userRouter.get('/', userController.getAllUsers);
 userRouter.delete('/:id', userController.deleteOne);
 
 export default userRouter;
+

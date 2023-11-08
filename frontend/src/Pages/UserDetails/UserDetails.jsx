@@ -172,6 +172,7 @@ const UserDetails = () => {
                                     />
                                 </div>
                             </div>
+
                             <br></br>
                             <div className="form-group">
                                 <div className="col-md-12">

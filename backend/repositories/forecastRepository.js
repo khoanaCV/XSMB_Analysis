@@ -4,6 +4,4 @@ function getHistoricalData() {
     return [];
 }
 
-export {
-    getHistoricalData
-};
+export default { getHistoricalData };

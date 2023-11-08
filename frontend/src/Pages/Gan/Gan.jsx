@@ -41,29 +41,29 @@ const Gan = () => {
     //     }
     // };
 
-    // const handleChooseNumber = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setChoosenNumber(value)
-    // }
+    const handleChooseNumber = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setChoosenNumber(value)
+    }
 
-    // const handleStartDate = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setStartDate(value)
-    // }
+    const handleStartDate = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setStartDate(value)
+    }
 
-    // const handleEndDate = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setEndDate(value)
-    // }
+    const handleEndDate = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setEndDate(value)
+    }
 
-    // const handleMin = (event) => {
-    //     event.preventDefault();
-    //     const value = event.target.value
-    //     setMin(value)
-    // }
+    const handleMin = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setMin(value)
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -126,7 +126,7 @@ const Gan = () => {
             },
             title: {
                 display: true,
-                text: 'Liver cycle statistics',
+                text: 'Thống kê chu kỳ Gan',
             },
             tooltip: {
                 callbacks: {
@@ -134,7 +134,7 @@ const Gan = () => {
                         const data = context.dataset.data[context.dataIndex];
                         const time = ganArray[context.dataIndex].time;
                         const newDate = ganArray[context.dataIndex].newDate;
-                        return `Time: ${time} days, New Date: ${newDate}`;
+                        return `Ngày: ${time} Ngày, Ngày ra: ${newDate}`;
                     },
                 },
             },
@@ -145,7 +145,7 @@ const Gan = () => {
         labels,
         datasets: [
             {
-                label: 'Time (day)',
+                label: 'Ngày',
                 data: ganArray?.map((item) => item.time),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -165,7 +165,6 @@ const Gan = () => {
     };
     return (
         <section className="gan-wrapper my-8">
-
             <h1>Thống kê chu kỳ gan</h1>
             <div className='mb-4'>Đây là công cụ giúp bạn tính các khoảng thời gian không xuất hiện (khoảng gan)
                 của một cặp số. Để sử dụng, bạn hãy nhập cặp số cần kiểm tra và chọn khoảng thời gian
@@ -173,23 +172,23 @@ const Gan = () => {
 
             <form className="flex justify-center" onSubmit={handleSubmit}>
                 Cặp số:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" name="choosenNumber"
-                    defaultValue={choosenNumber}
+                    onChange={handleChooseNumber}
                     size="2"
                 />
                 Từ:<input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="date" name="startDate"
-                    defaultValue={startDate}
+                    onChange={handleStartDate}
                     size="10"
                 />
                 Đến:<input className="border-[1px] border-black	ml-1 mr-4 rounded-sm" type="date" name="endDate"
-                    defaultValue={endDate}
+                    onChange={handleEndDate}
                     size="10"
                 />
                 Min: <input className="border-[1px] border-black ml-1 mr-4 rounded-sm" type="text" name="min"
-                    defaultValue={min}
+                    onChange={handleMin}
                     size="2"
                     title="Số ngày gan nhỏ nhất"
                 />
-                <Button size='sm' type="submit">Statistical</Button>
+                <Button size='sm' type="submit">Thống kê</Button>
             </form>
             <div>
                 <HorizontalBarChart />
