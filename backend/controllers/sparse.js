@@ -203,8 +203,6 @@ const countAllSparses = async (req, res) => {
 }
 
 
-
-
 // Dem so lan lo ra trong thang
 const countMonthlySparse = async (req, res) => {
     try {
@@ -359,8 +357,6 @@ const countMonthlySparse = async (req, res) => {
 }
 
 
-
-
 // Dem so ngay gan cua tat ca ca so
 const countAllSparsesGan = async (req, res) => {
     try {
@@ -512,7 +508,6 @@ const countAllSparsesGan = async (req, res) => {
         })
     }
 }
-
 
 // Dem so ngay gan cua tat ca ca so
 const findSparsesGan = async (req, res) => {
