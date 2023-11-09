@@ -86,8 +86,8 @@ class Header extends Component {
                 >
                   Thống Kê Tổng Hợp
                 </Link>
-                <Link to="/posts" className="list-item text-decoration-none">
-                  Cộng Đồng
+                <Link to="/mod" className="list-item text-decoration-none">
+                  Management User
                 </Link>
                 {showModeratorBoard && (
                   <Link to={"/mod"} className="list-item text-decoration-none">
