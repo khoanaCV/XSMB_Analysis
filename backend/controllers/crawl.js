@@ -218,7 +218,7 @@ const getDataOfTime = async (date) => {
                             $(row)
                                 .find('span')
                                 .each((indexCol, col) => {
-                                    const number = $(col).text();
+                                    const number = $(col).text().trim();
                                     numbers[indexRow] = numbers[
                                         indexRow
                                     ]
