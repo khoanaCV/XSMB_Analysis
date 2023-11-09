@@ -543,7 +543,7 @@ const findSparsesGan = async (req, res) => {
                 gan(sortedArray[i][searchNumber], choosenNumber, sortedArray[i].draw_date)
             }
         }
-        ganArray[ganArray.length - 1].newDate = endDateCovert
+        ganArray[ganArray.length - 1].newDate() = endDateCovert
         res.status(200).json({
             message: "Success",
             data: ganArray
