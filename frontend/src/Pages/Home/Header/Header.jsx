@@ -115,7 +115,7 @@ class Header extends Component {
                   <div className="navbar-nav ml-auto">
                     <li className="nav-item">
                       <Link
-                        to={"/profile"}
+                        to={"/user/profile:id"}
                         className="list-item text-decoration-none"
                       >
                         Profile
