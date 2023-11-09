@@ -10,6 +10,7 @@ const getAllUser = async () => {
         throw error;
     }
 };
+
 export default {
     getAllUser,
 };
