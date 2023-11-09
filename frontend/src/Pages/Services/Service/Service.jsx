@@ -99,7 +99,7 @@ const Service = () => {
           size="10"
           onChange={handleDate}
         />
-        Số số muốn xem:{" "}
+        Số lượng con số:{" "}
         <input
           className="border-[1px] border-black ml-1 mr-4 rounded-sm"
           type="text"

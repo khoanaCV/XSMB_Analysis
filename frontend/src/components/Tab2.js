@@ -116,7 +116,7 @@ const Tab2 = () => {
         <div className="col-sm-3">
           <button
             type="submit"
-            onClick={() => navigate("/newclass")}
+            onClick={() => navigate("/mod")}
             className="btn btn-primary mt-3"
           >
             Donate

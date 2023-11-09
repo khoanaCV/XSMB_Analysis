@@ -41,7 +41,7 @@ const ManageBoard = () => {
                         className={`nav-link ${activeTab === 3 ? 'active' : ''}`}
                         onClick={() => setActiveTab(3)}
                     >
-                        
+
                     </a>
                 </li>
             </ul>
