@@ -11,6 +11,21 @@ const getAllUser = async () => {
     }
 };
 
+const updateUserById = async (userId, updateData) => {
+    try {
+        const user = await User.findByIdAndUpdate(
+            userId,
+            updateData,
+            { new: true }
+        );
+        return user;
+    } catch (error) {
+        // Handle the error properly
+        throw error;
+    }
+};
+
 export default {
     getAllUser,
+    updateUserById,
 };
