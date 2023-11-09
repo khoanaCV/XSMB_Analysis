@@ -24,7 +24,7 @@ const Service = () => {
 
   return (
     <section className="service">
-      <h1>Lô Đặc biệt lâu chưa ra</h1>
+      <h1>Đặc biệt lâu chưa ra</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
