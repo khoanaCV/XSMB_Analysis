@@ -31,7 +31,7 @@ const crawlData = async (req, res) => {
         const _date = date.format('DD-MM-YYYY');
         dates.push(_date);
         const data = await getDataOfTime(_date);
-        if (data.length > 0 && data[2][0]?.toString() !== '...') {
+        if (data?.length > 0 && data[2][0]?.toString() !== '...') {
             await resultRepository.create(
                 date,
                 data[1],
