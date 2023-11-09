@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import userService from "../services/user";
+import { faQrcode } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Tab2 = () => {
   const navigate = useNavigate();
@@ -77,21 +79,7 @@ const Tab2 = () => {
     <div className="container">
       <h2>Donate</h2>
       <div className="row mb-3">
-        <div className="col-sm-3">
-          <label htmlFor="ageRangeFilter" className="form-label">
-            Age Range:
-          </label>
-          <select
-            id="ageRangeFilter"
-            className="form-select"
-            value={ageRangeFilter}
-            onChange={handleAgeRangeFilterChange}
-          >
-            <option value="">All</option>
-            <option value="2-4">2-4 years old</option>
-            <option value="4-6">4-6 years old</option>
-          </select>
-        </div>
+       
         <div className="col-sm-3">
           <label htmlFor="serviceFilter" className="form-label">
             Service:
@@ -111,18 +99,32 @@ const Tab2 = () => {
           <label htmlFor="numChildrenFilter" className="form-label">
             Số tiền:
           </label>
-          <input className="text" placeholder="money"></input>
+          <br></br> <input type="text"className="form-control"placeholder="Money"/>
         </div>
+        
         <div className="col-sm-3">
           <button
             type="submit"
             onClick={() => navigate("/mod")}
             className="btn btn-primary mt-3"
           >
-            Donate
+           
           </button>
         </div>
+        
+        <div md={12} lg={12} xl={12}>
+                        <div className="single-contact icon3">
+                            <div className="c-icon">
+                                <FontAwesomeIcon icon={faQrcode} />
+                            </div>
+                            <div className="c-info text-center">
+                                <img src="https://cdn.tgdd.vn/hoi-dap/1309185/ma-qr-code-la-gi-dung-de-lam-gi-cach-tao-ma-qr-nhanh-chong%20(1).jpg" alt="" class="rounded"></img>
+                            </div>
+                        </div>
+                    </div>
+        
       </div>
+      
       <div className="row">
         {filteredClasses.map((c) => (
           <div className="col-sm-3 mb-3" key={c.id}>
@@ -174,7 +176,9 @@ const Tab2 = () => {
             </tr>
           ))}
         </tbody>
+        
       </table>
+      
     </div>
   );
 };
