@@ -57,6 +57,7 @@ const Banner = () => {
       result.prize7_2,
       result.prize7_3,
       result.prize7_4,
+      
     ]
       .flat()
       .map((number) => number.toString().padStart(2, "0")); // Sử dụng .flat() để làm phẳng mảng trong trường hợp các giải có nhiều hơn một số
@@ -128,6 +129,28 @@ const Banner = () => {
       .then((responseData) => {
         if (responseData && Array.isArray(responseData.data)) {
           setLotteryResults(responseData.data);
+          
+          // Tìm kết quả mới nhất
+          const latestResult = responseData.data.reduce((prev, current) => {
+            return (prev.draw_date > current.draw_date) ? prev : current;
+          });
+  
+          // Cài đặt ngày mới nhất
+          const latestDate = format(
+            utcToZonedTime(
+              parseISO(latestResult.draw_date),
+              Intl.DateTimeFormat().resolvedOptions().timeZone
+            ),
+            "yyyy-MM-dd"
+          );
+          setSelectedDate(latestDate);
+  
+          // Hiển thị kết quả dựa trên ngày mới nhất
+          setDisplayResults([latestResult]);
+          const prizes = extractPrizes(latestResult);
+          const { heads, tails } = extractLastTwoDigits(prizes);
+          setHeadsTable(heads);
+          setTailsTable(tails);
         } else {
           console.error("Unexpected format of fetched data", responseData);
         }
@@ -136,6 +159,7 @@ const Banner = () => {
         console.error("Failed to load lottery results:", error);
       });
   }, []);
+  
 
   return (
     <section className=" text-black d-flex justify-content-center align-items-center">
@@ -166,10 +190,10 @@ const Banner = () => {
               <h2>Kết Quả Xổ Số Miền Bắc</h2>
               <div>
                 <div class="input-group mb-3">
-                  <div class="input-group-prepend">
+                  {/* <div class="input-group-prepend">
                     <h5>Ngày trong tuần:&nbsp;</h5>
-                  </div>
-                  <select class="custom-select" id="inputGroupSelect01">
+                  </div> */}
+                  {/* <select class="custom-select" id="inputGroupSelect01">
                     <option selected>Tất cả</option>
                     <option value="2">Thứ 2</option>
                     <option value="3">Thứ 3</option>
@@ -178,16 +202,16 @@ const Banner = () => {
                     <option value="6">Thứ 6</option>
                     <option value="7">Thứ 7</option>
                     <option value="8">Chủ Nhật</option>
-                  </select>
-                  <h5>&nbsp;Số ngày:&nbsp;</h5>
-                  <input type="text"></input>
-                  <h5>Đến ngày&nbsp;</h5>{" "}
+                  </select> */}
+                  {/* <h5>&nbsp;Số ngày:&nbsp;</h5>
+                  <input type="text"></input> */}
+                  <h5>Chọn ngày&nbsp;</h5>{" "}
                   <input type="date" onChange={handleDateChange} />
                   &nbsp;
-                  <input type="checkbox"></input> <h5>&nbsp;Bảng đầu đuôi</h5>{" "}
-                  &nbsp;
-                  <input type="checkbox"></input>{" "}
-                  <h5>&nbsp;Chỉ hiện giải ĐB</h5>
+                  {/* <input type="checkbox"></input> <h5>&nbsp;Bảng đầu đuôi</h5>{" "}
+                  &nbsp; */}
+                  {/* <input type="checkbox"></input>{" "}
+                  <h5>&nbsp;Chỉ hiện giải ĐB</h5> */}
                   <button
                     type="button"
                     class="btn btn-primary"

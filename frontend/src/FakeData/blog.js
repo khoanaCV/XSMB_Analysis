@@ -1,23 +1,24 @@
 export const FakeBlog = [
     {
         "id": "001",
-        "title": "Maximize Your 2023 Dental Insurance with lots of Benefits",
+        "title": "Cách dự đoán XSMB chính xác?",
         "span1": "Post by: Salman",
         "span2": "12 Oct, 2019",
-        "img": "https://i.ibb.co/1LnXPFk/blog1.jpg"
+        "img": "https://cdn.cangi.vn/public/xo-so/ckeditor/2022/09/du-doan-xo-so-mien-bac-2022-09-30-15-52-04-1.png"
+
     },
     {
         "id": "002",
-        "title": "Are Your Teeth Making You Old? Are You Surprised! Hope you'r Shocked",
-        "span1": "Post by: admin",
+        "title": "Anh NAK trúng 10 tỷ từ việc ghi lô",
+        "span1": "Post by: Admin",
         "span2": "14 Oct, 2019",
-        "img": "https://i.ibb.co/9hNpRkD/blog2.jpg"
+        "img": "https://s.kqxs.me/images/0/999.jpg"
     },
     {
         "id": "003",
-        "title": "Dental Implants: The Next Best Thing to Get Natural Teeth",
+        "title": "Nhóm 2 - SDN301m đang làm web về XSMB",
         "span1": "Post by: Salman",
         "span2": "10 Jan, 2020",
-        "img": "https://donto-react.netlify.app/static/media/blog3.4104f17c.jpg"
+        "img": "https://viettourist.com/resources/images/Blog-Khachdoan/teamb1.png"
     }
 ]
